@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Greenvalley FC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-menu">
+            <img src="logo-greenvalley.png" alt="Logo Greenvalley FC" class="logo">
+            <button class="menu-toggle">☰</button> <!-- Pulsante per il menu mobile -->
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="squadra.html">Squadra</a></li>
+                    <li><a href="#notizie">Notizie</a></li>
+                    <li><a href="sponsor.html">Sponsor</a></li>
+                    <li><a href="contatti.html">Contatti</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="sponsor-header">
+            <!-- Qui verrà inserita dinamicamente l'immagine dello sponsor -->
+            <a href="#" id="sponsor-link" target="_blank">
+                <img src="snai.png" alt="Sponsor 1" id="sponsor-img" class="sponsor-img">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section id="notizia-principale" class="news-section">
+            <button onclick="prevSlide()" class="slider-btn prev-btn">←</button> <!-- Pulsante per andare alla slide precedente -->
+            <div class="news-content">
+                <h2>1^ Sessione di allenamento autunnale al Centro sportivo del GVFC</h2>
+                <p>Il Greenvalley FC ha svolto una doppia sessione di allenamento intensa presso il proprio centro sportivo...</p>
+            </div>
+            <div class="news-image"> <!-- Container per l'immagine con il link -->
+                <!-- L'immagine con il link verrà inserita dinamicamente via JavaScript -->
+            </div>
+            <button onclick="nextSlide()" class="slider-btn next-btn">→</button> <!-- Pulsante per andare alla slide successiva -->
+        </section>
+
+        <section id="notizie" class="news-list">
+            <h3>Ultime Notizie</h3>
+            <article>
+                <h4>Alla ricerca di un torneo</h4>
+                <p>La necessità di un torneo è imminente, e i ragazzi fremono dalla voglia di tornare a giocare per il Greenvalley e riprendere il percorso #versolavittoria. La dirigenza si è già messa in moto.</p>
+            </article>
+            <!-- Aggiungi altre notizie -->
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Greenvalley FC. Tutti i diritti riservati.</p>
+        <a href="contatti.html">Contatti</a>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contatti - Greenvalley FC</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <div class="logo-menu">
+            <img src="logo-greenvalley.png" alt="Logo Greenvalley FC" class="logo">
+            <button class="menu-toggle">☰</button> <!-- Pulsante per il menu mobile -->
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="squadra.html">Squadra</a></li>
+                    <li><a href="contatti.html">Contatti</a></li>
+                    <li><a href="sponsor.html">Sponsor</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div class="sponsor-header">
+            <a href="#" id="sponsor-link" target="_blank">
+                <img src="snai.png" alt="Sponsor 1" id="sponsor-img" class="sponsor-img">
+            </a>
+        </div>
+    </header>
+
+    <main>
+        <section id="contatti" class="contact-section">
+            <h2>Contattaci</h2>
+            <p>Per qualsiasi richiesta, dubbio o informazione, non esitare a contattarci! Siamo a tua disposizione.</p>
+
+            <div class="contact-info">
+                <div class="info-item">
+                    <h3>Email</h3>
+                    <p><a href="mailto:info@greenvalleyfc.com">info@greenvalleyfc.com</a></p>
+                </div>
+
+                <div class="info-item">
+                    <h3>Telefono</h3>
+                    <p>+39 3703333406</p>
+                </div>
+
+                <div class="info-item">
+                    <h3>Indirizzo</h3>
+                    <p>Valverde di Catania, CT, 95028</p>
+                </div>
+            </div>
+
+            <div class="contact-form">
+                <h3>Inviaci un Messaggio</h3>
+                <form action="#" method="POST">
+                    <div class="form-group">
+                        <label for="name">Nome</label>
+                        <input type="text" id="name" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Messaggio</label>
+                        <textarea id="message" name="message" rows="6" required></textarea>
+                    </div>
+
+                    <button type="submit" class="btn-submit">Invia Messaggio</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Greenvalley FC. Tutti i diritti riservati.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
