@@ -48,22 +48,6 @@ function rotateSponsors() {
 // Mostra il primo sponsor al caricamento della pagina
 
 // Array delle immagini e dei relativi link
-const slides = [
-    {
-        img: 'allenamento1.jpeg',
-        
-    },
-    {
-        img: 'allenamento.jpg',
-    
-    },
-    {
-        img: 'allenamento2.jpg',
-
-    }
-];
-
-let currentSlide = 0; // Iniziamo dalla prima immagine
 
 // Funzione per mostrare una slide
 function showSlide(index) {
