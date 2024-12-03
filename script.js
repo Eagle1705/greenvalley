@@ -46,7 +46,7 @@ function rotateSponsors() {
 setInterval(rotateSponsors, 3000);
 
 // Mostra il primo sponsor al caricamento della pagina
-rotateSponsors();
+
 // Array delle immagini e dei relativi link
 const slides = [
     {
