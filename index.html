@@ -2,16 +2,14 @@
 <html lang="it">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greenvalley FC</title>
     <meta name="viewport" content="width=1024">
+    <title>Greenvalley FC</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <header>
         <div class="logo-menu">
             <img src="logo-greenvalley.png" alt="Logo Greenvalley FC" class="logo">
-            <button class="menu-toggle">☰</button> <!-- Pulsante per il menu mobile -->
             <nav>
                 <ul>
                     <li><a href="index.html">Home</a></li>
@@ -32,26 +30,47 @@
 
     <main>
         <section id="notizia-principale" class="news-section">
-            <button onclick="prevSlide()" class="slider-btn prev-btn">←</button> <!-- Pulsante per andare alla slide precedente -->
             <div class="news-content">
-                <h2>1^ Sessione di allenamento autunnale al Centro sportivo del GVFC</h2>
-                <p>Il Greenvalley FC ha svolto una doppia sessione di allenamento intensa presso il proprio centro sportivo...</p>
+                <h2>IL GREENVALLEY PARTECIPERÀ ALLA FUTSAL PREMIER LEAGUE</h2>
+                <p>Siamo entusiasti di annunciare la partecipazione del Greenvalley FC alla prestigiosa Futsal Premier League! I nostri giocatori sono pronti a dare il massimo in questo nuovo entusiasmante capitolo della nostra storia.</p>
             </div>
-            <div class="news-image"> <!-- Container per l'immagine con il link -->
-                <!-- L'immagine con il link verrà inserita dinamicamente via JavaScript -->
+            <div class="news-image">
+                <img src="torneo1.jpg" alt="Greenvalley FC alla Futsal Premier League">
             </div>
-            <button onclick="nextSlide()" class="slider-btn next-btn">→</button> <!-- Pulsante per andare alla slide successiva -->
         </section>
 
         <section id="notizie" class="news-list">
             <h3>Ultime Notizie</h3>
             <article>
-                <h4>Alla ricerca di un torneo</h4>
-                <p>La necessità di un torneo è imminente, e i ragazzi fremono dalla voglia di tornare a giocare per il Greenvalley e riprendere il percorso #versolavittoria. La dirigenza si è già messa in moto.</p>
+                <h4>Risultati ultimo allenamento</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Giocatore</th>
+                            <th>Gol</th>
+                            <th>Assist</th>
+                            <th>Prestazione</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Mario Rossi</td>
+                            <td>2</td>
+                            <td>1</td>
+                            <td>Ottima</td>
+                        </tr>
+                        <tr>
+                            <td>Luca Bianchi</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>Buona</td>
+                        </tr>
+                        <!-- Aggiungi altri giocatori -->
+                    </tbody>
+                </table>
             </article>
-            <!-- Aggiungi altre notizie -->
+            <!-- Aggiungi altre notizie se necessario -->
         </section>
-
     </main>
 
     <footer>
