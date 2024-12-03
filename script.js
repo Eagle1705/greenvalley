@@ -20,6 +20,10 @@ const sponsors = [
         img: 'teamcozzo.png',
         url: 'https://www.instagram.com/team_cozzo/?hl=en'
     },
+    {
+        img: 'villaelena.png',
+        url: 'https://www.villaelena.org'
+    },
 ];
 
 let currentSponsor = 0; // Inizia con il primo sponsor
