@@ -47,7 +47,7 @@ function rotateSponsors() {
 
 // Mostra il primo sponsor al caricamento della pagina
 
-// Array delle immagini e dei relativi link
+let currentSlide = 0; // Iniziamo dalla prima immagine
 
 // Funzione per mostrare una slide
 function showSlide(index) {
