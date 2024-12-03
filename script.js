@@ -43,7 +43,7 @@ function rotateSponsors() {
 }
 
 // Cambia lo sponsor ogni 3 secondi
-setInterval(rotateSponsors, 3000);
+
 
 // Mostra il primo sponsor al caricamento della pagina
 
