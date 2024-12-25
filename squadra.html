@@ -3,72 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Squadra - Greenvalley FC</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>La Squadra - GVFC</title>
+    <link rel="stylesheet" href="css/squadra.css">
+    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+<link rel="shortcut icon" href="images/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="MyWebSite" />
+<link rel="manifest" href="site.webmanifest" />
 </head>
 <body>
-    <header>
-        <div class="logo-menu">
-            <img src="logo-greenvalley.png" alt="Logo Greenvalley FC" class="logo">
-            <button class="menu-toggle">☰</button> <!-- Pulsante per il menu mobile -->
-            <nav>
+    <div id="loading-screen">
+        <img src="images/logo-greenvalley.png" alt="Logo" class="loading-logo">
+    </div>
+    <header class="navbar">
+        <div class="navbar-container">
+            <img src="images/logo-greenvalley.png" alt="Logo" class="navbar-logo">
+            <nav class="navbar-menu">
                 <ul>
                     <li><a href="index.html">Home</a></li>
                     <li><a href="squadra.html">Squadra</a></li>
-                    <li><a href="contatti.html">Contatti</a></li>
+                    <li><a href="#notizie">Notizie</a></li>
                     <li><a href="sponsor.html">Sponsor</a></li>
+                    <li><a href="contatti.html">Contatti</a></li>
                 </ul>
             </nav>
         </div>
-        <div class="sponsor-header">
-            <a href="#" id="sponsor-link" target="_blank">
-                <img src="sponsor1.png" alt="Sponsor 1" id="sponsor-img" class="sponsor-img">
-            </a>
-        </div>
     </header>
-
-    <main>
-        <div class="banner">
-            <p>Lavori in Corso</p>
-        </div>
-        <section id="squadra" class="team-section">
-            <h2>La Squadra</h2>
-            <p>Conosci i nostri giocatori e il team di Greenvalley FC!</p>
-
-            <div class="team-grid">
-                <div class="player-card">
-                    <img src="player1.jpg" alt="Giocatore 1" class="player-img">
+    <section id="campo" class="field-section">
+        <!-- Portieri -->
+        <div class="field-zone portieri">
+            <div class="player-card" id="portiere-1">
+                <img src="images/players/tony.png" alt="Portiere 1" class="player-img">
+                <div class="player-info">
                     <h3>Giocatore 1</h3>
-                    <p>Ruolo: Attaccante</p>
-                </div>
-
-                <div class="player-card">
-                    <img src="player2.jpg" alt="Giocatore 2" class="player-img">
-                    <h3>Giocatore 2</h3>
-                    <p>Ruolo: Difensore</p>
-                </div>
-
-                <div class="player-card">
-                    <img src="player3.jpg" alt="Giocatore 3" class="player-img">
-                    <h3>Giocatore 3</h3>
-                    <p>Ruolo: Centrocampista</p>
-                </div>
-
-                <div class="player-card">
-                    <img src="player4.jpg" alt="Giocatore 4" class="player-img">
-                    <h3>Giocatore 4</h3>
                     <p>Ruolo: Portiere</p>
                 </div>
-
-                <!-- Aggiungi più giocatori come desideri -->
             </div>
-        </section>
-    </main>
+            <div class="player-card" id="portiere-2">
+                <img src="images/players/ale.png" alt="Portiere 2" class="player-img">
+                <div class="player-info">
+                    <h3>Alessandro Basile</h3>
+                    <p>Ruolo: Portiere</p>
+                </div>
+            </div>
+        </div>
 
-    <footer>
+        <!-- Difensori -->
+        <div class="field-zone difensori">
+            <div class="player-card" id="difensore-1">
+                <img src="images/players/filippo.png" alt="Difensore 1" class="player-img">
+                <div class="player-info">
+                    <h3>Filippo Carani</h3>
+                    <p>Ruolo: Difensore</p>
+                </div>
+            </div>
+            <div class="player-card" id="difensore-2">
+                <img src="images/players/enea.png" alt="Difensore 2" class="player-img">
+                <div class="player-info">
+                    <h3>Simone Enea Certo</h3>
+                    <p>Ruolo: Difensore</p>
+                </div>
+            </div>
+            <div class="player-card" id="difensore-3">
+                <img src="stefano.png" alt="Difensore 3" class="player-img">
+                <div class="player-info">
+                    <h3>Stefano Giliberto</h3>
+                    <p>Ruolo: Difensore / Centrocampista</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Centrocampisti -->
+        <div class="field-zone centrocampisti">
+            <div class="player-card" id="centrocampista-1">
+                <img src="images/players/saso.png" alt="Centrocampista 1" class="player-img">
+                <div class="player-info">
+                    <h3>Santo Zinna |C|</h3>
+                    <p>Ruolo: Centrocampista / Allenatore</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attaccanti -->
+        <div class="field-zone attaccanti">
+            <div class="player-card" id="attaccante-1">
+                <img src="images/players/luca.png" alt="Attaccante 1" class="player-img">
+                <div class="player-info">
+                    <h3>Gianluca La Fico</h3>
+                    <p>Ruolo: Attaccante</p>
+                </div>
+            </div>
+            <div class="player-card" id="attaccante-2">
+                <img src="images/players/fabri.png" alt="Attaccante 2" class="player-img">
+                <div class="player-info">
+                    <h3>Fabrizio Sorbello</h3>
+                    <p>Ruolo: Attaccante</p>
+                </div>
+            </div>
+            <div class="player-card" id="attaccante-3">
+                <img src="images/players/ture.png" alt="Attaccante 3" class="player-img">
+                <div class="player-info">
+                    <h3>Salvatore Sorbello</h3>
+                    <p>Ruolo: Attaccante</p>
+                </div>
+            </div>
+            <div class="player-card" id="attaccante-4">
+                <img src="images/players/arazio.png" alt="Attaccante 4" class="player-img">
+                <div class="player-info">
+                    <h3>Orazio Grasso</h3>
+                    <p>Ruolo: Attaccante</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <footer id="contatti">
         <p>&copy; 2024 Greenvalley FC. Tutti i diritti riservati.</p>
-    </footer>
-
-    <script src="script.js"></script>
+         <a href="contatti.html">Contatti</a>
+     </footer>
+    <script src="js/squadra.js"></script>
+    <script src="js/script.js"></script>
 </body>
 </html>
