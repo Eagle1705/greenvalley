@@ -490,3 +490,65 @@ footer a:hover {
     opacity: 1; /* Diventa visibile */
     bottom: -100px; /* Si sposta leggermente verso l'alto */
 }
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar-menu ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar-logo {
+        height: 60px;
+    }
+
+    /* Sezioni Fullscreen */
+    .fullscreen-section {
+        padding: 20px 10px;
+    }
+
+    /* Card dei Giocatori */
+    .player-card {
+        max-width: 200px;
+        margin: 10px auto;
+    }
+
+    .player-card .player-img {
+        max-height: 150px;
+    }
+
+    .player-info {
+        bottom: -60px;
+        padding: 10px;
+    }
+
+    /* Contatti */
+    .contact-section {
+        padding: 20px 10px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+    }
+
+    .contact-info .info-item {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .player-card .player-info h3 {
+        font-size: 1rem;
+    }
+}
