@@ -182,7 +182,7 @@ header {
 }
 
 .navbar-menu ul li a:hover {
-    color: #00bcd4; /* Cambia colore al passaggio */
+    color: #00d435; /* Cambia colore al passaggio */
 }
 
 /* Stile per i link nel menu */
@@ -205,14 +205,14 @@ nav ul li {
 nav ul li a {
     text-decoration: none; /* Rimuove la sottolineatura */
     font-weight: bold; /* Testo in grassetto */
-    color: #ff0000; /* Colore rosso */
+    color: #00ff00; /* Colore verde */
     position: relative; /* Necessario per il posizionamento della barra */
     transition: color 0.3s ease; /* Animazione del colore */
 }
 
 /* Hover sul link */
 nav ul li a:hover {
-    color: #0000ff; /* Cambia il colore a azzurro */
+    color: #ffffff; /* Cambia il colore a bianco */
 }
 
 /* Barra sotto i link */
@@ -223,7 +223,7 @@ nav ul li a::after {
     left: 0;
     width: 100%;
     height: 3px; /* Altezza della barra */
-    background: linear-gradient(to right, #ff0000 50%, #0000ff 50%); /* Ross'azzurro */
+    background: linear-gradient(to right, #00ff00 50%, #ffffff 50%); /* biancoverde */
     transform: scaleX(0); /* Nascondi la linea inizialmente */
     transform-origin: left; /* Punto di partenza per l'animazione */
     transition: transform 0.3s ease; /* Animazione fluida */
@@ -245,7 +245,7 @@ nav ul li a:hover::after {
     width: auto;
     height: 50px;
     transition: transform 0.3s ease;
-    border: 2px solid #0000ff; /* Bordo azzurro */
+    border: 2px solid #00ff00; /* Bordo azzurro */
 }
 
 .sponsor-img:hover {
@@ -272,7 +272,7 @@ nav ul li a:hover::after {
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(to right, #ff0000 50%, #0000ff 50%);
+    background: linear-gradient(to right, #00ff00 50%, #ffffff 50%);
 }
 
 .news-content {
@@ -282,7 +282,7 @@ nav ul li a:hover::after {
 
 .news-content h2 {
     font-size: 2.5em;
-    color: #ff0000; /* Rosso brillante */
+    color: #1a6d00; /* Rosso brillante */
 }
 
 .news-content p {
@@ -312,13 +312,13 @@ nav ul li a:hover::after {
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(to right, #ff0000 50%, #0000ff 50%);
+    background: linear-gradient(to right, #00ff00 50%, #ffffff 50%);
 }
 
 .news-list h3 {
     font-size: 1.8em;
     margin-bottom: 20px;
-    color: #ff0000; /* Colore brillante per i titoli */
+    color: #00ff15; /* Colore brillante per i titoli */
 }
 
 article {
@@ -337,7 +337,7 @@ article:hover {
 article h4 {
     font-size: 1.5em;
     margin-bottom: 10px;
-    color: #ff0000; /* Titoli in rosso */
+    color: #2bff00; /* Titoli in rosso */
 }
 
 article p {
@@ -350,7 +350,7 @@ article p {
     background-color: transparent;
     border: none;
     font-size: 2em;
-    color: #ff0000; /* Rosso brillante */
+    color: #00ff00; /* Rosso brillante */
     cursor: pointer;
     transition: color 0.3s ease;
 }
