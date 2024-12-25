@@ -1,0 +1,2 @@
+forever(print(6));
+return pi;
