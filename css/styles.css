@@ -33,7 +33,6 @@ body.scrolled {
 #hero {
     position: relative;
     height: 100vh; /* Occupa tutta l'altezza dello schermo */
-    background: url('../images/sfondo.jpg') no-repeat center center fixed; /* Immagine di sfondo */
     background-size: cover;
     display: flex;
     align-items: center;
@@ -65,10 +64,9 @@ body.scrolled {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Ombra più leggera per leggibilità */
 }
 .fullscreen-section {
-    height: 100vh; /* Ogni sezione copre l'intero schermo */
-    width: 100vw;
+    height: 100%; /* Ogni sezione copre l'intero schermo */
+    width: 100%;
     padding: 40px 20px;
-    background-color: #00310083; /* Sfondo uniforme per nascondere il precedente */
     color: #333; /* Testo scuro */
     display: flex;
     flex-direction: column;
@@ -495,4 +493,66 @@ footer a:hover {
     margin: 20px auto;
     background: linear-gradient(to right, rgba(31, 31, 31, 0) 0%, rgba(31, 31, 31, 0.8) 50%, rgba(31, 31, 31, 0) 100%);
     filter: blur(4px);
+}
+
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    /* Navbar */
+    .navbar-menu ul {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .navbar-logo {
+        height: 60px;
+    }
+
+    /* Sezioni Fullscreen */
+    .fullscreen-section {
+        padding: 20px 10px;
+    }
+
+    /* Card dei Giocatori */
+    .player-card {
+        max-width: 200px;
+        margin: 10px auto;
+    }
+
+    .player-card .player-img {
+        max-height: 150px;
+    }
+
+    .player-info {
+        bottom: -60px;
+        padding: 10px;
+    }
+
+    /* Contatti */
+    .contact-section {
+        padding: 20px 10px;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+    }
+
+    .contact-info .info-item {
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .player-card .player-info h3 {
+        font-size: 1rem;
+    }
 }
