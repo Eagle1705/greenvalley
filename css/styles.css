@@ -9,7 +9,7 @@ body {
     margin: 0;
     padding-top: 70px; /* Compensa l'altezza dell'header */
     font-family: 'Prose Sans Bold';
-    background: url('sfondo.jpg') no-repeat center center fixed; /* Immagine di sfondo */
+    background: url('../images/sfondo.jpg') no-repeat center center fixed; /* Immagine di sfondo */
     background-size: cover; /* Copre l'intero schermo */
     transition: background-color 0.3s ease; /* Transizione fluida */
     background-position: center; /* Centra l'immagine */
@@ -33,7 +33,7 @@ body.scrolled {
 #hero {
     position: relative;
     height: 100vh; /* Occupa tutta l'altezza dello schermo */
-    background: url('sfondo.jpg') no-repeat center center fixed; /* Immagine di sfondo */
+    background: url('../images/sfondo.jpg') no-repeat center center fixed; /* Immagine di sfondo */
     background-size: cover;
     display: flex;
     align-items: center;
@@ -52,7 +52,7 @@ body.scrolled {
 .hero-divider {
     width: 80px; /* Larghezza della riga */
     height: 4px; /* Spessore della riga */
-    background-color: white; /* Colore della riga */
+    background-color: #00ff0083; /* Colore della riga */
     border: none; /* Rimuove i bordi predefiniti */
     margin: 20px 0; /* Spaziatura sopra e sotto la riga */
 }
@@ -68,7 +68,7 @@ body.scrolled {
     height: 100vh; /* Ogni sezione copre l'intero schermo */
     width: 100vw;
     padding: 40px 20px;
-    background-color: #f4f4f4; /* Sfondo uniforme per nascondere il precedente */
+    background-color: #00310083; /* Sfondo uniforme per nascondere il precedente */
     color: #333; /* Testo scuro */
     display: flex;
     flex-direction: column;
@@ -89,7 +89,7 @@ body.scrolled {
 }
 
 #notizie {
-    background-color: #d0d0d0;
+    background-color: #00310083;
 }
 
 #sponsor {
@@ -98,8 +98,8 @@ body.scrolled {
 /* Sezione Notizia Principale */
 .news-section {
     padding: 40px 20px;
-    background-color: #f4f4f4; /* Sfondo chiaro */
-    color: #333; /* Testo scuro */
+    background-color: #00310083; /* Sfondo chiaro */
+    color: #ffffff; /* Testo scuro */
     text-align: center;
 }
 
@@ -107,7 +107,7 @@ body.scrolled {
 .news-list {
     padding: 40px 20px;
     background-color: #ffffff; /* Sfondo bianco */
-    color: #333; /* Testo scuro */
+    color: #ffffff; /* Testo scuro */
     text-align: center;
 }
 /* Stile per l'header */
@@ -312,13 +312,14 @@ nav ul li a:hover::after {
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(to right, #00ff00 50%, #ffffff 50%);
+    background: linear-gradient(to right, #00ff22 50%, #ffffff 50%);
 }
 
 .news-list h3 {
     font-size: 1.8em;
     margin-bottom: 20px;
-    color: #00ff15; /* Colore brillante per i titoli */
+    color: #ffffff; /* Colore brillante per i titoli */
+
 }
 
 article {
@@ -337,12 +338,13 @@ article:hover {
 article h4 {
     font-size: 1.5em;
     margin-bottom: 10px;
-    color: #2bff00; /* Titoli in rosso */
+    color: #ffffff; /* Titoli in rosso */
+
 }
 
 article p {
     font-size: 1.2em;
-    color: #cccccc; /* Testo grigio chiaro */
+    color: #ffffff; /* Testo grigio chiaro */
 }
 
 /* Stile per i pulsanti slider */
@@ -362,14 +364,14 @@ article p {
 /* Footer */
 footer {
     text-align: center;
-    width: 100vw;
+    width: 100%;
     background-color: rgba(31, 31, 31, 0.9); /* Sfondo semi-trasparente */
-    border-top: 3px solid #ff0000; /* Bordo rosso brillante */
+    border-top: 3px solid #00ff0d; /* Bordo rosso brillante */
 }
 
 footer a {
     text-decoration: none;
-    color: #ff0000; /* Rosso */
+    color: #ffffff; /* Rosso */
     font-weight: bold;
     display: block;
     margin-top: 10px;
@@ -377,7 +379,7 @@ footer a {
 }
 
 footer a:hover {
-    color: #0000ff; /* Azzurro al passaggio del mouse */
+    color: #00ff0d; /* Azzurro al passaggio del mouse */
 }
 
 /* Schermata di caricamento */
