@@ -28,6 +28,7 @@ body.scrolled {
     background-image: none; /* Rimuove l'immagine */
 }
 
+
 /* Hero Section */
 #hero {
     position: relative;
@@ -160,4 +161,258 @@ header {
     justify-content: space-between;
     align-items: center;
     width: 100%; /* Allinea il contenuto all'intera larghezza */
+}
+
+
+/* Menu */
+.navbar-menu ul {
+    list-style: none;
+    display: flex; /* Dispone le voci in riga */
+    gap: 30px; /* Spazio tra le voci */
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu ul li a {
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff; /* Testo bianco */
+    transition: color 0.3s ease;
+}
+
+.navbar-menu ul li a:hover {
+    color: #00bcd4; /* Cambia colore al passaggio */
+}
+
+/* Stile per i link nel menu */
+/* Stile per il menu in orizzontale */
+nav ul {
+    list-style: none; /* Rimuove i puntini dall'elenco */
+    display: flex; /* Dispone gli elementi del menu in riga */
+    justify-content: center; /* Centra il menu orizzontalmente */
+    gap: 20px; /* Spazio tra le voci */
+    padding: 0; /* Rimuove il padding */
+    margin: 0; /* Rimuove il margine */
+}
+
+/* Stile per le voci del menu */
+nav ul li {
+    margin: 0; /* Nessun margine aggiuntivo */
+}
+
+/* Stile per i link del menu */
+nav ul li a {
+    text-decoration: none; /* Rimuove la sottolineatura */
+    font-weight: bold; /* Testo in grassetto */
+    color: #ff0000; /* Colore rosso */
+    position: relative; /* Necessario per il posizionamento della barra */
+    transition: color 0.3s ease; /* Animazione del colore */
+}
+
+/* Hover sul link */
+nav ul li a:hover {
+    color: #0000ff; /* Cambia il colore a azzurro */
+}
+
+/* Barra sotto i link */
+nav ul li a::after {
+    content: ""; /* Crea il contenuto */
+    position: absolute;
+    bottom: -5px; /* Posizione rispetto al testo */
+    left: 0;
+    width: 100%;
+    height: 3px; /* Altezza della barra */
+    background: linear-gradient(to right, #ff0000 50%, #0000ff 50%); /* Ross'azzurro */
+    transform: scaleX(0); /* Nascondi la linea inizialmente */
+    transform-origin: left; /* Punto di partenza per l'animazione */
+    transition: transform 0.3s ease; /* Animazione fluida */
+}
+
+/* Hover per mostrare la barra */
+nav ul li a:hover::after {
+    transform: scaleX(1); /* Mostra la barra quando si va in hover */
+}
+
+/* Sponsor header */
+.sponsor-header {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.sponsor-img {
+    width: auto;
+    height: 50px;
+    transition: transform 0.3s ease;
+    border: 2px solid #0000ff; /* Bordo azzurro */
+}
+
+.sponsor-img:hover {
+    transform: scale(1.1); /* Leggero effetto zoom al passaggio del mouse */
+}
+
+/* Stile per la sezione notizia principale */
+.news-section {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgba(27, 27, 27, 0.9); /* Sfondo scuro semi-trasparente */
+    padding: 40px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Ombra scura */
+    position: relative;
+}
+
+/* Linea sotto la sezione */
+.news-section::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #ff0000 50%, #0000ff 50%);
+}
+
+.news-content {
+    flex: 1;
+    padding-right: 20px;
+}
+
+.news-content h2 {
+    font-size: 2.5em;
+    color: #ff0000; /* Rosso brillante */
+}
+
+.news-content p {
+    color: #cccccc; /* Testo grigio chiaro per leggibilità */
+}
+
+.news-image {
+    flex: 1;
+}
+
+.news-img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* Aggiungi profondità all'immagine */
+}
+
+/* Stile per la lista notizie */
+.news-list {
+    margin: 40px 0;
+    position: relative;
+}
+
+.news-list::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(to right, #ff0000 50%, #0000ff 50%);
+}
+
+.news-list h3 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    color: #ff0000; /* Colore brillante per i titoli */
+}
+
+article {
+    background-color: rgba(31, 31, 31, 0.9);
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Ombra scura */
+    transition: transform 0.3s ease;
+}
+
+article:hover {
+    transform: scale(1.02); /* Leggero effetto zoom al passaggio del mouse */
+}
+
+article h4 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #ff0000; /* Titoli in rosso */
+}
+
+article p {
+    font-size: 1.2em;
+    color: #cccccc; /* Testo grigio chiaro */
+}
+
+/* Stile per i pulsanti slider */
+.slider-btn {
+    background-color: transparent;
+    border: none;
+    font-size: 2em;
+    color: #ff0000; /* Rosso brillante */
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.slider-btn:hover {
+    color: #0000ff; /* Bianco al passaggio del mouse */
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    width: 100vw;
+    background-color: rgba(31, 31, 31, 0.9); /* Sfondo semi-trasparente */
+    border-top: 3px solid #ff0000; /* Bordo rosso brillante */
+}
+
+footer a {
+    text-decoration: none;
+    color: #ff0000; /* Rosso */
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+    transition: color 0.3s ease;
+}
+
+footer a:hover {
+    color: #0000ff; /* Azzurro al passaggio del mouse */
+}
+
+/* Schermata di caricamento */
+#loading-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    color: #ff0000; /* Testo rosso */
+    font-size: 1.5em;
+    text-align: center;
+}
+
+.loading-logo {
+    width: 100px;
+    margin-bottom: 20px;
+    animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+        color: #ff0000; /* Rosso */
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.1);
+        color: #0000ff; /* Azzurro */
+    }
 }
