@@ -1,4 +1,3 @@
-
 // Simulazione del caricamento di 2 secondi
 document.addEventListener("DOMContentLoaded", () => {
     const loadingScreen = document.getElementById("loading-screen");
@@ -21,5 +20,4 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 });
-
 
