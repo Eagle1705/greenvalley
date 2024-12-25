@@ -416,15 +416,26 @@ footer a:hover {
         color: #0000ff; /* Azzurro */
     }
 }
-special-image-container {
-/* Stile per l'header */
-header {
+/* Stile per la sezione speciale (sindaco) */
+.special-section {
+    text-align: center;
+    margin: 40px 0;
+    padding: 40px;
+    background-color: rgba(27, 27, 27, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.special-section h2 {
+    color: #00ff88; /* Verde brillante */
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.special-image-container {
     display: flex;
     justify-content: center;
-    justify-content: space-between;
     align-items: center;
-    padding: 20px;
-    background-color: rgba(31, 31, 31, 0.8); /* Sfondo semi-trasparente per evidenziare il logo e il menu */
 }
 
 .special-image {
@@ -432,22 +443,6 @@ header {
     height: 400px;
     border-radius: 10px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
-/* Barra menu generale */
-/* Barra menu generale */
-/* Barra menu generale */
-.navbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 120px; /* Altezza maggiore in cima alla pagina */
-    background-color: transparent; /* Sfondo nero semi-trasparente */
-    z-index: 1000;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 20px;
-    transition: height 0.3s ease, background-color 0.3s ease; /* Transizione fluida */
 }
 
 /* Stile per la sezione sponsor */
@@ -455,10 +450,6 @@ header {
     text-align: center;
     padding: 40px;
 }
-/* Navbar ridotta durante lo scroll */
-.navbar.scrolled {
-    height: 70px; /* Altezza ridotta */
-    background-color: rgba(0, 0, 0, 1); /* Sfondo più opaco */
 
 .sponsor-section h2 {
     color: #00ff88;
@@ -475,16 +466,10 @@ header {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease;
     margin: 20px 0;
-/* Logo */
-.navbar-logo {
-    height: 80px; /* Altezza maggiore in cima */
-    transition: height 0.3s ease; /* Transizione fluida */
 }
 
 .sponsor-card:hover {
     transform: scale(1.05); /* Effetto zoom al passaggio del mouse */
-.navbar.scrolled .navbar-logo {
-    height: 50px; /* Altezza ridotta del logo */
 }
 
 .sponsor-img1 {
@@ -499,13 +484,8 @@ header {
     color: #00ff88;
     font-size: 1.5em;
     margin-top: 10px;
-/* Contenitore logo e menu */
-.navbar-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%; /* Allinea il contenuto all'intera larghezza */
 }
+
 /* Stile per il separatore offuscato */
 .sponsor-separator {
     width: 80%;
