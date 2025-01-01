@@ -28,88 +28,6 @@ body.scrolled {
     background-image: none; /* Rimuove l'immagine */
 }
 
-
-/* Hero Section */
-#hero {
-    position: relative;
-    height: 100vh; /* Occupa tutta l'altezza dello schermo */
-    background: url('../images/sfondo.jpg'); /* Immagine di sfondo */
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: white;
-}
-
-/* Titolo sovrapposto */
-.hero-title {
-    font-size: 3rem; /* Dimensione del titolo */
-    font-weight: bold;
-    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.7); /* Ombra per il testo */
-    margin: 0;
-}
-.hero-divider {
-    width: 80px; /* Larghezza della riga */
-    height: 4px; /* Spessore della riga */
-    background-color: white; /* Colore della riga */
-    border: none; /* Rimuove i bordi predefiniti */
-    margin: 20px 0; /* Spaziatura sopra e sotto la riga */
-}
-
-/* Sottotitolo */
-.hero-subtitle {
-    font-size: 1.5rem; /* Dimensione del sottotitolo */
-    font-weight: 300; /* Peso più leggero rispetto al titolo */
-    margin: 0;
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5); /* Ombra più leggera per leggibilità */
-}
-.fullscreen-section {
-    height: 100vh; /* Ogni sezione copre l'intero schermo */
-    width: 100vw;
-    padding: 40px 20px;
-    background-color: #f4f4f4; /* Sfondo uniforme per nascondere il precedente */
-    color: #333; /* Testo scuro */
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.fullscreen-section.hidden{
-    opacity: 0;
-    transform: translateY(-100px); 
-    transition: opacity 0.6s ease, transform 0.6s ease; 
-}
-.fullscreen-section.visible {
-    opacity: 1;
-    transform: translateY(0);
-}
-#squadra {
-    background-color: #e0e0e0; /* Cambia colore per differenziare */
-}
-
-#notizie {
-    background-color: #d0d0d0;
-}
-
-#sponsor {
-    background-color: #c0c0c0;
-}
-/* Sezione Notizia Principale */
-.news-section {
-    padding: 40px 20px;
-    background-color: #f4f4f4; /* Sfondo chiaro */
-    color: #333; /* Testo scuro */
-    text-align: center;
-}
-
-/* Sezione Ultime Notizie */
-.news-list {
-    padding: 40px 20px;
-    background-color: #ffffff; /* Sfondo bianco */
-    color: #333; /* Testo scuro */
-    text-align: center;
-}
 /* Stile per l'header */
 header {
     display: flex;
@@ -120,7 +38,7 @@ header {
 }
 
 /* Barra menu generale */
-/* Barra menu generale */
+
 /* Barra menu generale */
 .navbar {
     position: fixed;
@@ -234,134 +152,9 @@ nav ul li a:hover::after {
     transform: scaleX(1); /* Mostra la barra quando si va in hover */
 }
 
-/* Sponsor header */
-.sponsor-header {
-    display: flex;
-    gap: 10px;
-    justify-content: flex-end;
-}
-
-.sponsor-img {
-    width: auto;
-    height: 50px;
-    transition: transform 0.3s ease;
-    border: 2px solid #00ff00; /* Bordo azzurro */
-}
-
-.sponsor-img:hover {
-    transform: scale(1.1); /* Leggero effetto zoom al passaggio del mouse */
-}
-
-/* Stile per la sezione notizia principale */
-.news-section {
-    display: flex;
-    justify-content: space-between;
-    background-color: rgba(27, 27, 27, 0.9); /* Sfondo scuro semi-trasparente */
-    padding: 40px;
-    margin: 20px 0;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Ombra scura */
-    position: relative;
-}
-
-/* Linea sotto la sezione */
-.news-section::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(to right, #00ff00 50%, #ffffff 50%);
-}
-
-.news-content {
-    flex: 1;
-    padding-right: 20px;
-}
-
-.news-content h2 {
-    font-size: 2.5em;
-    color: #1a6d00; /* Rosso brillante */
-}
-
-.news-content p {
-    color: #cccccc; /* Testo grigio chiaro per leggibilità */
-}
-
-.news-image {
-    flex: 1;
-}
-
-.news-img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4); /* Aggiungi profondità all'immagine */
-}
-
-/* Stile per la lista notizie */
-.news-list {
-    margin: 40px 0;
-    position: relative;
-}
-
-.news-list::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient(to right, #00ff00 50%, #ffffff 50%);
-}
-
-.news-list h3 {
-    font-size: 1.8em;
-    margin-bottom: 20px;
-    color: #00ff15; /* Colore brillante per i titoli */
-}
-
-article {
-    background-color: rgba(31, 31, 31, 0.9);
-    padding: 20px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Ombra scura */
-    transition: transform 0.3s ease;
-}
-
-article:hover {
-    transform: scale(1.02); /* Leggero effetto zoom al passaggio del mouse */
-}
-
-article h4 {
-    font-size: 1.5em;
-    margin-bottom: 10px;
-    color: #2bff00; /* Titoli in rosso */
-}
-
-article p {
-    font-size: 1.2em;
-    color: #cccccc; /* Testo grigio chiaro */
-}
-
-/* Stile per i pulsanti slider */
-.slider-btn {
-    background-color: transparent;
-    border: none;
-    font-size: 2em;
-    color: #00ff00; /* Rosso brillante */
-    cursor: pointer;
-    transition: color 0.3s ease;
-}
-
-.slider-btn:hover {
-    color: #0000ff; /* Bianco al passaggio del mouse */
-}
-
-/* Footer */
 /* Footer */
 footer {
+    position: relative;
     text-align: center;
     width: 100%;
     background-color: rgba(31, 31, 31, 0.9); /* Sfondo semi-trasparente */
@@ -473,7 +266,7 @@ footer a:hover {
 /* Box informativo sotto il giocatore */
 .player-info {
     position: absolute;
-    bottom: -80px; /* Posizionato sotto la card */
+    bottom: -80px;
     left: 50%;
     transform: translateX(-50%);
     background: rgba(0, 0, 0, 0.8); /* Sfondo semitrasparente */
@@ -492,63 +285,126 @@ footer a:hover {
 }
 
 
-/* Mobile Responsiveness */
+
 @media (max-width: 768px) {
-    /* Navbar */
-    .navbar-menu ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
     .navbar-logo {
-        height: 60px;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 60px; /* Altezza ridotta */
+        z-index: 1001; /* Sempre sopra la navbar */
+        transition: opacity 0.2s ease, transform 0.1s ease; /* Transizioni fluide */
     }
 
-    /* Sezioni Fullscreen */
-    .fullscreen-section {
-        padding: 20px 10px;
+    .navbar.scrolled .navbar-logo {
+        opacity: 0; /* Logo scompare durante lo scroll */
+        transform: translateY(-20px); /* Effetto scorrimento verso l'alto */
     }
-
-    /* Card dei Giocatori */
-    .player-card {
-        max-width: 200px;
-        margin: 10px auto;
-    }
-
-    .player-card .player-img {
-        max-height: 150px;
-    }
-
-    .player-info {
-        bottom: -60px;
-        padding: 10px;
-    }
-
-    /* Contatti */
-    .contact-section {
-        padding: 20px 10px;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
+    .navbar {
+        position: fixed;
+        top: 60px; /* Inizia sotto il logo */
         width: 100%;
+        height: 60px; /* Altezza standard della navbar */
+        background-color: rgba(31, 31, 31, 0.8);
+        z-index: 1000; /* Sotto al logo */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        transition: top 0.3s ease; /* Transizione per il movimento */
     }
 
-    .contact-info .info-item {
-        margin-bottom: 20px;
+    /* Durante lo scroll: il logo scompare e la navbar si alza */
+    .navbar.scrolled {
+        top: 0; /* Navbar si posiziona in cima */
+    }
+
+    .navbar-logo.scrolled {
+        opacity: 0; /* Nasconde il logo */
+        transform: translateY(-20px); /* Effetto di scorrimento verso l'alto */
     }
 }
 
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
+    .navbar-logo {
+        height: 50px; /* Logo ancora più piccolo */
+        top: 10px; /* Margine superiore minore */
+    }
+}
+@media (max-width: 480px) {
+    #loading-screen {
+        font-size: 1.2em; /* Testo più piccolo */
     }
 
-    .hero-subtitle {
-        font-size: 1rem;
+    .loading-logo {
+        width: 70px; /* Logo più piccolo su schermi piccoli */
+    }
+}
+@media (max-width: 768px) {
+    /* Aggiusta il layout generale per schermi mobili */
+    body {
+        padding: 0;
+        margin: 0;
+        font-size: 16px; /* Dimensione testo più piccola */
+        line-height: 1.5;
     }
 
-    .player-card .player-info h3 {
-        font-size: 1rem;
+    /* Campo per mobile */
+    #campo {
+        margin-top: 150px; /* Spazio sopra il campo */
+        height: auto; /* Altezza dinamica */
+    }
+
+    /* Sezioni del campo */
+    .field-zone {
+        flex-direction: column; /* Disposizione verticale per i giocatori */
+        gap: 20px; /* Spaziatura tra i giocatori */
+        align-items: center; /* Centra le immagini */
+        width: 100%; /* Occupa tutta la larghezza disponibile */
+    }
+    .portieri {
+        margin-top: 150px;
+    }
+    /* Card del giocatore */
+    .player-card {
+        width: 90%; /* Larghezza adattabile */
+        max-width: 300px; /* Larghezza massima */
+        margin: 0 auto; /* Centra la card */
+    }
+
+    /* Immagini dei giocatori */
+    .player-card .player-img {
+        width: auto; /* Adatta l'immagine alla larghezza della card */
+        height: 100%; /* Mantiene le proporzioni */
+    }
+
+    /* Box informativo */
+    .player-info {
+        top: 100px; /* Posizionato sopra il giocatore */
+        height: 120px;
+        width: auto; /* Si adatta al contenuto */
+        padding: 10px; /* Padding ridotto */
+        font-size: 0.9em; /* Testo più piccolo */
+    }
+
+    /* Footer */
+    footer {
+        font-size: 14px; /* Testo più piccolo per il footer */
+        padding: 10px; /* Ridotto per schermi piccoli */
+    }
+
+    /* Navbar */
+    .navbar {
+        height: 60px; /* Altezza ridotta per la navbar */
+        padding: 0 15px; /* Margini ridotti */
+    }
+
+    .navbar-logo {
+        height: 40px; /* Logo più piccolo */
+    }
+
+    .navbar-menu ul {
+        gap: 15px; /* Spaziatura ridotta tra i link */
     }
 }
