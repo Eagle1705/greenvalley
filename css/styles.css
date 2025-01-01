@@ -286,6 +286,15 @@ nav ul li a:hover::after {
 .news-content p {
     color: #cccccc; /* Testo grigio chiaro per leggibilità */
 }
+.news-image img,
+.sponsor-img1,
+.special-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+    margin: 0 auto; /* Centrato automaticamente */
+}
 
 .news-image {
     flex: 1;
@@ -381,6 +390,7 @@ footer a:hover {
 }
 
 /* Schermata di caricamento */
+/* Caricamento visibile su mobile */
 #loading-screen {
     position: fixed;
     top: 0;
@@ -396,9 +406,11 @@ footer a:hover {
     color: #ff0000; /* Testo rosso */
     font-size: 1.5em;
     text-align: center;
+    visibility: visible; /* Garantisce visibilità */
 }
 
 .loading-logo {
+    max-width: 80%; /* Adattamento della dimensione su dispositivi mobili */
     width: 100px;
     margin-bottom: 20px;
     animation: pulse 1.5s infinite;
@@ -496,63 +508,77 @@ footer a:hover {
 }
 
 
-/* Mobile Responsiveness */
+/* Media Queries */
+/* Posizionamento del logo sopra la navbar su mobile */
+
+
 @media (max-width: 768px) {
-    /* Navbar */
-    .navbar-menu ul {
-        flex-direction: column;
-        gap: 10px;
-    }
-
     .navbar-logo {
-        height: 60px;
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        height: 60px; /* Altezza ridotta */
+        z-index: 1001; /* Sempre sopra la navbar */
+        transition: opacity 0.2s ease, transform 0.1s ease; /* Transizioni fluide */
     }
 
-    /* Sezioni Fullscreen */
-    .fullscreen-section {
-        padding: 20px 10px;
+    .navbar.scrolled .navbar-logo {
+        opacity: 0; /* Logo scompare durante lo scroll */
+        transform: translateY(-20px); /* Effetto scorrimento verso l'alto */
     }
-
-    /* Card dei Giocatori */
-    .player-card {
-        max-width: 200px;
-        margin: 10px auto;
-    }
-
-    .player-card .player-img {
-        max-height: 150px;
-    }
-
-    .player-info {
-        bottom: -60px;
-        padding: 10px;
-    }
-
-    /* Contatti */
-    .contact-section {
-        padding: 20px 10px;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
+    .navbar {
+        position: fixed;
+        top: 60px; /* Inizia sotto il logo */
         width: 100%;
+        height: 60px; /* Altezza standard della navbar */
+        background-color: rgba(31, 31, 31, 0.8);
+        z-index: 1000; /* Sotto al logo */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 20px;
+        transition: top 0.3s ease; /* Transizione per il movimento */
     }
 
-    .contact-info .info-item {
-        margin-bottom: 20px;
+    /* Durante lo scroll: il logo scompare e la navbar si alza */
+    .navbar.scrolled {
+        top: 0; /* Navbar si posiziona in cima */
+    }
+
+    .navbar-logo.scrolled {
+        opacity: 0; /* Nasconde il logo */
+        transform: translateY(-20px); /* Effetto di scorrimento verso l'alto */
     }
 }
 
 @media (max-width: 480px) {
-    .hero-title {
-        font-size: 2rem;
+    .navbar-logo {
+        height: 50px; /* Logo ancora più piccolo */
+        top: 10px; /* Margine superiore minore */
+    }
+}
+@media (max-width: 480px) {
+    #loading-screen {
+        font-size: 1.2em; /* Testo più piccolo */
     }
 
-    .hero-subtitle {
-        font-size: 1rem;
+    .loading-logo {
+        width: 70px; /* Logo più piccolo su schermi piccoli */
     }
+}
+@media (max-width: 768px) {
+    .news-image img,
+    .sponsor-img1,
+    .special-image {
+        width: 90%; /* Riduzione proporzionale */
+    }
+}
 
-    .player-card .player-info h3 {
-        font-size: 1rem;
+@media (max-width: 480px) {
+    .news-image img,
+    .sponsor-img1,
+    .special-image {
+        width: 85%; /* Adattamento ulteriore */
     }
 }
