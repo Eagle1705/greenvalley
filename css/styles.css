@@ -46,6 +46,7 @@ h1, h2, .display {
     align-items: center;
     justify-content: center;
     text-align: center;
+    -webkit-text-stroke: 2px var(--gv-green); /* spessore/colore bordo */
     color: rgb(2, 100, 2);
 }
 
