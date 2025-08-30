@@ -47,14 +47,13 @@ h1, h2, .display {
     justify-content: center;
     text-align: center;
     -webkit-text-stroke: 2px var(--gv-green); /* spessore/colore bordo */
-    color: rgb(2, 100, 2);
+    color: rgb(0, 156, 0);
 }
 
 /* Titolo sovrapposto */
 .hero-title {
     font-size: 3rem; /* Dimensione del titolo */
     font-weight: bold;
-    text-shadow: 0 4px 6px rgba(0, 0, 0, 0.7); /* Ombra per il testo */
     margin: 0;
 }
 .hero-divider {
