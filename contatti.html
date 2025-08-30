@@ -1,90 +1,127 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contatti - GVFC</title>
-    <script type="text/javascript"
-    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-(function(){
-  emailjs.init({
-    publicKey: "EZoeTiMOVjbTneoi6",
-  });
-})();
-</script>
-</head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contatti - GVFC</title>
 
-    <link rel="stylesheet" href="css/contatti.css">
-    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
-<link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
-<link rel="shortcut icon" href="images/favicon.ico" />
-<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-<meta name="apple-mobile-web-app-title" content="MyWebSite" />
-<link rel="manifest" href="site.webmanifest" />
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/contatti.css">
+  <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
+  <link rel="shortcut icon" href="images/favicon.ico" />
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
+  <meta name="apple-mobile-web-app-title" content="MyWebSite" />
+  <link rel="manifest" href="site.webmanifest" />
+
+  <!-- EmailJS SDK -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      emailjs.init({ publicKey: "EZoeTiMOVjbTneoi6" }); // <-- la tua public key
+    });
+  </script>
+  <style>
+    /* opzionale: area messaggi */
+    #formStatus { margin-top: .5rem; font-size: .95rem; }
+    #formStatus.success { color: #1b8c1b; }
+    #formStatus.error { color: #b00020; }
+    /* honeypot nascosto */
+    .hp { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+  </style>
 </head>
 <body>
-    <div id="loading-screen">
-        <img src="images/logo-greenvalley.png" alt="Logo" class="loading-logo">
+  <div id="loading-screen">
+    <img src="images/logo-greenvalley.png" alt="Logo" class="loading-logo">
+  </div>
+
+  <header class="navbar">
+    <div class="navbar-container">
+      <img src="images/logo-greenvalley.png" alt="Logo" class="navbar-logo">
+      <nav class="navbar-menu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="squadra.html">Squadra</a></li>
+          <li><a href="sponsor.html">Sponsor</a></li>
+        </ul>
+      </nav>
     </div>
+  </header>
 
-    <header class="navbar">
-        <div class="navbar-container">
-            <img src="images/logo-greenvalley.png" alt="Logo" class="navbar-logo">
-            <nav class="navbar-menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="squadra.html">Squadra</a></li>
+  <main>
+    <section class="contact-section">
+      <h2>Contattaci</h2>
+      <p>Hai domande o vuoi giocare con noi? Compila il modulo qui sotto e ti risponderemo il prima possibile!</p>
+      <div class="contact-divider"></div>
 
-                    <li><a href="sponsor.html">Sponsor</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
-
-    <main>
-        <section class="contact-section">
-    <h2>Contattaci</h2>
-    <p>Hai domande o vuoi giocare con noi? Compila il modulo qui sotto e ti risponderemo il prima possibile!</p>
-    <div class="contact-divider"></div>
-    <form class="contact-form" action="#" method="post" id="contactForm">
-        <input type="text" name="name" placeholder="Il tuo nome" required>
-        <input type="email" name="email" placeholder="La tua email" required>
+      <form class="contact-form" id="contactForm" novalidate>
+        <input type="text" name="from_name" placeholder="Il tuo nome" required>
+        <input type="email" name="reply_to" placeholder="La tua email" required>
         <textarea name="message" rows="5" placeholder="Il tuo messaggio" required></textarea>
-        <button type="submit">Invia</button>
-    </form>
-</section>
-    </main>
 
-    <footer>
-        <p>&copy; 2024 Greenvalley FC. Tutti i diritti riservati.</p>
-    </footer>
+        <!-- Honeypot anti-bot -->
+        <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off">
 
-    <script src="js/script.js"></script>
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-            e.preventDefault(); // Evita il refresh della pagina
+        <button id="sendBtn" type="submit">Invia</button>
+        <div id="formStatus" aria-live="polite"></div>
+      </form>
+    </section>
+  </main>
 
-            const params = {
-                from_name: document.querySelector('input[name="name"]').value,
-                reply_to: document.querySelector('input[name="email"]').value,
-                message: document.querySelector('textarea[name="message"]').value,
-            };
+  <footer>
+    <p>&copy; 2024 Greenvalley FC. Tutti i diritti riservati.</p>
+  </footer>
 
-            const serviceID = "service_nysxrgu";
-            const templateID = "gvfctemplate";
+  <script>
+    const form = document.getElementById('contactForm');
+    const sendBtn = document.getElementById('sendBtn');
+    const statusBox = document.getElementById('formStatus');
 
-            emailjs.send(serviceID, templateID, params)
-                .then(function (response) {
-                    console.log("SUCCESS!", response.status, response.text);
-                    alert("Email inviata con successo!");
-                }, function (error) {
-                    console.log("FAILED...", error);
-                    alert("C'è stato un problema nell'invio dell'email.");
-                });
-        });
-    </script>
+    const SERVICE_ID = "service_nysxrgu";
+    const TEMPLATE_ID = "gvfctemplate";
 
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Honeypot: se il campo è valorizzato, blocca (bot)
+      if (form.website && form.website.value.trim() !== "") {
+        return;
+      }
+
+      // Validazione base
+      if (!form.from_name.value.trim() || !form.reply_to.value.trim() || !form.message.value.trim()) {
+        statusBox.textContent = "Compila tutti i campi richiesti.";
+        statusBox.className = "error";
+        return;
+      }
+
+      sendBtn.disabled = true;
+      statusBox.textContent = "Invio in corso…";
+      statusBox.className = "";
+
+      try {
+        // Opzione A: manda i parametri esplicitamente
+        const params = {
+          from_name: form.from_name.value.trim(),
+          reply_to: form.reply_to.value.trim(),
+          message: form.message.value.trim()
+        };
+        await emailjs.send(SERVICE_ID, TEMPLATE_ID, params);
+
+        // Opzione B (alternativa): mappa automaticamente i name del form
+        // await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, '#contactForm');
+
+        form.reset();
+        statusBox.textContent = "Email inviata con successo! Ti risponderemo al più presto.";
+        statusBox.className = "success";
+      } catch (err) {
+        console.error(err);
+        statusBox.textContent = "C'è stato un problema nell'invio. Riprova più tardi.";
+        statusBox.className = "error";
+      } finally {
+        sendBtn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
