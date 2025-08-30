@@ -8,7 +8,9 @@
 body {
     margin: 0;
     padding-top: 70px; /* Compensa l'altezza dell'header */
-    font-family: 'Prose Sans Bold';
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
     background: url('../images/sfondo.jpg') no-repeat center center fixed; /* Immagine di sfondo */
     background-size: cover; /* Copre l'intero schermo */
     transition: background-color 0.3s ease; /* Transizione fluida */
