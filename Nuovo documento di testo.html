@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Storia-quiz a dropdown (canzoni)</title>
+  <style>
+    :root{
+      --bg:#0f0f12; --card:#17171c; --ink:#eaeaf0; --muted:#9aa0aa; --ok:#2ecc71; --ko:#ff5c5c; --accent:#c8a2ff;
+    }
+    html,body{height:100%;}
+    body{
+      margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      background: radial-gradient(1200px 600px at 10% 0%, #1d1b25 0, var(--bg) 50%), var(--bg);
+      color: var(--ink);
+      line-height:1.55;
+    }
+    .wrap{max-width:920px; margin:clamp(16px,5vw,48px) auto; padding:clamp(16px,4vw,32px);}
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.06));
+      border: 1px solid #2a2a33; border-radius:20px; padding:clamp(16px,3vw,28px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.35), inset 0 1px 0 rgba(255,255,255,.03);
+    }
+    h1{font-size: clamp(1.3rem, 2.5vw, 2rem); margin:0 0 6px;}
+    p.lead{margin:0 0 18px; color:var(--muted)}
+    .story{font-size: clamp(1rem, 2vw, 1.1rem);}
+
+    /* dropdown-as-blank */
+    .blank{display:inline-block; position:relative;}
+    select.blankSel{
+      background: transparent; color: var(--ink);
+      border:none; border-bottom: 2px dashed #555a66; border-radius:0;
+      padding:2px 28px 2px 6px; margin: 0 2px;
+      font: inherit; cursor: pointer; outline: none;
+      appearance: none; -webkit-appearance: none; -moz-appearance: none;
+    }
+    /* caret */
+    .blank::after{
+      content:""; position:absolute; right:8px; top:50%; width:0; height:0; transform: translateY(-50%);
+      border-left:6px solid transparent; border-right:6px solid transparent; border-top:7px solid var(--muted);
+      pointer-events:none;
+    }
+
+    /* ✅ Fix: opzioni del menu a tendina visibili (nero su bianco) */
+    select.blankSel option,
+    select.blankSel optgroup{ color:#000; background:#fff; }
+    /* su alcuni browser, quando il menu è aperto, rendi il campo leggibile */
+    select.blankSel:focus, select.blankSel:active{ color:#000; background:#fff; }
+
+    /* sistemati i riferimenti a --ok/--ko */
+    select.blankSel.ok{ border-bottom-color: var(--ok); box-shadow: 0 2px 0 var(--ok); }
+    select.blankSel.ko{ border-bottom-color: var(--ko); box-shadow: 0 2px 0 var(--ko); }
+    select.blankSel:focus{ border-bottom-color: var(--accent); box-shadow: 0 2px 0 var(--accent); }
+
+    .actions{display:flex; flex-wrap:wrap; gap:10px; margin-top:18px}
+    button{
+      background: #24242b; color: var(--ink); border:1px solid #343442; border-radius:12px; padding:10px 14px;
+      cursor:pointer; font-weight:600; letter-spacing:.2px;
+    }
+    button:hover{filter:brightness(1.1)}
+    button.secondary{background:#1b1b21;}
+
+    .result{margin-top:14px; font-weight:600}
+    .result.ok{color:var(--ok)}
+    .result.ko{color:var(--ko)}
+
+    details{margin-top:20px;}
+    summary{cursor:pointer; color:var(--accent)}
+    ol{margin:10px 0 0 20px; color:var(--muted)}
+
+    .footerNote{margin-top:18px; color:var(--muted); font-size:.95rem}
+    .badge{display:inline-block; padding:.2rem .5rem; border:1px solid #3a3a49; border-radius:999px; font-size:.8rem; color:var(--muted)}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>Storia d’amore - Quiz 1 <span class="badge">quiz a dropdown</span></h1>
+      <p class="lead">Scegli il titolo giusto per ogni spazio. Quando tutte le scelte sono corrette, si sblocca il suggerimento per sbloccare il regalo finale ✨</p>
+
+      <div class="story" id="story">
+        <p>
+          C’era una volta un regno così esteso da non avere
+          <span class="blank"><select id="s1" class="blankSel" aria-label="Spazio 1"></select></span>,
+          dove le nuvole sembravano navigare lente.
+          In quel regno viveva un ragazzo curioso, più amico dei racconti che delle feste, e una principessa dal cuore tenero e il viso di una rosa.
+        </p>
+        <p>
+          Si incontrarono in un tiepido e lento pomeriggio d'estate,
+          Il ragazzo la vide e, senza bisogno di odi o proclami, capì che ai suoi occhi era
+          <span class="blank"><select id="s4" class="blankSel" aria-label="Spazio 4"></select></span>.
+          Le parole, però, sono creature timide: restarono a lungo in fila sul cuore, come soldatini, aspettando il coraggio di marciare.
+        </p>
+        <p>
+          Nei giorni che seguirono, lui portava con sé un taccuino: ai margini delle mappe e dei libri lasciava
+          <span class="blank"><select id="s5" class="blankSel" aria-label="Spazio 5"></select></span>,
+          piccole promesse che solo lui sapeva leggere. in quei fogli egli scriveva:
+          "<span class="blank"><select id="s6" class="blankSel" aria-label="Spazio 6"></select></span> che ti amo da impazzire, ma non posso farlo, ho paura"
+          — ma bastava che lei lo guardasse e, come per incanto, si capivano e sorridevano.
+        </p>
+        <p>
+          Un pomeriggio di quella magica estate, all'imbrunire, si ritrovarono entrambi a guardare le nuvole su un
+          <span class="blank"><select id="s2" class="blankSel" aria-label="Spazio 2"></select></span>,
+          La sera, quando il vento passava tra gli archi del ponte e le lanterne si accendevano una a una, spuntò una
+          <span class="blank"><select id="s8" class="blankSel" aria-label="Spazio 8"></select></span>
+          lì nel cielo, e il ragazzo, vedendo la prima stella della notte spuntare, decise di prenderla 
+          e portarla in dono alla principessa. Allora la principessa decise di fargli a sua volta un dono raro,
+          "<span class="blank"><select id="s9" class="blankSel" aria-label="Spazio 9"></select></span>" disse lei,
+          e nel silenzio i pensieri trovavano posto, come le stelle si uniscono nelle costellazioni.
+        </p>
+        <p>
+          Dopo essersi donati il cuore, il ragazzo e la principessa, poi, dovettero separarsi, senza sapere per quanto.
+          I due innamorati stesero lontani per mesi, con una
+          <span class="blank"><select id="s10" class="blankSel" aria-label="Spazio 10"></select></span>,
+          che gli ricordava i primi passi goffi, gli sbagli, le risate scappate nel momento sbagliato. Ma era proprio lì 
+          che la magia cresceva: tra ciò che non è perfetto e ciò che diventa prezioso, tra una mano che cerca e un’altra 
+          che risponde.
+          Ora spetta a te, cara la mia patatina, scrivere il continuo di questa nostra
+          <span class="blank"><select id="s3" class="blankSel" aria-label="Spazio 3"></select></span>.
+        </p>
+      </div>
+
+      <div class="actions">
+        <button id="checkBtn">Controlla risposte</button>
+        <button id="hintBtn" class="secondary" title="Compila automaticamente il primo spazio errato">Suggerisci 1 risposta</button>
+        <button id="resetBtn" class="secondary">Reset</button>
+      </div>
+      <div id="result" class="result" aria-live="polite"></div>
+
+      <details>
+        <summary>Mostra soluzioni</summary>
+        <ol>
+          <li>nessun confine</li>
+          <li>tappeto di fragole</li>
+          <li>Favola</li>
+          <li>Bella Davvero</li>
+          <li>Scarabocchi</li>
+          <li>Vorrei Dirti</li>
+          <li>Piccola Stella</li>
+          <li>Ti dedico il Silenzio</li>
+          <li>Balorda nostalgia</li>
+        </ol>
+      </details>
+
+    </div>
+  </div>
+
+  <script>
+    const OPTIONS = [
+      "Favola",
+      "Bella Davvero",
+      "Vorrei Dirti",
+      "Scarabocchi",
+      "Piccola Stella",
+      "Ti dedico il Silenzio",
+      "Balorda nostalgia",
+      "nessun confine",
+      "tappeto di fragole"
+    ];
+
+    const ANSWERS = {
+      s1: "nessun confine",
+      s2: "tappeto di fragole",
+      s3: "Favola",
+      s4: "Bella Davvero",
+      s5: "Scarabocchi",
+      s6: "Vorrei Dirti",
+      s8: "Piccola Stella",
+      s9: "Ti dedico il Silenzio",
+      s10: "Balorda nostalgia"
+    };
+
+    const SUCCESS_MESSAGE = "Bravissima! Hai sbloccato l’indizio: PA";
+
+    function fillSelect(sel){
+      const ph = document.createElement('option');
+      ph.value = ""; ph.textContent = "— scegli —"; ph.disabled = true; ph.selected = true;
+      sel.appendChild(ph);
+      const ops = [...OPTIONS];
+      for(const o of ops){
+        const opt = document.createElement('option');
+        opt.value = o; opt.textContent = o;
+        sel.appendChild(opt);
+      }
+    }
+
+    // ✅ Evita errori se manca qualche <select> (es. s7 non presente nel markup)
+    const selects = Array.from({length:10}, (_,i)=> document.getElementById('s'+(i+1))).filter(Boolean);
+    selects.forEach(fillSelect);
+
+    function checkAll(){
+      let okCount = 0;
+      for(const sel of selects){
+        const id = sel.id; const val = sel.value;
+        sel.classList.remove('ok','ko'); sel.setAttribute('aria-invalid','false');
+        if(!val){ continue; }
+        if(val === ANSWERS[id]){ sel.classList.add('ok'); okCount++; }
+        else { sel.classList.add('ko'); sel.setAttribute('aria-invalid','true'); }
+      }
+      const res = document.getElementById('result');
+      if(okCount === selects.length){ res.textContent = SUCCESS_MESSAGE; res.className = 'result ok'; }
+      else { res.textContent = `Corrette: ${okCount}/${selects.length}. Continua così!`; res.className = 'result ko'; }
+    }
+
+    function resetAll(){
+      for(const sel of selects){ sel.value = ""; sel.classList.remove('ok','ko'); sel.setAttribute('aria-invalid','false'); }
+      const res = document.getElementById('result'); res.textContent = ""; res.className = 'result';
+    }
+
+    function hintOne(){
+      for(const sel of selects){
+        const id = sel.id; const val = sel.value;
+        if(val !== ANSWERS[id]){ sel.value = ANSWERS[id]; sel.classList.add('ok'); break; }
+      }
+      checkAll();
+    }
+
+    document.getElementById('checkBtn').addEventListener('click', checkAll);
+    document.getElementById('resetBtn').addEventListener('click', resetAll);
+    document.getElementById('hintBtn').addEventListener('click', hintOne);
+  </script>
+</body>
+</html>
