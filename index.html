@@ -11,6 +11,45 @@
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="GVFC" />
     <link rel="manifest" href="site.webmanifest" />
+    <style>
+  :root{
+    --bg-fallback: #0e0e12;              /* colore di backup */
+    --bg-image: url("mainbg.png");       /* sfondo principale */
+  }
+
+  html, body { height: 100%; }
+  body{
+    margin: 0;
+    background-color: var(--bg-fallback);
+    background-image: var(--bg-image);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;              /* riempi lo schermo */
+    background-attachment: fixed;        /* effetto “fermo” (iOS lo gestisce come scroll) */
+  }
+
+  /* Opzionale: versione retina se hai mainbg@2x.png */
+  @supports (background-image: image-set(url("x") 1x)) {
+    body{
+      background-image: image-set(
+        url("mainbg.png") 1x,
+        url("mainbg@2x.png") 2x
+      );
+    }
+  }
+
+  /* Opzionale: se vuoi mantenere lo sfondo esistente e
+     sovrapporre l’immagine con una leggera oscuratura, aggiungi
+     class="has-bg" al <body> */
+  body.has-bg::before{
+    content:"";
+    position: fixed; inset: 0;
+    background: center/cover no-repeat var(--bg-image);
+    filter: brightness(0.85);            /* regola la luminosità */
+    z-index: -1;
+  }
+</style>
+
 </head>
 <body>
     <!-- Schermata di caricamento -->
@@ -89,3 +128,4 @@
     <script src="js/script.js"></script>
 </body>
 </html>
+
