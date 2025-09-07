@@ -12,42 +12,24 @@
     <meta name="apple-mobile-web-app-title" content="GVFC" />
     <link rel="manifest" href="site.webmanifest" />
     <style>
-  :root{
-    --bg-fallback: #0e0e12;              /* colore di backup */
-    --bg-image: url("mainbg.png");       /* sfondo principale */
-  }
-
-  html, body { height: 100%; }
-  body{
+body {
     margin: 0;
-    background-color: var(--bg-fallback);
-    background-image: var(--bg-image);
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;              /* riempi lo schermo */
-    background-attachment: fixed;        /* effetto “fermo” (iOS lo gestisce come scroll) */
-  }
-
-  /* Opzionale: versione retina se hai mainbg@2x.png */
-  @supports (background-image: image-set(url("x") 1x)) {
-    body{
-      background-image: image-set(
-        url("images/mainbg.png") 1x,
-        url("images/mainbg@2x.png") 2x
-      );
-    }
-  }
-
-  /* Opzionale: se vuoi mantenere lo sfondo esistente e
-     sovrapporre l’immagine con una leggera oscuratura, aggiungi
-     class="has-bg" al <body> */
-  body.has-bg::before{
-    content:"";
-    position: fixed; inset: 0;
-    background: center/cover no-repeat var(--bg-image);
-    filter: brightness(0.85);            /* regola la luminosità */
-    z-index: -1;
-  }
+    padding-top: 70px; /* Compensa l'altezza dell'header */
+    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    background: url('../images/mainbg.png') no-repeat center center fixed; /* Immagine di sfondo */
+    background-size: cover; /* Copre l'intero schermo */
+    transition: background-color 0.3s ease; /* Transizione fluida */
+    background-position: center; /* Centra l'immagine */
+    background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
+    background-attachment: fixed; /* L'immagine rimane fissa mentre si scorre la pagina */
+    color: #e0e0e0; /* Testo grigio chiaro */
+    line-height: 1.6;
+    font-size: 18px;
+    padding: 20px;
+    overflow-x: hidden; /* Evita scrolling orizzontale */
+}
 </style>
 
 </head>
