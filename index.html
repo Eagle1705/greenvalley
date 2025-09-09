@@ -1,114 +1,557 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Greenvalley FC</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="GVFC" />
-    <link rel="manifest" href="site.webmanifest" />
-    <style>
-body {
-    margin: 0;
-    padding-top: 70px; /* Compensa l'altezza dell'header */
-    font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    font-weight: 400;
-    line-height: 1.6;
-    background: url('../images/mainbg.png') no-repeat center center fixed; /* Immagine di sfondo */
-    background-size: cover; /* Copre l'intero schermo */
-    transition: background-color 0.3s ease; /* Transizione fluida */
-    background-position: center; /* Centra l'immagine */
-    background-repeat: no-repeat; /* Evita che l'immagine si ripeta */
-    background-attachment: fixed; /* L'immagine rimane fissa mentre si scorre la pagina */
-    color: #e0e0e0; /* Testo grigio chiaro */
-    line-height: 1.6;
-    font-size: 18px;
-    padding: 20px;
-    overflow-x: hidden; /* Evita scrolling orizzontale */
-}
-</style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Greenvalley FC</title>
 
+<!-- Font come nei file di partenza -->
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --bg:#0b0e12; --panel:#0f1217; --ink:#f3f5f8; --muted:#a7b0bc;
+    --line:#232c3c; --accent:#00d435; --accent-2:#1aff6b; --radius:16px;
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+
+  .news{position:relative;padding:clamp(20px,4vw,48px) 0 64px;background:
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.035) 0 2px, transparent 2px 14px),
+    linear-gradient(180deg, rgba(255,255,255,.02), rgba(0,0,0,.05));}
+  .wrap{width:min(1260px,92vw);margin:0 auto;}
+
+  .news-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:14px}
+  .news-eyebrow{font-family:Teko,system-ui;text-transform:uppercase;letter-spacing:.04em;font-size:clamp(18px,3vw,38px);line-height:.9;opacity:.9}
+  .news-title{font-family:Teko,system-ui;text-transform:uppercase;font-size:clamp(24px,4.6vw,56px);line-height:.9;margin:.05em 0 0;color:#dfe7f3}
+  .news-ctrl{display:flex;gap:8px}
+  .ctrl{width:44px;height:44px;display:grid;place-items:center;cursor:pointer;border:1px solid var(--line);border-radius:10px;background:#0a0d12;color:#fff;transition:transform .12s,filter .12s,background .12s}
+  .ctrl:hover{transform:translateY(-1px);filter:brightness(1.1);background:#0e141c}
+
+  /* DESKTOP GRID */
+  .news-grid{display:grid;gap:18px;grid-template-columns:1.1fr .9fr;align-items:start}
+  .feature{
+    border-radius:var(--radius);overflow:hidden;background:#000;box-shadow:0 16px 60px rgba(0,0,0,.35)}
+  .feature-media{position:relative;aspect-ratio:16/9;background:#000;overflow:hidden}
+  .feature-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;filter:contrast(1.05) saturate(1.08);transition:opacity .35s ease}
+  .feature-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.55) 65%,rgba(0,0,0,.8))}
+  .feature .accent{position:absolute;left:0;top:0;bottom:0;width:8px;background:linear-gradient(180deg,var(--accent),var(--accent-2));box-shadow:0 0 24px rgba(0,212,53,.35) inset}
+  .feature-body{position:absolute;left:0;right:0;bottom:0;padding:18px}
+  .meta{color:var(--muted);font-size:.95rem;display:flex;gap:10px;flex-wrap:wrap;text-transform:uppercase;letter-spacing:.06em;font-weight:600}
+  .tag{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);padding:.15rem .45rem;border-radius:6px}
+  .feature h3{font-family:Teko,system-ui;text-transform:uppercase;font-size:clamp(22px,3.4vw,42px);line-height:.95;margin:.15em 0 0}
+  .feature a{color:inherit;text-decoration:none}
+  .feature-article{background:var(--panel);border-top:1px solid var(--line);padding:0 18px;max-height:0;overflow:hidden;transition:max-height .32s ease}
+  .feature.open .feature-article{max-height:320px}
+
+  .list{display:grid;gap:12px}
+  .card{position:relative;display:block;padding:18px 18px 16px;border-radius:14px;background:var(--panel);border:1px solid var(--line);text-decoration:none;color:var(--ink);transition:transform .12s,box-shadow .12s,border-color .12s}
+  .card:hover{transform:translateY(-2px);box-shadow:0 16px 40px rgba(0,0,0,.35);border-color:rgba(0,212,53,.35)}
+  .card h4{font-family:Teko,system-ui;text-transform:uppercase;font-size:clamp(18px,2.2vw,24px);margin:4px 0 8px}
+  .card p{color:#d9e2ee;margin:0 0 10px;font-size:.98rem}
+  .card .meta{font-size:.85rem;opacity:.9}
+  .corner{position:absolute;right:10px;top:10px;width:26px;height:26px;opacity:.8}
+  .corner svg{width:100%;height:100%;transform:translate(2px,2px);transition:transform .18s}
+  .card:hover .corner svg{transform:translate(0,0)}
+
+  .load-more{text-align:center;margin-top:14px}
+  .btn{display:inline-flex;align-items:center;gap:10px;cursor:pointer;background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#031;border:none;padding:12px 18px;border-radius:999px;font-weight:800;letter-spacing:.02em}
+  .card:focus-visible,.ctrl:focus-visible,.btn:focus-visible{outline:2px solid rgba(255,255,255,.8);outline-offset:2px}
+
+  /* ================= MOBILE CAROUSEL (mostra SOLO questo) ================= */
+  .mobile-only{display:none}
+  @media (max-width:980px){
+    .desktop-only{display:none!important}         /* nasconde feature + list */
+    .mobile-only{display:block}
+
+    .news{padding:10px 0 36px}
+    .news-head{margin:0 12px 10px}
+    .news-title{font-size:clamp(28px,10vw,44px)}
+    .news-ctrl{display:none} /* niente bottoni, si scorre con swipe */
+
+    .mwrap{width:100%}
+    .mstrip{
+      display:flex; gap:14px; overflow-x:auto; padding:8px 12px 14px;
+      scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch;
+      scrollbar-width:none;
+    }
+    .mstrip::-webkit-scrollbar{display:none}
+    .mitem{
+      flex:0 0 88vw;                     /* ~300% rispetto alle card piccole */
+      height:68vh;                       /* grande */
+      position:relative; border-radius:20px; overflow:hidden; background:#000;
+      scroll-snap-align:start; box-shadow:0 20px 60px rgba(0,0,0,.5);
+    }
+    .mitem img{width:100%;height:100%;object-fit:cover}
+    .mtitle{
+      position:absolute;left:0;right:0;bottom:0;
+      background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.65) 55%,rgba(0,0,0,.92));
+      padding:16px 16px 18px;
+      font-family:Teko,system-ui;text-transform:uppercase;
+      font-size:clamp(26px,9vw,40px); line-height:.95; color:#fff;
+    }
+    .mmeta{position:absolute;top:10px;left:10px;display:flex;gap:10px;color:#dfe7f3}
+    .mmeta .tag{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);padding:.2rem .5rem;border-radius:8px}
+  }
+
+  /* ================= OVERLAY ================= */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;align-items:center;justify-content:center;z-index:50}
+  .overlay.open{display:flex}
+  .sheet{width:min(900px,92vw);max-height:86vh;background:#0a0d12;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:grid;grid-template-rows:auto 1fr}
+  .sheet-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border-bottom:1px solid var(--line);background:#000}
+  .sheet-title{font-family:Teko,system-ui;text-transform:uppercase;font-size:clamp(18px,4vw,28px);margin:0}
+  .xbtn,.arrow{background:transparent;border:1px solid var(--line);color:#fff;border-radius:10px;width:38px;height:38px;display:grid;place-items:center;cursor:pointer}
+  .sheet-body{overflow:auto;-webkit-overflow-scrolling:touch}
+  .sheet-media{position:relative;aspect-ratio:16/9;background:#000}
+  .sheet-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .sheet-content{padding:14px 14px 18px}
+  .sheet-meta{display:flex;gap:10px;flex-wrap:wrap;color:var(--muted);text-transform:uppercase;letter-spacing:.06em;font-weight:600;margin-bottom:6px}
+  .hint{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.5);border:1px solid var(--line);padding:6px 8px;border-radius:999px;font-size:.85rem}
+</style>
+<link rel="stylesheet" href="css/styles.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- (facoltativo) il tuo CSS di progetto per hero/notizie -->
+<link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
 </head>
 <body>
-    <!-- Schermata di caricamento -->
-    <div id="loading-screen">
-        <img src="images/logo-greenvalley.png" alt="Logo Greenvalley FC" class="loading-logo">
+
+<!-- NAVBAR -->
+<header class="navbar" role="banner">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <button class="icon-btn" id="openMenu" aria-label="Apri menu" aria-controls="offcanvas" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
+    <div class="brand">
+      <img src="images/logo-greenvalley.png" alt="Logo del club">
+    </div>
+    <div class="nav-right"></div>
+  </div>
+</header>
 
-    <!-- Header -->
-    <header class="navbar">
-        <div class="navbar-container">
-            <img src="images/logo-greenvalley.png" alt="Logo Greenvalley FC" class="navbar-logo">
-            <nav class="navbar-menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="contatti.html">Contatti</a></li>
-                    <li><a href="sponsor.html">Sponsor</a></li>
-                    <li><a href="https://copafacil.com/-j7x2">Classifica</a></li>
+<!-- BACKDROP + OFFCANVAS -->
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="offcanvas" id="offcanvas" aria-hidden="true">
+  <div class="off-head">
+    <div class="oh-left" style="display:flex;align-items:center;gap:10px;">
+      <button class="icon-btn" id="closeMenu" aria-label="Chiudi menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="oh-center" style="display:flex;justify-content:center;align-items:center;">
+      <img src="images/logo-greenvalley.png" alt="Logo del club">
+    </div>
+    <div class="oh-right"></div>
+  </div>
+  <div class="off-body">
+    <nav aria-label="Menu principale">
+      <ul class="menu-list">
+        <li><a class="menu-item" href="pg.html"><span>La Squadra</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item is-active" href="pg.html"><span>Photogallery</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item" href="pg.html"><span>Club</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item" href="sponsor.html"><span>Sponsor</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item" href="contatti.html"><span>Contatti</span><span class="mi-right">›</span></a></li>
+
+      </ul>
+    </nav>
+  </div>
+  <div class="off-foot">GVFC 2024 - All Rights Reserved</div>
+</aside>
+
+<main>
+  <body>
+
+    <!-- ===== HERO CON VIDEO DI SFONDO =====
+         Metti i tuoi file:
+         - videos/promo.webm
+         - videos/promo.mp4
+         - images/hero-poster.jpg (poster/fallback)
+    -->
+    <section class="hero" aria-label="Greenvalley FC – video promozionale">
+      <video id="heroVideo"
+             autoplay
+             muted
+             loop
+             playsinline
+             preload="metadata"
+             poster="images/mainbg.png">
+        <source src="images/test11.mp4" type="video/webm">
+        <!-- fallback altissimo livello: se il browser non supporta <video> -->
+      </video>
+    
+      <div class="hero-inner">
+        <div class="hero-kicker">Greenvalley FC</div>
+        <h1 class="hero-title">Cuore Bianco-Verde</h1>
+        <p class="hero-sub">Passione, intensità, appartenenza. Scopri la nuova stagione e vivi ogni istante con noi.</p>
+    
+      </div>
+    
+      <div class="hero-controls" aria-label="Controlli video">
+    
+        <button class="ctrl" id="playBtn" title="Metti in pausa" aria-pressed="false" aria-label="In pausa">
+          <!-- icona pausa -->
+          <svg id="iconPause" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 4h4v16H6zM14 4h4v16h-4z"/></svg>
+          <!-- icona play (nascosta inizialmente) -->
+          <svg id="iconPlay" width="18" height="18" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M8 5v14l11-7z"/></svg>
+        </button>
+      </div>
+    </section>
 
 
-                </ul>
-            </nav>
+  <section class="partners-marquee" aria-label="Partner">
+    <div class="marquee" aria-hidden="true">
+      <ul class="marquee__track">
+        <!-- 1° set -->
+        <li><a href="https://www.maxsport.it/it" target="_blank" rel="noopener" aria-label="Max Sport"><img src="images/sponsor/max.png" alt="Max Sport"></a></li>
+        <li><a href="https://www.masserialatimpa.it" target="_blank" rel="noopener" aria-label="Burger Man"><img src="images/sponsor/CAMINE.png" alt="Burger Man"></a></li>
+        <li><a href="https://www.villaelena.org" target="_blank" rel="noopener" aria-label="Villa Elena"><img src="images/sponsor/villaelena.png" alt="Villa Elena"></a></li>
+        <li><a href="https://www.burgerman.it" target="_blank" rel="noopener" aria-label="Burger Man"><img src="images/sponsor/burgermen.png" alt="Burger Man"></a></li>
+        <li><a href="https://www.mandorlegiusdam.it" target="_blank" rel="noopener" aria-label="Giusdam"><img src="images/sponsor/giusdam.png" alt="Giusdam"></a></li>
+        <li><a href="https://www.tabacchimaida.it" target="_blank" rel="noopener" aria-label="Maida"><img src="images/sponsor/maida.png" alt="Maida"></a></li>
+        <li><a href="https://www.snai.it/" target="_blank" rel="noopener" aria-label="SNAI"><img src="images/sponsor/snai.png" alt="SNAI"></a></li>
+        <!-- 2° set per il loop -->
+        <li><a href="https://www.maxsport.it/it" aria-hidden="true" tabindex="-1"><img src="images/sponsor/max.png" alt=""></a></li>
+        <li><a href="https://www.masserialatimpa.it"aria-hidden="true" tabindex="-1"><img src="images/sponsor/CAMINE.png" alt="Burger Man"></a></li>
+        <li><a href="https://www.villaelena.org" aria-hidden="true" tabindex="-1"><img src="images/sponsor/villaelena.png" alt=""></a></li>
+        <li><a href="https://www.burgerman.it" aria-hidden="true" tabindex="-1"><img src="images/sponsor/burgermen.png" alt=""></a></li>
+        <li><a href="https://www.mandorlegiusdam.it" aria-hidden="true" tabindex="-1"><img src="images/sponsor/giusdam.png" alt=""></a></li>
+        <li><a href="https://www.tabacchimaida.it" aria-hidden="true" tabindex="-1"><img src="images/sponsor/maida.png" alt=""></a></li>
+        <li><a href="https://www.snai.it/" aria-hidden="true" tabindex="-1"><img src="images/sponsor/snai.png" alt=""></a></li>
+      </ul>
+    </div>
+  </section>
+  <div class="divisore"></div>
+
+  <section class="news" aria-labelledby="latest-news-heading">
+    <div class="wrap">
+      <header class="news-head">
+        <div>
+          <div class="news-eyebrow">Latest News</div>
+          <h2 class="news-title" id="latest-news-heading">Greenvalley FC</h2>
         </div>
-    </header>
-
-    <!-- Sezione Hero -->
-    <section id="hero" class="fullscreen-section">
-        <h1 class="hero-title">Greenvalley FC</h1>
-        <hr class="hero-divider">
-        <p class="hero-subtitle">Cuore Bianco e Verde, puntato verso la Vittoria</p>
-    </section>
-
-    <!-- Sezione Notizia Principale -->
-    <section id="notizia-principale" class="news-section">
-        <div class="news-content">
-            <article>
-                <h2>Nuovi Arrivi per la Nuova Stagione</h2>
-                <p>Benvenuti nel Green Valley FC!</br>
-                    Diamo il benvenuto a Francesco Ridolfo, che vestirà la numero 10, e a Giuseppe La Fico, nuovo numero 13. Talento, carattere e fame: pronti a far vibrare Valverde con gol, assist e grinta.
-                    Benvenuti in famiglia, ragazzi!</p>
-            </article>
-            <div class="news-image">
-                <img src="images/pippo.jpeg" alt="Immagine della partita" width="600">
-                <img src="images/ciccio.jpg" alt="Immagine della partita" width="600">
-            </div>
+        <div class="news-ctrl desktop-only">
+          <button class="ctrl" id="prevBtn" aria-label="Notizia precedente">‹</button>
+          <button class="ctrl" id="nextBtn" aria-label="Notizia successiva">›</button>
         </div>
-        
-    </section>
-        <!-- Sezione Notizia Principale -->
-        <section id="notizia-principale" class="news-section">
-            <div class="news-content">
-                <article>
-                    <h2>Il GreenValley parteciperà per la stagione 25/26 alla FUTSAL PREMIER LEAGUE</h2>
-                    <p>La squadra prenderà parte al torneo, il quale inizierà dal 9 settembre in poi, prendendo il nome di "Sunderland". <br>
-                        La squadra è pronta a salire di livello dopo il 13esimo posto dello scorso anno, anche grazie ad una campagna acquisti
-                        di livello e al supporto dei numerosi Sponsor.
-                    </p>
-                </article>
-            </div>
-            <div class="news-image">
-                <img src="images/torneo1.png" alt="Immagine della partita" width="600">
-            </div>
-        </section>
+      </header>
+  
+      <!-- ===== DESKTOP: feature + list ===== -->
+      <div class="news-grid desktop-only">
+        <figure class="feature" id="feature">
+          <div class="feature-media">
+            <div class="accent" aria-hidden="true"></div>
+            <img id="featureImg" src="images/players/ciccio.jpg" alt="">
+            <figcaption class="feature-body">
+              <div class="meta"><span class="tag" id="featureCat">Club</span><time id="featureDate">Oggi</time></div>
+              <a id="featureLink" href="#" target="_blank" rel="noopener"><h3 id="featureTitle">Ridolfo: il nuovo 10 del GVFC</h3></a>
+            </figcaption>
+          </div>
+          <div class="feature-article" id="featureArticle">
+            <div class="feature-article-inner" id="featureText"></div>
+          </div>
+        </figure>
+  
+        <div class="list" id="newsList" role="list"></div>
+      </div>
+  
+      <!-- ===== MOBILE: solo carousel grande con swipe ===== -->
+      <div class="mobile-only mwrap">
+        <div class="mstrip" id="mstrip"><!-- items via JS --></div>
+      </div>
+  
+      <!--<div class="load-more desktop-only">
+        <button class="btn" id="loadMore">Carica altre notizie</button>
+      </div>
+    </div>-->
+  </section>
+  
+  <!-- OVERLAY -->
+  <div class="overlay" id="overlay" aria-hidden="true">
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet-head">
+        <button class="arrow" id="ovPrev" aria-label="Precedente">‹</button>
+        <h3 class="sheet-title" id="sheetTitle">Titolo</h3>
+        <button class="arrow" id="ovNext" aria-label="Successiva">›</button>
+        <button class="xbtn" id="closeOv" aria-label="Chiudi">✕</button>
+      </div>
+      <div class="sheet-body" id="sheetBody">
+        <div class="sheet-media"><img id="ovImg" src="" alt=""></div>
+        <div class="sheet-content">
+          <div class="sheet-meta"><span class="tag" id="ovCat">TAG</span><time id="ovDate">DATA</time></div>
+          <p id="ovText"></p>
+        </div>
+      </div>
+      <div class="hint" aria-hidden="true">Swipe ← → per cambiare</div>
+    </div>
+  </div>
 
-    <!-- Sezione Ultime Notizie -->
-    <!--<section id="ultime-notizie" class="news-list">
-        <h3>Ultime Notizie</h3>
-        
-    </section>
--->
-    <!-- Footer -->
-    <footer id="contatti">
-        <p>&copy; 2024 Greenvalley FC. Tutti i diritti riservati.</p>
-        <a href="contatti.html">Contatti</a>
-    </footer>
+  <!-- ===== QUI, AL POSTO DEL PRE-FOOTER DI INDEX: PARTNERS (da test) ===== -->
 
-    <script src="js/script.js"></script>
+</main>
+
+<!-- ===== FOOTER (da test) ===== -->
+<footer class="milan-footer">
+  <div class="mf-band mf-band--light"></div>
+  <div class="mf-band mf-band--dark">
+    <div class="mf-logo-wrap">
+      <img src="images/logo-greenvalley.png" alt="AC Milan" class="mf-logo">
+    </div>
+    <div class="mf-hashtags">
+      <span>#VERSOLAVITTORIA</span>
+      <span>#FOZZACARUSI</span>
+    </div>
+    <div class="mf-social-block">
+      <h3>GVFC SUI SOCIAL MEDIA</h3>
+      <div class="mf-social">
+        <a href="https://www.instagram.com/greenvalleyfc_?igsh=MW1lMTZuamFpaGxicA==" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.5 1s.8.9 1 1.5c.2.4.3 1.1.4 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-1 1.5s-.9.8-1.5 1c-.4.2-1.1.3-2.3.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.5-1s-.8-.9-1-1.5c-.2-.4-.3-1.1-.4-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.9.4-2.3.2-.6.5-1 1-1.5s.9-.8 1.5-1c.4-.2 1.1-.3 2.3-.4C8.4 2.2 8.8 2.2 12 2.2m0 3.1c-3 0-3.4 0-4.6.1-.9 0-1.4.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.3-.3.8-.3 1.7-.1 1.2-.1 1.6-.1 4.6s0 3.4.1 4.6c0 .9.2 1.4.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.3.1.8.3 1.7.3 1.2.1 1.6.1 4.6.1s3.4 0 4.6-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.7.7-1 .1-.3.3-.8.3-1.7.1-1.2.1-1.6.1-4.6s0-3.4-.1-4.6c0-.9-.2-1.4-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.3-.1-.8-.3-1.7-.3-1.2-.1-1.6-.1-4.6-.1m0 2.7a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8z"/></svg></a>
+        <a href="https://www.youtube.com/@IMMAGINIEOPINIONI" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M23 7.1a4 4 0 00-2.8-2.8C18.4 3.8 12 3.8 12 3.8s-6.4 0-8.2.5A4 4 0 001 7.1 41.7 41.7 0 000 12a41.7 41.7 0 001 4.9 4 4 0 002.8 2.8c1.8.5 8.2.5 8.2.5s6.4 0 8.2-.5A4 4 0 0023 17 41.7 41.7 0 0024 12a41.7 41.7 0 00-1-4.9zM9.6 15.5V8.5l6.1 3.5-6.1 3.5z"/></svg></a>
+      </div>
+    </div>
+    <div class="mf-legal">
+      <ul>
+        <li><a href="index.html">HOME</a></li><li><a href="https://policies.google.com/privacy?hl=it">PRIVACY</a></li><li><a href="contatti.html">CONTATTI</a></li><li><a href="#">GESTISCI COOKIE</a></li>
+        <li><a href="sponsor.html">PARTNER</a></li><li><a href="#">NUOVA MAGLIA 2025/26</a></li>
+      </ul>
+      <p class="mf-copy">Copyright © 2025 GVFC.it. Tutti i diritti riservati.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- JS originale NAVBAR (da test2) -->
+<script>
+  const body = document.body;
+  const openBtn = document.getElementById('openMenu');
+  const closeBtn = document.getElementById('closeMenu');
+  const offcanvas = document.getElementById('offcanvas');
+  const backdrop = document.getElementById('backdrop');
+
+  function openMenu(){
+    body.classList.add('menu-open');
+    offcanvas.setAttribute('aria-hidden','false');
+    openBtn.setAttribute('aria-expanded','true');
+    backdrop.hidden = false;
+    offcanvas.querySelector('.menu-item')?.focus();
+  }
+  function closeMenu(){
+    body.classList.remove('menu-open');
+    offcanvas.setAttribute('aria-hidden','true');
+    openBtn.setAttribute('aria-expanded','false');
+    backdrop.hidden = true;
+    openBtn.focus();
+  }
+  openBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', e => { if(e.key === 'Escape' && body.classList.contains('menu-open')) closeMenu(); });
+</script>
+<script>
+  // ===== DATA DEMO =====
+  const items = [
+    { title:"Ridolfo: il nuovo numero 10 del GreenValley",
+      excerpt:"Talento e personalità per alzare l'asticella.",
+      text:"Il nuovo innesto porterà qualità e fame. L’obiettivo è alzare il ritmo senza perdere pulizia tecnica.",
+      category:"UFFICIALE", date:"2 Set 2025", image:"images/players/ciccio.jpg", link:"#"},
+    { title:"Il GVFC riscatta ufficialmente Pippohimovic",
+      excerpt:"Il bomber ha appena firmato un contratto annuale.",
+      text:"Dopo aver giocato con noi nella passata stagione in prestito, Pippohimovic ha convinto il DS a riscattarlo.",
+      category:"UFFICIALE", date:"31 Ago 2025", image:"images/players/pippo.jpeg", link:"#"},
+    { title:"GVFC: presentate le nuove maglie 25/26",
+      excerpt:"Linea pulita, dettagli gold.",
+      text:"Design in collaborazione, per il secondo anno di fila, con Max Sport SRL.",
+      category:"KIT", date:"28 Ago 2025", image:"images/sponsor/max.jpg", link:"#"},
+    { title:"Rinnovo di sponsorship con SNAI SAN GREGORIO",
+      excerpt:"Affetto e rispetto.",
+      text:"Ancora una volta Fabio Costanzo ci ha voluto dimostrare di credere al progetto. Siamo entusiasti di continuare questa avventura con lui",
+      category:"UFFICIALE", date:"26 Ago 2025", image:"images/sponsor/fabio.jpg", link:"#"},
+
+  ];
+
+  // ===== ELEMENTI =====
+  const feature = document.getElementById('feature');
+  const featureImg = document.getElementById('featureImg');
+  const featureCat = document.getElementById('featureCat');
+  const featureDate = document.getElementById('featureDate');
+  const featureTitle = document.getElementById('featureTitle');
+  const featureLink = document.getElementById('featureLink');
+  const featureText = document.getElementById('featureText');
+  const newsList = document.getElementById('newsList');
+
+  const overlay = document.getElementById('overlay');
+  const ovImg = document.getElementById('ovImg');
+  const ovCat = document.getElementById('ovCat');
+  const ovDate = document.getElementById('ovDate');
+  const ovText = document.getElementById('ovText');
+  const ovTitle = document.getElementById('sheetTitle');
+
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  const ovPrev  = document.getElementById('ovPrev');
+  const ovNext  = document.getElementById('ovNext');
+  const closeOv = document.getElementById('closeOv');
+
+  const mstrip  = document.getElementById('mstrip');
+
+  let current = 0;
+
+  // ===== UTIL =====
+  const isMobile = () => matchMedia("(max-width: 980px)").matches;
+
+  // ===== DESKTOP RENDER =====
+  function renderList(){
+    if(!newsList) return;
+    newsList.innerHTML = "";
+    items.forEach((it, idx) => {
+      const a = document.createElement('a');
+      a.className = 'card';
+      a.href = it.link; a.target = "_blank"; a.rel = "noopener";
+      a.dataset.index = idx;
+      a.innerHTML = `
+        <div class="corner" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M1 8 L8 1 M8 1 H1 V8"/>
+          </svg>
+        </div>
+        <div class="meta"><span class="tag">${it.category}</span><time>${it.date}</time></div>
+        <h4>${it.title}</h4>
+        <p>${it.excerpt}</p>
+      `;
+      a.addEventListener('click', (e) => {
+        e.preventDefault();
+        select(idx);
+        if (!isMobile()) feature.classList.add('open');
+      });
+      newsList.appendChild(a);
+    });
+  }
+
+  function fillFeature(it){
+    if(!feature) return;
+    featureImg.style.opacity = .2;
+    featureImg.addEventListener('transitionend', function t(){ featureImg.removeEventListener('transitionend', t); featureImg.style.opacity = 1; }, {once:true});
+    featureImg.src = it.image; featureImg.alt = it.title;
+    featureCat.textContent = it.category; featureDate.textContent = it.date;
+    featureTitle.textContent = it.title; featureLink.href = it.link;
+    featureText.textContent = it.text;
+  }
+
+  function highlightCard(){
+    if(!newsList) return;
+    [...newsList.children].forEach(c => c.style.borderColor = "var(--line)");
+    const active = [...newsList.children].find(c => +c.dataset.index === current);
+    if (active) active.style.borderColor = "rgba(0,212,53,.35)";
+  }
+
+  // ===== MOBILE RENDER (large carousel) =====
+  function renderMobileStrip(){
+    if(!mstrip) return;
+    mstrip.innerHTML = "";
+    items.forEach((it, idx) => {
+      const d = document.createElement('div');
+      d.className = "mitem";
+      d.dataset.index = idx;
+      d.innerHTML = `
+        <img src="${it.image}" alt="${it.title}">
+        <div class="mmeta"><span class="tag">${it.category}</span><time>${it.date}</time></div>
+        <div class="mtitle">${it.title}</div>
+      `;
+      d.addEventListener('click', () => { select(idx); openOverlay(); });
+      mstrip.appendChild(d);
+    });
+  }
+
+  // aggiorna “current” in base allo scroll orizzontale (snap)
+  function bindStripScroll(){
+    if(!mstrip) return;
+    let ticking = false;
+    mstrip.addEventListener('scroll', () => {
+      if (ticking) return;
+      requestAnimationFrame(() => {
+        const itemsEls = [...mstrip.children];
+        const mid = mstrip.getBoundingClientRect().left + mstrip.clientWidth/2;
+        let bestIdx = 0, bestDist = Infinity;
+        itemsEls.forEach((el, i) => {
+          const r = el.getBoundingClientRect();
+          const center = r.left + r.width/2;
+          const dist = Math.abs(center - mid);
+          if (dist < bestDist){ bestDist = dist; bestIdx = i; }
+        });
+        if (bestIdx !== current){ current = bestIdx; }
+        ticking = false;
+      });
+      ticking = true;
+    }, {passive:true});
+  }
+
+  // ===== OVERLAY =====
+  function openOverlay(){
+    const it = items[current];
+    ovImg.src = it.image; ovImg.alt = it.title;
+    ovCat.textContent = it.category; ovDate.textContent = it.date;
+    ovTitle.textContent = it.title; ovText.textContent = it.text;
+    overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
+  }
+  function closeOverlay(){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); }
+  closeOv.addEventListener('click', closeOverlay);
+  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeOverlay(); });
+  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay(); });
+
+  // swipe dentro overlay per cambiare
+  let tX=null, tY=null;
+  document.getElementById('sheetBody').addEventListener('touchstart',(e)=>{const t=e.changedTouches[0];tX=t.clientX;tY=t.clientY;},{passive:true});
+  document.getElementById('sheetBody').addEventListener('touchend',(e)=>{
+    const t=e.changedTouches[0]; if(tX==null) return;
+    const dx=t.clientX-tX, dy=t.clientY-tY;
+    if(Math.abs(dx)>48 && Math.abs(dx)>Math.abs(dy)){
+      if(dx<0) goNext(); else goPrev();
+    }
+    tX=tY=null;
+  },{passive:true});
+
+  function goPrev(){ select(current-1); if(overlay.classList.contains('open')) openOverlay(); scrollMobileToCurrent(); }
+  function goNext(){ select(current+1); if(overlay.classList.contains('open')) openOverlay(); scrollMobileToCurrent(); }
+
+  document.getElementById('ovPrev').addEventListener('click', goPrev);
+  document.getElementById('ovNext').addEventListener('click', goNext);
+
+  // ===== COMMON =====
+  function select(index){
+    current = (index + items.length) % items.length;
+    fillFeature(items[current]); highlightCard();
+  }
+
+  // desktop feature toggle
+  if (document.getElementById('feature')) {
+    feature.addEventListener('click', ()=>{ if(!isMobile()) feature.classList.toggle('open'); });
+  }
+
+  // desktop arrows
+  if (prevBtn && nextBtn){
+    prevBtn.addEventListener('click', ()=>{ select(current-1); if(!isMobile()) feature.classList.add('open'); });
+    nextBtn.addEventListener('click', ()=>{ select(current+1); if(!isMobile()) feature.classList.add('open'); });
+  }
+
+  // scroll strip to current (when change via overlay arrows)
+  function scrollMobileToCurrent(){
+    if(!mstrip || !isMobile()) return;
+    const el = mstrip.children[current];
+    if(el) el.scrollIntoView({behavior:'smooth', inline:'start', block:'nearest'});
+  }
+
+  // INIT
+  renderList();
+  renderMobileStrip();
+  bindStripScroll();
+  select(0);
+  if (!isMobile()) feature.classList.add('open');
+
+  // re-render on resize switch
+  window.addEventListener('resize', ()=>{ if(isMobile()) { feature?.classList.remove('open'); } });
+</script>
 </body>
 </html>
-
-

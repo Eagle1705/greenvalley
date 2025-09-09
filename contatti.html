@@ -1,93 +1,457 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contatti - GVFC</title>
-    <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
-    <link rel="icon" type="image/svg+xml" href="images/favicon.svg" />
-    <link rel="shortcut icon" href="images/favicon.ico" />
-    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png" />
-    <meta name="apple-mobile-web-app-title" content="GVFC" />
-    <link rel="manifest" href="site.webmanifest" />
-    <link rel="stylesheet" href="css/contatti.css">
-    <script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-    </script>
-    <script type="text/javascript">
-        (function()
-            {
-                emailjs.init(
-                    {
-                        publicKey: "EZoeTiMOVjbTneoi6",
-                    });
-            }
-        )();
-    </script>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Greenvalley FC</title>
+
+<!-- Font come nei file di partenza -->
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- CSS originale NAVBAR (da test2) -->
+<style>
+  :root{
+    --ink:#fff; --bg:#000; --line:#2a2a2a;
+    --nav-h:56px;           /* altezza barra top */
+    --menu-w:50vw;          /* desktop: metà viewport */
+    --logo-h:45px;          /* altezza logo navbar */
+    --logo-h-off:24px;      /* altezza logo nel pannello */
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;background:#111;color:var(--ink);font-family:Teko,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+
+  /* NAVBAR */
+  .navbar{position:fixed;inset:0 0 auto 0;height:var(--nav-h);display:flex;align-items:center;justify-content:center;background:#000;z-index:30}
+  .navbar::after{content:"";position:absolute;left:0;right:0;bottom:-22px;height:22px;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,1),rgba(0,0,0,.65),rgba(0,0,0,0))}
+  .nav-inner{width:min(1200px,96vw);height:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 10px}
+  .nav-left,.nav-right{display:flex;align-items:center;gap:14px}
+  /* Solo icone */
+  .icon-btn{
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0; margin: 0;
+    width: auto; height: auto; line-height: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; cursor: pointer; -webkit-appearance: none; appearance: none;
+  }
+  .icon-btn svg{ width:22px; height:22px; display:block; }
+  .icon-btn:hover svg{ opacity:.85; }
+  .icon-btn:focus{ outline:none; }
+  .icon-btn:focus-visible svg{ filter: drop-shadow(0 0 6px rgba(255,255,255,.55)); }
+
+  /* slot logo centrale */
+  .brand{display:flex;align-items:center;justify-content:center;height:100%}
+  .brand img{height:var(--logo-h);width:auto;display:block}
+
+  /* OFF-CANVAS */
+  .backdrop{position:fixed;inset:0;background:rgba(0,0,0,.6);opacity:0;visibility:hidden;transition:opacity .25s ease,visibility .25s ease;z-index:40}
+  .offcanvas{position:fixed;top:0;left:0;height:100vh;width:100vw;max-width:100vw;background:linear-gradient(#0d0d0d,#0a0a0a);transform:translateX(-100%);transition:transform .28s ease;z-index:41;display:flex;flex-direction:column;border-right:1px solid var(--line)}
+  @media (min-width:1024px){ .offcanvas{width:var(--menu-w);} }
+  .off-head{height:var(--nav-h);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid var(--line);background:#000;padding:0 10px}
+  .off-head img{height:var(--logo-h-off);width:auto}
+  .off-body{overflow:auto;-webkit-overflow-scrolling:touch;flex:1;background:linear-gradient(#101010,#121212)}
+  .menu-list{list-style:none;margin:0;padding:0}
+  .menu-item{display:flex;align-items:center;justify-content:space-between;padding:16px 16px;border-bottom:1px solid #1f1f1f;font-weight:700;letter-spacing:.04em;font-size:clamp(20px,3.8vw,28px);text-transform:uppercase;background:transparent;color:#fff;text-decoration:none}
+  .menu-item:hover,.menu-item:active{ background:#1c1c1c; }
+  .menu-item.is-active{ background:#2a2a2a; }
+  .menu-item:focus-visible{ outline:2px solid rgba(255,255,255,.7); outline-offset:2px; }
+  .mi-right{opacity:.7}
+
+  /* padding top per contenuti sotto la navbar fissa */
+</style>
+
+<!-- CSS originale PARTNERS + FOOTER (da test) -->
+<style>
+  /* ========================= RESET & VARIABILI ========================= */
+  * { box-sizing: border-box; }
+  :root{
+    --bg: #0b0e12;
+    --ink:#f3f5f8;
+    --muted:#a7b0bc;
+    --line:#253041;
+    --milan-red:#e30613;
+    --partner-h: 64px;
+    --partner-gap: clamp(24px, 4.5vw, 56px);
+    --partner-slot-w: clamp(150px, 14vw, 220px);
+    --partner-slot-h: calc(var(--partner-h) + 24px);
+    --marquee-speed: 28s;
+  }
+
+  /* ========================= PARTNERS – STRISCIA ========================= */
+  .partners-marquee{ background:#0b0e12; border-block:1px solid rgba(255,255,255,.08); padding:10px 0; overflow:hidden; }
+  .marquee{ position:relative; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%); }
+  .marquee__track{ display:flex; align-items:center; gap:var(--partner-gap); width:max-content; animation:marquee-scroll var(--marquee-speed) linear infinite; padding-inline:8%; }
+  @keyframes marquee-scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .marquee__track li{ width:var(--partner-slot-w); height:var(--partner-slot-h); display:grid; place-items:center; }
+  .marquee__track a, .marquee__track a[aria-hidden="true"]{ pointer-events:auto; display:flex; align-items:center; justify-content:center; width:100%; height:100%; padding:8px 12px; border-radius:12px; transition:transform .15s ease, filter .15s ease, opacity .15s ease; text-decoration:none; }
+  .marquee__track a:hover{ transform:translateY(-2px); filter:brightness(1.05); }
+  .marquee__track a:focus-visible{ outline:2px solid rgba(255,255,255,.5); outline-offset:2px; border-radius:12px; }
+  .marquee__track img{ height:var(--partner-h); max-width:100%; width:auto; object-fit:contain; image-rendering:-webkit-optimize-contrast; filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)); opacity:.95; }
+  @media (prefers-reduced-motion: reduce){ .marquee__track{ animation:none } .marquee{ overflow-x:auto; -webkit-mask-image:none; mask-image:none } }
+  @media (max-width:480px){ :root{ --partner-h:56px } }
+
+  /* ========================= FOOTER – stile Milan ========================= */
+  .milan-footer{ color:#fff; }
+  .mf-band{ position:relative; }
+  .mf-band--light{ background:#000000; height:130px; }
+  .mf-band--dark{ background:#222222; padding:50px 16px 24px; border-top:4px solid #000; position:relative; }
+  .mf-logo-wrap{ position:absolute; left:50%; top:0; transform:translate(-50%,-50%); display:grid; place-items:center; }
+  .mf-logo{ width:120px; height:auto; }
+  .mf-hashtags{ max-width:1200px; margin:40px auto 18px; padding:0 16px; display:flex; align-items:center; justify-content:space-between; text-transform:uppercase; font-weight:800; letter-spacing:.02em; font-size:clamp(18px,2.2vw,28px); }
+  .mf-hashtags span{ background:linear-gradient(90deg,#0b6b2b,#d4af37); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; display:inline-block; }
+  @supports not (background-clip: text){ .mf-hashtags span{ color:#d4af37 } }
+  .mf-social-block{ text-align:center; margin-top:10px; }
+  .mf-social-block h3{ font-weight:800; font-size:14px; letter-spacing:.08em; opacity:.85; margin-bottom:10px; }
+  .mf-social{ display:flex; gap:14px; justify-content:center; }
+  .mf-social a{ width:42px; height:42px; display:grid; place-items:center; background:#111; border:1px solid #2b2b2b; border-radius:50%; }
+  .mf-social a:hover{ filter:brightness(1.15); }
+  .mf-legal{ max-width:1200px; margin:28px auto 0; padding:0 16px; border-top:1px solid rgba(255,255,255,.15); }
+  .mf-legal ul{ list-style:none; margin:18px 0 8px; padding:0; display:grid; gap:10px; grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .mf-legal a{ color:#fff; text-decoration:none; font-weight:800; font-size:.95rem; }
+  .mf-legal a:hover{ opacity:.85; }
+  .mf-copy{ margin:16px 0 0; color:#d9d9d9; font-size:.9rem; opacity:.9; border-top:1px solid rgba(255,255,255,.08); padding-top:12px; }
+  @media (max-width:900px){ .mf-legal ul{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+  @media (max-width:540px){ .mf-legal ul{ grid-template-columns:1fr } .mf-hashtags{ flex-direction:column; gap:6px; text-align:center } .mf-logo{ width:88px } .mf-band--light{ height:120px } }
+  /* Font globale stile Juve */
+html, body, h1, h2, h3, h4, h5, h6,
+button, input, select, textarea,
+.menu-item, .hero-title, .hero-subtitle {
+  font-family: 'Teko', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif !important;
+  letter-spacing: .02em;
+}
+
+</style>
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --ink:#fff; --bg:#000; --line:#2a2a2a;
+    --nav-h:56px;           /* altezza barra top */
+    --menu-w:50vw;          /* desktop: metà viewport */
+    --logo-h:45px;          /* altezza logo navbar */
+    --logo-h-off:24px;      /* altezza logo nel pannello */
+  }
+  *{box-sizing:border-box} html,body{height:100%}
+  body{margin:0;background:#111;color:var(--ink);font-family:Teko,system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif}
+
+  /* NAVBAR */
+  .navbar{
+    position:fixed; inset:0 0 auto 0; height:var(--nav-h);
+    display:flex; align-items:center; justify-content:center;
+    background:#000; z-index:3000;
+  }
+  /* rimuove la banda nera/fade sotto la navbar */
+
+  .nav-inner{width:min(1200px,96vw);height:100%;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;padding:0 10px}
+  .nav-left,.nav-right{display:flex;align-items:center;gap:14px}
+
+  /* Solo icone */
+  .icon-btn{
+    background: transparent !important;
+    border: 0 !important;
+    padding: 0; margin: 0;
+    width: auto; height: auto; line-height: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; cursor: pointer; -webkit-appearance: none; appearance: none;
+  }
+  .icon-btn svg{ width:22px; height:22px; display:block; }
+  .icon-btn:hover svg{ opacity:.85; }
+  .icon-btn:focus{ outline:none; }
+  .icon-btn:focus-visible svg{ filter: drop-shadow(0 0 6px rgba(255,255,255,.55)); }
+
+  /* slot logo centrale */
+  .brand{display:flex;align-items:center;justify-content:center;height:100%}
+  .brand img{height:var(--logo-h);width:auto;display:block}
+
+  /* OFF-CANVAS */
+  .backdrop{
+    position:fixed; inset:0; background:rgba(0,0,0,.6);
+    opacity:0; visibility:hidden; transition:opacity .25s ease,visibility .25s ease; z-index:3500;
+  }
+  .offcanvas{
+    position:fixed; top:0; left:0; height:100vh; width:100vw; max-width:100vw;
+    background:linear-gradient(#0d0d0d,#0a0a0a);
+    transform:translateX(-100%); transition:transform .28s ease; z-index:3600;
+    display:flex; flex-direction:column; border-right:1px solid var(--line);
+  }
+  @media (min-width:1024px){ .offcanvas{width:var(--menu-w);} }
+
+  .off-head{height:var(--nav-h);display:grid;grid-template-columns:1fr auto 1fr;align-items:center;border-bottom:1px solid var(--line);background:#000;padding:0 10px}
+  .off-head img{height:var(--logo-h-off);width:auto}
+  .off-body{overflow:auto;-webkit-overflow-scrolling:touch;flex:1;background:linear-gradient(#101010,#121212)}
+  .menu-list{list-style:none;margin:0;padding:0}
+  .menu-item{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 16px; border-bottom:1px solid #1f1f1f;
+    font-weight:700; letter-spacing:.04em; font-size:clamp(20px,3.8vw,28px);
+    text-transform:uppercase; background:transparent; color:#fff; text-decoration:none;
+  }
+  .menu-item:hover,.menu-item:active{ background:#1c1c1c; }
+  .menu-item.is-active{ background:#2a2a2a; }
+  .menu-item:focus-visible{ outline:2px solid rgba(255,255,255,.7); outline-offset:2px; }
+  .mi-right{opacity:.7}
+  .off-foot{padding:14px 16px;border-top:1px solid #1f1f1f;background:#0d0d0d;text-align:center;color:#aaa;font-size:14px}
+
+  /* >>> Stato aperto (mancava nel merge) <<< */
+  .menu-open .backdrop{ opacity:1; visibility:visible; }
+  .menu-open .offcanvas{ transform:translateX(0); }
+  .menu-open{ overflow:hidden; }
+
+  /* Contenuti subito sotto la navbar (niente gap extra) */
+
+  /* ====== PARTNERS ====== */
+  :root{
+    --partner-h: 64px;
+    --partner-gap: clamp(24px, 4.5vw, 56px);
+    --partner-slot-w: clamp(150px, 14vw, 220px);
+    --partner-slot-h: calc(var(--partner-h) + 24px);
+    --marquee-speed: 28s;
+  }
+  .partners-marquee{ background:#0b0e12; border-block:1px solid rgba(255,255,255,.08); padding:10px 0; overflow:hidden; }
+  .marquee{ position:relative; overflow:hidden; -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0,#000 8%,#000 92%,transparent 100%); }
+  .marquee__track{ display:flex; align-items:center; gap:var(--partner-gap); width:max-content; animation:marquee-scroll var(--marquee-speed) linear infinite; padding-inline:8%; }
+  @keyframes marquee-scroll{ 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+  .marquee__track li{ width:var(--partner-slot-w); height:var(--partner-slot-h); display:grid; place-items:center; }
+  .marquee__track a{ display:flex; align-items:center; justify-content:center; width:100%; height:100%; padding:8px 12px; border-radius:12px; text-decoration:none; }
+  .marquee__track img{ height:var(--partner-h); max-width:100%; width:auto; object-fit:contain; filter:drop-shadow(0 6px 16px rgba(0,0,0,.35)); opacity:.95; }
+
+  /* ====== FOOTER ====== */
+  .milan-footer{ color:#fff; }
+  .mf-band{ position:relative; }
+  .mf-band--light{ background:black; height:130px; }
+  .mf-band--dark{ background:#222222; padding:50px 16px 24px; border-top:4px solid #000; position:relative; }
+  .mf-logo-wrap{ position:absolute; left:50%; top:0; transform:translate(-50%,-50%); display:grid; place-items:center; }
+  .mf-logo{ width:120px; height:auto; }
+  .mf-hashtags{ max-width:1200px; margin:40px auto 18px; padding:0 16px; display:flex; align-items:center; justify-content:space-between; text-transform:uppercase; font-weight:800; letter-spacing:.02em; font-size:clamp(18px,2.2vw,28px); }
+  .mf-hashtags span{ background:linear-gradient(90deg,#0b6b2b,#d4af37); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; color:transparent; display:inline-block; }
+  @supports not (background-clip: text){ .mf-hashtags span{ color:#d4af37 } }
+  .mf-social-block{ text-align:center; margin-top:10px; }
+  .mf-social-block h3{ font-weight:800; font-size:14px; letter-spacing:.08em; opacity:.85; margin-bottom:10px; }
+  .mf-social{ display:flex; gap:14px; justify-content:center; }
+  .mf-social a{ width:42px; height:42px; display:grid; place-items:center; background:#111; border:1px solid #2b2b2b; border-radius:50%; }
+  .mf-social a:hover{ filter:brightness(1.15); }
+  .mf-legal{ max-width:1200px; margin:28px auto 0; padding:0 16px; border-top:1px solid rgba(255,255,255,.15); }
+  .mf-legal ul{ list-style:none; margin:18px 0 8px; padding:0; display:grid; gap:10px; grid-template-columns:repeat(4,minmax(0,1fr)); }
+  .mf-legal a{ color:#fff; text-decoration:none; font-weight:800; font-size:.95rem; }
+  .mf-legal a:hover{ opacity:.85; }
+  .mf-copy{ margin:16px 0 0; color:#d9d9d9; font-size:.9rem; opacity:.9; border-top:1px solid rgba(255,255,255,.08); padding-top:12px; }
+  @media (max-width:900px){ .mf-legal ul{ grid-template-columns:repeat(2,minmax(0,1fr)) } }
+  @media (max-width:540px){ .mf-legal ul{ grid-template-columns:1fr } .mf-hashtags{ flex-direction:column; gap:6px; text-align:center } .mf-logo{ width:88px } .mf-band--light{ height:120px } }
+</style>
+<style>
+  /* HERO attaccato alla navbar  */
+  main{ padding-top: 0 !important; }
+
+  /* l’hero parte subito sotto la barra e occupa l’intero viewport visibile */
+  #hero{
+    margin-top: var(--nav-h);
+    min-height: calc(100vh - var(--nav-h));
+    display: grid; place-items: center;
+    text-align: center; color: #fff;
+  }
+
+  /* in caso ci sia ancora il fade: disattivalo forzatamente */
+</style>
+<link rel="stylesheet" href="css/contatti.css">
+<link rel="stylesheet" href="css/styles.css">
+
+
+<link href="https://fonts.googleapis.com/css2?family=Teko:wght@500;700&display=swap" rel="stylesheet">
+<!--hero styles-->
+<style>
+  :root{
+    --ink:#ffffff;           /* testo */
+    --sub:#d6e0ea;           /* testo secondario */
+    --accent:#00d435;        /* CTA */
+    --hero-h: 100vh;         /* altezza hero */
+  }
+  /* Reset minimale */
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body{
+    margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    color:var(--ink); background:#000; overflow-x:hidden;
+  }
+
+  /* ===== HERO ===== */
+  .hero{
+    position:relative; height:var(--hero-h); min-height:480px; isolation:isolate;
+    display:grid; place-items:center; text-align:center;
+  }
+  /* Video di sfondo */
+  .hero video{
+    position:absolute; inset:0; width:100%; height:100%;
+    object-fit:cover; object-position:center;
+    z-index:-1; pointer-events:none; /* non cattura i click */
+    filter:contrast(1.05) saturate(1.1);
+    background:#000; /* evita flash */
+  }
+  /* Overlay per readability */
+  .hero::before{
+    content:""; position:absolute; inset:0;
+    background:
+      radial-gradient(80% 60% at 50% 55%, rgba(0,0,0,.25) 0%, rgba(0,0,0,.55) 60%, rgba(0,0,0,.7) 100%),
+      linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.55) 100%);
+    z-index:0;
+  }
+  /* Contenuto */
+  .hero-inner{ position:relative; z-index:1; padding:0 20px; }
+  .hero-kicker{
+    font-family:"Teko", system-ui; letter-spacing:.08em; font-weight:700;
+    text-transform:uppercase; opacity:.9; font-size:clamp(14px,2.4vw,18px);
+  }
+  .hero-title{
+    font-family:"Teko", system-ui; text-transform:uppercase;
+    font-size:clamp(36px,8vw,84px); line-height:.95; margin:.2em 0 .15em;
+  }
+  .hero-sub{
+    color:var(--sub); font-size:clamp(14px,2.3vw,18px); max-width:60ch; margin:0 auto 20px;
+  }
+  .cta{
+    display:flex; gap:12px; justify-content:center; flex-wrap:wrap;
+  }
+  .btn{
+    appearance:none; border:none; cursor:pointer; font-weight:700; letter-spacing:.02em;
+    padding:12px 18px; border-radius:999px; transition:transform .15s ease, filter .15s ease, opacity .15s ease;
+  }
+  .btn-primary{ background:var(--accent); color:#031; }
+  .btn-ghost{ background:transparent; color:var(--ink); outline:1px solid rgba(255,255,255,.5); }
+  .btn:hover{ transform:translateY(-1px); filter:brightness(1.05); }
+
+  /* Controlli video (mute / pausa) */
+  .hero-controls{
+    position:absolute; right:14px; bottom:14px; display:flex; gap:10px; z-index:2;
+  }
+  .ctrl{
+    width:42px; height:42px; display:grid; place-items:center; border-radius:999px;
+    background:rgba(0,0,0,.55); border:1px solid rgba(255,255,255,.25); color:#fff;
+    cursor:pointer; backdrop-filter: blur(4px);
+  }
+  .ctrl:hover{ filter:brightness(1.1); }
+
+  /* Poster/fallback per riduzione movimento */
+  @media (prefers-reduced-motion: reduce){
+    .hero video{ display:none; }
+    .hero{ background: url("images/sfondo.jpg") center/cover no-repeat #000; }
+  }
+</style>
+<!-- (facoltativo) il tuo CSS di progetto per hero/notizie -->
+<link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
 </head>
-
-
 <body>
-    <div id="loading-screen">
-        <img src="images/logo-greenvalley.png" alt="Logo" class="loading-logo">
+
+<!-- NAVBAR -->
+<header class="navbar" role="banner">
+  <div class="nav-inner">
+    <div class="nav-left">
+      <button class="icon-btn" id="openMenu" aria-label="Apri menu" aria-controls="offcanvas" aria-expanded="false">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
     </div>
+    <div class="brand">
+      <img src="images/logo-greenvalley.png" alt="Logo del club">
+    </div>
+    <div class="nav-right"></div>
+  </div>
+</header>
 
-    <header class="navbar">
-        <div class="navbar-container">
-            <img src="images/logo-greenvalley.png" alt="Logo" class="navbar-logo">
-            <nav class="navbar-menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="squadra.html">Squadra</a></li>
+<!-- BACKDROP + OFFCANVAS -->
+<div class="backdrop" id="backdrop" hidden></div>
+<aside class="offcanvas" id="offcanvas" aria-hidden="true">
+  <div class="off-head">
+    <div class="oh-left" style="display:flex;align-items:center;gap:10px;">
+      <button class="icon-btn" id="closeMenu" aria-label="Chiudi menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="oh-center" style="display:flex;justify-content:center;align-items:center;">
+      <img src="images/logo-greenvalley.png" alt="Logo del club">
+    </div>
+    <div class="oh-right"></div>
+  </div>
+  <div class="off-body">
+    <nav aria-label="Menu principale">
+      <ul class="menu-list">
+        <li><a class="menu-item" href="index.html"><span>Home</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item" href="squadra.html"><span>La Squadra</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item is-active" href="pg.html"><span>Photogallery</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item" href="pg.html"><span>Club</span><span class="mi-right">›</span></a></li>
+        <li><a class="menu-item" href="sponsor.html"><span>Sponsor</span><span class="mi-right">›</span></a></li>
 
-                    <li><a href="sponsor.html">Sponsor</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+      </ul>
+    </nav>
+  </div>
+  <div class="off-foot">GVFC 2024 - All Rights Reserved</div>
+</aside>
+<main>
+    <section class="contact-section">
+  <h2>Contattaci</h2>
+  <p>Hai domande o vuoi giocare con noi? Compila il modulo qui sotto e ti risponderemo il prima possibile!</p>
+  <div class="contact-divider"></div>
+  <form class="contact-form" action="#" method="post" id="contactForm">
+    <input type="text" name="name" placeholder="Il tuo nome" required>
+    <input type="email" name="email" placeholder="La tua email" required>
+    <textarea name="message" rows="5" placeholder="Il tuo messaggio" required></textarea>
+    <button type="submit">Invia</button>
+  </form>
+  </section>
+  </main>
 
-    <main>
-        <section class="contact-section">
-    <h2>Contattaci</h2>
-    <p>Hai domande o vuoi giocare con noi? Compila il modulo qui sotto e ti risponderemo il prima possibile!</p>
-    <div class="contact-divider"></div>
-    <form class="contact-form" action="#" method="post" id="contactForm">
-        <input type="text" name="name" placeholder="Il tuo nome" required>
-        <input type="email" name="email" placeholder="La tua email" required>
-        <textarea name="message" rows="5" placeholder="Il tuo messaggio" required></textarea>
-        <button type="submit">Invia</button>
-    </form>
-</section>
-    </main>
+<!-- ===== FOOTER (da test) ===== -->
+<footer class="milan-footer">
+  <div class="mf-band mf-band--light"></div>
+  <div class="mf-band mf-band--dark">
+    <div class="mf-logo-wrap">
+      <img src="images/logo-greenvalley.png" alt="AC Milan" class="mf-logo">
+    </div>
+    <div class="mf-hashtags">
+      <span>#VERSOLAVITTORIA</span>
+      <span>#FOZZACARUSI</span>
+    </div>
+    <div class="mf-social-block">
+      <h3>GVFC SUI SOCIAL MEDIA</h3>
+      <div class="mf-social">
+        <a href="https://www.instagram.com/greenvalleyfc_?igsh=MW1lMTZuamFpaGxicA==" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.9.2 2.3.4.6.2 1 .5 1.5 1s.8.9 1 1.5c.2.4.3 1.1.4 2.3.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c-.1 1.2-.2 1.9-.4 2.3-.2.6-.5 1-1 1.5s-.9.8-1.5 1c-.4.2-1.1.3-2.3.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2-.1-1.9-.2-2.3-.4-.6-.2-1-.5-1.5-1s-.8-.9-1-1.5c-.2-.4-.3-1.1-.4-2.3C2.2 15.6 2.2 15.2 2.2 12s0-3.6.1-4.9c.1-1.2.2-1.9.4-2.3.2-.6.5-1 1-1.5s.9-.8 1.5-1c.4-.2 1.1-.3 2.3-.4C8.4 2.2 8.8 2.2 12 2.2m0 3.1c-3 0-3.4 0-4.6.1-.9 0-1.4.2-1.7.3-.4.2-.7.4-1 .7-.3.3-.5.6-.7 1-.1.3-.3.8-.3 1.7-.1 1.2-.1 1.6-.1 4.6s0 3.4.1 4.6c0 .9.2 1.4.3 1.7.2.4.4.7.7 1 .3.3.6.5 1 .7.3.1.8.3 1.7.3 1.2.1 1.6.1 4.6.1s3.4 0 4.6-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.4 1-.7.3-.3.5-.7.7-1 .1-.3.3-.8.3-1.7.1-1.2.1-1.6.1-4.6s0-3.4-.1-4.6c0-.9-.2-1.4-.3-1.7-.2-.4-.4-.7-.7-1-.3-.3-.6-.5-1-.7-.3-.1-.8-.3-1.7-.3-1.2-.1-1.6-.1-4.6-.1m0 2.7a4.9 4.9 0 110 9.8 4.9 4.9 0 010-9.8z"/></svg></a>
+        <a href="https://www.youtube.com/@IMMAGINIEOPINIONI" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" width="22" height="22" fill="#fff"><path d="M23 7.1a4 4 0 00-2.8-2.8C18.4 3.8 12 3.8 12 3.8s-6.4 0-8.2.5A4 4 0 001 7.1 41.7 41.7 0 000 12a41.7 41.7 0 001 4.9 4 4 0 002.8 2.8c1.8.5 8.2.5 8.2.5s6.4 0 8.2-.5A4 4 0 0023 17 41.7 41.7 0 0024 12a41.7 41.7 0 00-1-4.9zM9.6 15.5V8.5l6.1 3.5-6.1 3.5z"/></svg></a>
+      </div>
+    </div>
+    <div class="mf-legal">
+      <ul>
+        <li><a href="index.html">HOME</a></li><li><a href="https://policies.google.com/privacy?hl=it">PRIVACY</a></li><li><a href="contatti.html">CONTATTI</a></li><li><a href="#">GESTISCI COOKIE</a></li>
+        <li><a href="sponsor.html">PARTNER</a></li><li><a href="#">NUOVA MAGLIA 2025/26</a></li>
+      </ul>
+      <p class="mf-copy">Copyright © 2025 GVFC.it. Tutti i diritti riservati.</p>
+    </div>
+  </div>
+</footer>
 
-    <footer>
-        <p>&copy; 2024 Greenvalley FC. Tutti i diritti riservati.</p>
-    </footer>
+<!-- JS originale NAVBAR (da test2) -->
+<script>
+  const body = document.body;
+  const openBtn = document.getElementById('openMenu');
+  const closeBtn = document.getElementById('closeMenu');
+  const offcanvas = document.getElementById('offcanvas');
+  const backdrop = document.getElementById('backdrop');
 
-    <script src="js/script.js"></script>
-    <script>
-        document.querySelector("form").addEventListener("submit", function (e) {
-            e.preventDefault(); // Evita il refresh della pagina
-
-            const params = {
-                from_name: document.querySelector('input[name="name"]').value,
-                reply_to: document.querySelector('input[name="email"]').value,
-                message: document.querySelector('textarea[name="message"]').value,
-            };
-
-            const serviceID = "service_nysxrgu";
-            const templateID = "gvfctemplate";
-
-            emailjs.send(serviceID, templateID, params)
-                .then(function (response) {
-                    console.log("SUCCESS!", response.status, response.text);
-                    alert("Email inviata con successo!");
-                }, function (error) {
-                    console.log("FAILED...", error);
-                    alert("C'è stato un problema nell'invio dell'email.");
-                });
-        });
-    </script>
+  function openMenu(){
+    body.classList.add('menu-open');
+    offcanvas.setAttribute('aria-hidden','false');
+    openBtn.setAttribute('aria-expanded','true');
+    backdrop.hidden = false;
+    offcanvas.querySelector('.menu-item')?.focus();
+  }
+  function closeMenu(){
+    body.classList.remove('menu-open');
+    offcanvas.setAttribute('aria-hidden','true');
+    openBtn.setAttribute('aria-expanded','false');
+    backdrop.hidden = true;
+    openBtn.focus();
+  }
+  openBtn.addEventListener('click', openMenu);
+  closeBtn.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', e => { if(e.key === 'Escape' && body.classList.contains('menu-open')) closeMenu(); });
+</script>
 
 </body>
 </html>
