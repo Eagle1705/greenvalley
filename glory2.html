@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Parete di Polaroid — Quiz Drag & Drop ❤️</title>
+  <style>
+    :root{
+      --bg: #0e1018;
+      --card: #141826;
+      --ink: #eef1f6;
+      --muted:#a7afc5;
+      --accent:#7ee2ff;
+      --good:#58f0c1;
+      --warn:#ffb86b;
+      --bad:#ff6b8a;
+      --border:#2a3050;
+      --shadow: 0 12px 36px rgba(0,0,0,.35);
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; color:var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(1000px 600px at -10% -10%, #1a2146 0%, transparent 60%),
+        radial-gradient(800px 500px at 110% 0%, #111b36 0%, transparent 60%),
+        var(--bg);
+      padding:16px; padding-bottom:28px;
+    }
+    header{
+      position:sticky; top:0; z-index:10;
+      background: linear-gradient(180deg,#161a2e 0%,#12162a 100%);
+      border:1px solid var(--border);
+      border-radius: 14px; padding:14px 16px; box-shadow: var(--shadow);
+      margin-bottom:14px;
+    }
+    header h1{margin:0 0 6px; font-size: clamp(18px, 4.5vw, 24px); letter-spacing:.2px}
+    header p{margin:0; color:var(--muted); font-size: 14px}
+
+    .wrap{max-width:720px; margin-inline:auto}
+
+    /* INDIZI (drag sources) */
+    .items{
+      display:grid; gap:10px; grid-template-columns: 1fr; margin:12px 0 18px; list-style:none; padding:0;
+    }
+    .item{
+      display:flex; align-items:center; gap:10px;
+      background:#191f39; border:1px solid #2f3766; border-radius:12px;
+      padding:12px 14px; min-height:56px; cursor:grab; 
+      transition:.15s ease transform, .2s ease box-shadow, .2s ease background, .2s ease border-color;
+    }
+    .item:active{cursor:grabbing}
+    .item .emo{font-size:20px}
+    .item .txt{flex:1}
+    .item:hover{transform:translateY(-1px); box-shadow: 0 8px 18px rgba(0,0,0,.25)}
+    .item.selected{outline:2px solid var(--accent); background:#1d2450}
+    .item.done{opacity:.55; filter:saturate(.7); cursor:default}
+
+    /* POLAROID WALL */
+    .wall{
+      display:grid; grid-template-columns: repeat(2, 1fr); gap:12px;
+    }
+    @media (min-width:700px){ .wall{grid-template-columns: repeat(3, 1fr);} }
+
+    .polaroid{
+      position:relative; background:#f8f8f2; color:#111; border-radius:12px; padding:10px; 
+      box-shadow: 0 10px 18px rgba(0,0,0,.35);
+      transform: rotate(var(--rot, 0deg));
+      border: 1px solid #e9e9e1;
+    }
+    .polaroid .photo{
+      display:flex; align-items:center; justify-content:center;
+      height: 34vw; max-height:220px; min-height:120px;
+      background: linear-gradient(135deg,#d7e1ff,#f0f5ff);
+      border-radius:8px; border:1px solid #d9dff7; overflow:hidden;
+      position:relative;
+    }
+    .polaroid .photo img{width:100%; height:100%; object-fit:cover}
+    .polaroid .emo{position:absolute; font-size: clamp(36px, 9vw, 44px)}
+    .polaroid .cap{margin-top:8px; height:40px; display:flex; align-items:center; justify-content:center; font-weight:600}
+
+    .zone{ /* droppable area (entire polaroid) */
+      border:2px dashed #c5cae9; border-radius:12px; transition:.2s ease border-color, .2s ease transform, .2s ease background;
+    }
+    .zone.over{border-color:#86c9ff; transform:translateY(-2px); background:#f2f7ff}
+    .zone.filled{border-style:solid; border-color:#b7f5e3; background:#effcf8}
+
+    .slot{position:absolute; inset:auto 8px 8px 8px; display:flex; justify-content:center}
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      background:#0e1738; color:#e6f7ff; border:1px solid #3c4cab; border-radius:999px; padding:8px 12px; font-size:14px;
+      box-shadow: inset 0 0 10px #00000022;
+    }
+
+    .progress{display:flex; align-items:center; gap:10px; margin:16px 0}
+    .bar{flex:1; height:12px; background:#242956; border:1px solid #303678; border-radius:999px; overflow:hidden}
+    .bar>.fill{height:100%; width:0%; background:linear-gradient(90deg,#6fe6ff,#58f0c1); transition: width .25s ease}
+    .count{font-size:13px; color:var(--muted)}
+
+    .actions{display:flex; gap:10px; flex-wrap:wrap}
+    button{background:#21285a; color:#fff; border:1px solid #3c47a5; border-radius:12px; padding:12px 16px; font-weight:600; letter-spacing:.2px; cursor:pointer}
+    button:active{transform:translateY(1px)}
+
+    .unlock{margin-top:16px; padding:16px; border-radius:14px; border:1px solid #2f8f7a55; background: linear-gradient(180deg, #0f2a23 0%, #0b221d 100%); box-shadow: var(--shadow)}
+    .unlock h3{margin:0 0 6px; color:#9ff9da}
+    .unlock p{margin:0 0 10px}
+    .unlock a{display:inline-block; text-decoration:none; color:#0e0; background:#0a381f; border:1px solid #1ad27e; padding:12px 16px; border-radius:10px; font-weight:700}
+    .hidden{display:none}
+
+    .note{color:var(--muted); font-size:12px; margin-top:8px}
+
+    .shake{animation:shake .35s}
+    @keyframes shake{10%{transform:translateX(-3px)} 30%{transform:translateX(3px)} 50%{transform:translateX(-2px)} 70%{transform:translateX(2px)} 100%{transform:translateX(0)}}
+
+    /* confetti */
+    .confetti{position:fixed; top:-10vh; user-select:none; pointer-events:none; animation:fall 2.6s ease-out forwards; font-size:20px; filter: drop-shadow(0 6px 6px rgba(0,0,0,.35))}
+    @keyframes fall{0%{transform: translateY(-10vh) rotate(0)} 100%{transform: translateY(110vh) rotate(540deg)}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Parete di Polaroid 📷</h1>
+      <p>Abbina ogni <strong>didascalia</strong> alla <strong>foto</strong>. Su telefono puoi toccare una didascalia e poi una polaroid per piazzarla. Completa tutto per sbloccare la sorpresa!</p>
+    </header>
+
+    <section aria-label="Indizi" class="indizi">
+      <ul id="items" class="items"></ul>
+      <p class="note">Tip: tocca una didascalia per selezionarla, poi tocca la polaroid giusta. Trascinamento supportato dove possibile.</p>
+    </section>
+
+    <section aria-label="Parete" class="wall" id="wall"></section>
+
+    <div class="progress">
+      <div class="bar"><div id="fill" class="fill"></div></div>
+      <span id="counter" class="count">0/0</span>
+    </div>
+
+    <div class="actions">
+      <button id="resetBtn" type="button">↺ Ricomincia</button>
+    </div>
+
+    <section id="unlock" class="unlock hidden" aria-live="polite">
+      <h3>🎁 Suggerimento sbloccato!</h3>
+      <p id="hint">…</p>
+    </section>
+  </main>
+
+  <script>
+    // ====================== CONFIGURAZIONE ======================
+    // Metti qui il link al tuo video e il testo del suggerimento finale
+    // VIDEO_URL rimosso (video disattivato)
+    const SUGGERIMENTO = "SUGGERIMENTO PT.2: TA"; // <— cambia con il tuo indizio
+
+    // Pairs: ogni polaroid ha una chiave (key), un titolo/label e un'emoji o immagine.
+    // Le didascalie (drag) devono combaciare con la stessa key.
+    // Puoi sostituire emoji con immagini: { img: "images/gelato.jpg" } al posto di emoji.
+    const PAIRS = [
+      {
+        key: "tancredi",
+        label: "",
+        emoji: "😍",
+        img: "images/tancredi.jpg",
+        caption: "Che bono tancredi mamma mia"
+      },
+      {
+        key: "sleep",
+        label: "",
+        emoji: "🌅",
+        img: "images/devostudia2.jpg",
+        caption: "Ho un sacco di cose da studiare"
+      },
+      {
+        key: "tuttotuno",
+        label: "",
+        emoji: "🛁",
+        img: "images/tuttotuno.jpg",
+        caption: "Come sei bello..."
+      },
+      {
+        key: "selly",
+        label: "",
+        emoji: "📚",
+        img: "images/devostudia.jpg",
+        caption: "Amo non me disturba so concentrata"
+      },
+      {
+        key: "chill",
+        label: "",
+        emoji: "👅",
+        img: "images/donca.jpg",
+        caption: "Udiii"
+      },
+      {
+        key: "crispy",
+        label: "",
+        emoji: "🤡",
+        img: "images/sonoseria.jpg",
+        caption: "Sono una persona seria e razionale io."
+      }
+    ];
+    // ============================================================
+
+    const itemsEl = document.getElementById('items');
+    const wallEl = document.getElementById('wall');
+    const fillEl = document.getElementById('fill');
+    const counterEl = document.getElementById('counter');
+    const unlockEl = document.getElementById('unlock');
+    const hintEl = document.getElementById('hint');
+    const linkEl = document.getElementById('videoLink');
+    const resetBtn = document.getElementById('resetBtn');
+
+    let correct = 0; let total = PAIRS.length; let selectedKey = null;
+
+    function vibrate(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
+
+    function shuffle(a){ const b=a.slice(); for(let i=b.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [b[i],b[j]]=[b[j],b[i]];} return b; }
+
+    function render(){
+      // reset
+      itemsEl.innerHTML = ""; wallEl.innerHTML = ""; unlockEl.classList.add('hidden');
+      hintEl.textContent = ""; /* video disattivato */ correct = 0; total = PAIRS.length; selectedKey = null; updateProgress();
+
+      // build items (captions)
+      shuffle(PAIRS).forEach(p=>{
+        const li = document.createElement('li');
+        li.className = 'item';
+        li.draggable = true; li.setAttribute('data-key', p.key);
+        li.innerHTML = `<span class="emo">${p.emoji || '🧩'}</span><span class="txt">${p.caption}</span>`;
+
+        li.addEventListener('dragstart', (e)=>{
+          e.dataTransfer.setData('text/plain', p.key);
+          e.dataTransfer.effectAllowed = 'move';
+          li.classList.add('selected');
+        });
+        li.addEventListener('dragend', ()=> li.classList.remove('selected'));
+        li.addEventListener('click', ()=>{
+          if(li.dataset.locked==='true') return;
+          document.querySelectorAll('.item.selected').forEach(el=>el.classList.remove('selected'));
+          selectedKey = p.key; li.classList.add('selected');
+        });
+        itemsEl.appendChild(li);
+      });
+
+      // build wall (polaroids)
+      shuffle(PAIRS).forEach((p,idx)=>{
+        const z = document.createElement('div');
+        z.className = 'polaroid zone'; z.setAttribute('data-accept', p.key);
+        z.style.setProperty('--rot', ((idx%2?1:-1) * (3 + Math.random()*2)) + 'deg');
+        z.innerHTML = `
+          <div class="photo" aria-label="Foto ${p.label}">
+            ${p.img ? `<img src="${p.img}" alt="${p.label}">` : `<span class="emo">${p.emoji||'🖼️'}</span>`}
+          </div>
+          <div class="cap">${p.label}</div>
+          <div class="slot"></div>
+        `;
+        // DnD handlers
+        z.addEventListener('dragover', (e)=>{ e.preventDefault(); z.classList.add('over'); });
+        z.addEventListener('dragleave', ()=> z.classList.remove('over'));
+        z.addEventListener('drop', (e)=>{ e.preventDefault(); z.classList.remove('over'); tryPlace(e.dataTransfer.getData('text/plain'), z); });
+        // Tap fallback
+        z.addEventListener('click', ()=>{ if(selectedKey) tryPlace(selectedKey, z); });
+
+        wallEl.appendChild(z);
+      });
+
+      counterEl.textContent = `0/${total}`;
+    }
+
+    function tryPlace(key, zone){
+      if(zone.dataset.filled==='true') { shake(zone); return; }
+      const accept = zone.getAttribute('data-accept');
+      if(key===accept){
+        zone.dataset.filled='true'; zone.classList.add('filled');
+        const itemEl = document.querySelector(`.item[data-key="${key}"]`);
+        if(itemEl){ itemEl.draggable=false; itemEl.dataset.locked='true'; itemEl.classList.remove('selected'); itemEl.classList.add('done'); }
+        const slot = zone.querySelector('.slot');
+        slot.innerHTML = `<span class="chip">${itemEl?itemEl.innerText:key}</span>`;
+        correct++; selectedKey=null; updateProgress();
+        if(correct===total) celebrate();
+      } else {
+        shake(zone); vibrate(80);
+      }
+    }
+
+    function updateProgress(){ const pct = Math.round((correct/total)*100); fillEl.style.width = pct + '%'; counterEl.textContent = `${correct}/${total}`; }
+
+    function shake(el){ el.classList.add('shake'); setTimeout(()=>el.classList.remove('shake'), 420); }
+
+    function celebrate(){
+      hintEl.textContent = SUGGERIMENTO; unlockEl.classList.remove('hidden'); confetti(); vibrate([60,40,60]);
+    }
+
+    function confetti(){
+      const EMOJIS = ['🎉','✨','💖','🎊'];
+      const COUNT = 44;
+      for(let i=0;i<COUNT;i++){
+        const s = document.createElement('span'); s.className='confetti'; s.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+        s.style.left = Math.random()*100 + 'vw'; s.style.animationDelay = (Math.random()*0.9) + 's'; s.style.fontSize = (Math.random()*12 + 16) + 'px';
+        document.body.appendChild(s); setTimeout(()=> s.remove(), 3000);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', render);
+    resetBtn.addEventListener('click', render);
+  </script>
+</body>
+</html>
