@@ -1,1 +1,241 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Caccia al Tesoro — TUNO ❤️</title>
+  <style>
+    :root{
+      --bg:#0f1225; --card:#161a2f; --ink:#eef1f6; --muted:#a7afc5; --accent:#7ee2ff;
+      --good:#58f0c1; --warn:#ffb86b; --bad:#ff6b8a; --border:#2a3050; --shadow:0 12px 36px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; color:var(--ink); font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
+      background:
+        radial-gradient(1000px 600px at -10% -10%, #1a2146 0%, transparent 60%),
+        radial-gradient(800px 500px at 110% 0%, #111b36 0%, transparent 60%), var(--bg);
+      padding:clamp(12px,3vw,20px); padding-bottom:max(16px, env(safe-area-inset-bottom));}
+    .wrap{max-width:720px; margin-inline:auto}
+
+    /* Header mobile-friendly */
+    header{position:sticky; top:0; z-index:10; background:linear-gradient(180deg,#161a2e 0%,#12162a 100%);
+      border:1px solid var(--border); border-radius:14px; padding:12px 14px; box-shadow:var(--shadow)}
+    header h1{margin:0 0 6px; font-size: clamp(18px, 5.2vw, 24px)}
+    header p{margin:0; color:var(--muted); font-size: 15px; line-height:1.35}
+
+    /* Status strip */
+    .status{margin-top:clamp(12px,3vw,16px); background:var(--card); border:1px solid var(--border); border-radius:16px; padding:14px; box-shadow:var(--shadow)}
+    .status .row{display:flex; align-items:center; justify-content:space-between; gap:10px; flex-wrap:wrap}
+    .dots{display:flex; gap:8px; margin-top:8px}
+    .dot{width:14px; height:14px; border-radius:999px; background:#2a2f66; border:1px solid #3c4596}
+    .dot.done{background:linear-gradient(90deg,#6fe6ff,#58f0c1); border-color:#58f0c1}
+
+    .word{display:flex; gap:10px; margin-top:10px; align-items:center}
+    .letter{width:clamp(56px,14vw,72px); height:clamp(56px,14vw,72px); border-radius:14px; background:#1b2149; border:1px solid #2f3766; display:flex; align-items:center; justify-content:center; font-size:clamp(22px,6vw,28px); font-weight:800; letter-spacing:1px}
+    .letter.empty{color:#7f87b4}
+
+    /* Cards */
+    .card{background:var(--card); border:1px solid var(--border); border-radius:18px; padding:clamp(12px,3vw,16px); box-shadow:var(--shadow)}
+    .card + .card{margin-top:clamp(12px,3vw,16px)}
+    .title{display:flex; align-items:center; gap:10px; margin-bottom:8px}
+    .badge{display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:10px; background:#20285a; border:1px solid #3c47a5; font-weight:700}
+    .card h2{margin:0; font-size:16px; letter-spacing:.2px}
+
+    .clue{margin:8px 0 12px; padding:12px; border-radius:12px; border:1px dashed #39418a; background:#141a3b; font-size:15px; line-height:1.35}
+    .clue[hidden]{display:none !important}
+
+    /* Controls — larger tap targets */
+    .controls{display:flex; gap:10px; align-items:center}
+    .controls input[type="text"]{flex:1; min-width:120px; height:52px; border-radius:14px; border:1px solid #3c47a5; background:#151a3a; color:var(--ink); padding:0 14px; font-size:20px; text-transform:uppercase; text-align:center; letter-spacing:2px}
+    .controls button{height:52px; border-radius:14px; border:1px solid #3c47a5; background:#21285a; color:#fff; padding:0 16px; font-weight:700; letter-spacing:.2px; cursor:pointer}
+    .controls button:active{transform:translateY(1px)}
+
+    .hint{color:var(--muted); font-size:13px; margin-top:6px}
+    .ok{color:var(--good); font-weight:800}
+    .err{color:var(--bad); font-weight:800}
+
+    .final{background:linear-gradient(180deg,#102a24 0%, #0b221d 100%); border:1px solid #2f8f7a55; border-radius:16px; padding:16px; display:none; margin-top:clamp(12px,3vw,16px)}
+    .final h3{margin:0 0 6px; color:#9ff9da}
+    .final .big{font-size:26px; font-weight:900}
+
+    .actions{display:flex; gap:10px; margin-top:clamp(12px,3vw,16px)}
+    .actions button{height:48px; border-radius:14px; border:1px solid #3c47a5; background:#21285a; color:#fff; padding:0 16px; font-weight:700}
+
+    .shake{animation:shake .35s}
+    @keyframes shake{10%{transform:translateX(-3px)} 30%{transform:translateX(3px)} 50%{transform:translateX(-2px)} 70%{transform:translateX(2px)} 100%{transform:translateX(0)}}
+
+    .confetti{position:fixed; top:-10vh; user-select:none; pointer-events:none; animation:fall 2.6s ease-out forwards; font-size:20px; filter: drop-shadow(0 6px 6px rgba(0,0,0,.35))}
+    @keyframes fall{0%{transform: translateY(-10vh) rotate(0)} 100%{transform: translateY(110vh) rotate(540deg)}}
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header>
+      <h1>Caccia al Tesoro 🗺️</h1>
+      <p>Ci sono 4 indizi. Ogni oggetto nasconde <strong>una lettera</strong>. Segnala qui le lettere: alla fine scoprirai il suggerimento finale.</p>
+    </header>
+
+    <section class="status" id="status">
+      <div class="row">
+        <div>Progresso</div>
+        <div class="dots" id="dots"></div>
+      </div>
+      <div class="word" id="word"></div>
+      <div class="hint">Parola da comporre: <strong>_ _ _ _</strong> (spoiler: è un anagramma che vi descrive 😉)</div>
+    </section>
+
+    <section id="steps"></section>
+
+    <section class="final" id="final">
+      <h3>🎁 Suggerimento Finale sbloccato!</h3>
+      <p>Soluzione: <span class="big" id="final-hint"></span></p>
+    </section>
+
+    <div class="actions">
+      <button id="resetBtn" type="button">↺ Ricomincia</button>
+    </div>
+  </main>
+
+  <script>
+    // =================== CONFIGURAZIONE ===================
+    const FINAL_WORD = "TUNO";            // parola obiettivo (visuale)
+    const FINAL_HINT = "21";              // suggerimento finale da mostrare
+
+    // Indizi più articolati (Step 4 cambiato: niente scarpe)
+    const STEPS = [
+      { id: 1, title: "Step 1", clue: "Là dove si poggiano i pensieri quando il mondo rallenta: il portale per le braccia di Morfeo ti aspetta.", expected: "T" },
+      { id: 2, title: "Step 2", clue: "Il gran contenitore, lo scrigno degli antichi inverni, che rallenta il destino con i suoi geli eterni.", expected: "U" },
+      { id: 3, title: "Step 3", clue: "Il giudice del risveglio. Colui che tutto riflette. Cercami vicino al suo riflesso splendente.", expected: "N" },
+      { id: 4, title: "Step 4", clue: "La chiave finale troverai se ok premerai", expected: "O" },
+    ];
+    // ======================================================
+
+    // Stato & storage
+    let state = { current: 1, letters: Array(STEPS.length).fill(null) };
+    const KEY = "treasure-tuno-v2";
+    function save(){ localStorage.setItem(KEY, JSON.stringify(state)); }
+    function load(){ try{ const s = JSON.parse(localStorage.getItem(KEY)); if(s && Array.isArray(s.letters)){ state = s; } }catch(e){} }
+
+    // UI refs
+    const stepsEl = document.getElementById('steps');
+    const dotsEl = document.getElementById('dots');
+    const wordEl = document.getElementById('word');
+    const finalEl = document.getElementById('final');
+    const finalHintEl = document.getElementById('final-hint');
+    const resetBtn = document.getElementById('resetBtn');
+
+    function vibrate(ms){ if(navigator.vibrate) navigator.vibrate(ms); }
+
+    function renderDots(){
+      dotsEl.innerHTML = '';
+      for(let i=0;i<STEPS.length;i++){
+        const d = document.createElement('div'); d.className = 'dot' + (state.letters[i] ? ' done' : ''); dotsEl.appendChild(d);
+      }
+    }
+
+    function renderWord(){
+      wordEl.innerHTML = '';
+      for(let i=0;i<STEPS.length;i++){
+        const box = document.createElement('div');
+        box.className = 'letter' + (state.letters[i] ? '' : ' empty');
+        box.textContent = state.letters[i] ? state.letters[i].toUpperCase() : '_';
+        wordEl.appendChild(box);
+      }
+    }
+
+    function stepCard(step){
+      const wrap = document.createElement('div');
+      wrap.className = 'card';
+      wrap.dataset.step = step.id;
+
+      const title = document.createElement('div'); title.className = 'title';
+      const badge = document.createElement('div'); badge.className = 'badge'; badge.textContent = step.id; title.appendChild(badge);
+      const h = document.createElement('h2'); h.textContent = `${step.title}`; title.appendChild(h);
+      wrap.appendChild(title);
+
+      const clue = document.createElement('div'); clue.className = 'clue'; clue.textContent = step.clue; clue.hidden = state.current < step.id; wrap.appendChild(clue);
+
+      const controls = document.createElement('div'); controls.className = 'controls';
+      const input = document.createElement('input'); input.type = 'text'; input.maxLength = 1; input.placeholder = 'Lettera'; input.autocapitalize = 'characters'; input.inputMode = 'text';
+      const okBtn = document.createElement('button'); okBtn.type = 'button'; okBtn.textContent = 'Conferma';
+
+      input.addEventListener('input', ()=>{ input.value = (input.value||'').toUpperCase().replace(/[^A-ZÀ-ÖØ-Ý]/g,'').slice(0,1); });
+      input.addEventListener('keydown', (e)=>{ if(e.key==='Enter'){ okBtn.click(); }});
+
+      okBtn.addEventListener('click', ()=>{
+        if(state.current !== step.id) return; // step non attivo
+        const val = (input.value || '').trim().toUpperCase();
+        if(!val){ shake(wrap); vibrate(60); return; }
+        if(val === step.expected.toUpperCase()){
+          state.letters[step.id-1] = val;
+          state.current = Math.min(step.id+1, STEPS.length+1);
+          save();
+          renderAll();
+          vibrate([60,40,60]);
+          // focus & scroll al prossimo step
+          const nextCard = document.querySelector(`.card[data-step="${step.id+1}"]`);
+          if(nextCard){ nextCard.scrollIntoView({behavior:'smooth', block:'center'}); const nextInput = nextCard.querySelector('input'); if(nextInput) nextInput.focus(); }
+          maybeFinish();
+        } else {
+          feedback(wrap, false);
+        }
+      });
+
+      controls.appendChild(input);
+      controls.appendChild(okBtn);
+      wrap.appendChild(controls);
+
+      const msg = document.createElement('div'); msg.className = 'hint';
+      if(state.letters[step.id-1]){ msg.innerHTML = `<span class="ok">Lettera registrata: ${state.letters[step.id-1]}</span>`; input.disabled = true; okBtn.disabled = true; }
+      else if(state.current === step.id){ msg.textContent = 'Inserisci la lettera trovata e premi Conferma'; }
+      else if(state.current < step.id){ msg.textContent = 'Completa lo step precedente per sbloccare questo'; }
+      else { msg.textContent = 'Step completato'; }
+      wrap.appendChild(msg);
+
+      if(state.current < step.id){ wrap.style.opacity = .65; }
+
+      return wrap;
+    }
+
+    function renderSteps(){ stepsEl.innerHTML = ''; STEPS.forEach(st => stepsEl.appendChild(stepCard(st))); }
+    function renderAll(){ renderDots(); renderWord(); renderSteps(); }
+
+    function shake(el){ el.classList.add('shake'); setTimeout(()=> el.classList.remove('shake'), 420); }
+
+    function feedback(card, ok){
+      const msg = card.querySelector('.hint');
+      if(ok){ msg.innerHTML = '<span class="ok">Giusto! 👏</span>'; }
+      else { msg.innerHTML = '<span class="err">Ops, lettera sbagliata</span>'; vibrate(80); shake(card); }
+    }
+
+    function maybeFinish(){
+      if(state.letters.filter(Boolean).length === STEPS.length){
+        // Tutte le lettere presenti: mostra finale
+        finalHintEl.textContent = FINAL_HINT;
+        finalEl.style.display = 'block';
+        confetti();
+      }
+    }
+
+    function confetti(){
+      const EMOJIS = ['🎉','✨','💖','🎊'];
+      const COUNT = 44;
+      for(let i=0;i<COUNT;i++){
+        const s = document.createElement('span'); s.className='confetti'; s.textContent = EMOJIS[Math.floor(Math.random()*EMOJIS.length)];
+        s.style.left = Math.random()*100 + 'vw'; s.style.animationDelay = (Math.random()*0.9) + 's'; s.style.fontSize = (Math.random()*12 + 16) + 'px';
+        document.body.appendChild(s); setTimeout(()=> s.remove(), 3000);
+      }
+    }
+
+    // Reset
+    resetBtn.addEventListener('click', ()=>{ state = { current:1, letters: Array(STEPS.length).fill(null)}; save(); renderAll(); finalEl.style.display='none'; window.scrollTo({top:0, behavior:'smooth'}); });
+
+    // Boot
+    (function(){ load(); renderAll(); maybeFinish(); setTimeout(()=>{
+      const cur = document.querySelector('.card[data-step="'+state.current+'"] input'); if(cur) cur.focus();
+    }, 200); })();
+  </script>
+</body>
+</html>
 
