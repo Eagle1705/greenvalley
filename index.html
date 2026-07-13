@@ -228,70 +228,119 @@
   </section>
   <div class="divisore"></div>
 
-  <section class="news" aria-labelledby="latest-news-heading">
-    <div class="wrap">
-      <header class="news-head">
-        <div>
-          <div class="news-eyebrow">Latest News</div>
-          <h2 class="news-title" id="latest-news-heading">Greenvalley FC</h2>
-        </div>
-        <div class="news-ctrl desktop-only">
-          <button class="ctrl" id="prevBtn" aria-label="Notizia precedente">‹</button>
-          <button class="ctrl" id="nextBtn" aria-label="Notizia successiva">›</button>
-        </div>
-      </header>
-  
-      <!-- ===== DESKTOP: feature + list ===== -->
-      <div class="news-grid desktop-only">
-        <figure class="feature" id="feature">
-          <div class="feature-media">
-            <div class="accent" aria-hidden="true"></div>
-            <img id="featureImg" src="images/players/ciccio.jpg" alt="">
-            <figcaption class="feature-body">
-              <div class="meta"><span class="tag" id="featureCat">Club</span><time id="featureDate">Oggi</time></div>
-              <a id="featureLink" href="#" target="_blank" rel="noopener"><h3 id="featureTitle">Ridolfo: il nuovo 10 del GVFC</h3></a>
-            </figcaption>
-          </div>
-          <div class="feature-article" id="featureArticle">
-            <div class="feature-article-inner" id="featureText"></div>
-          </div>
-        </figure>
-  
-        <div class="list" id="newsList" role="list"></div>
-      </div>
-  
-      <!-- ===== MOBILE: solo carousel grande con swipe ===== -->
-      <div class="mobile-only mwrap">
-        <div class="mstrip" id="mstrip"><!-- items via JS --></div>
-      </div>
-  
-      <!--<div class="load-more desktop-only">
-        <button class="btn" id="loadMore">Carica altre notizie</button>
-      </div>
-    </div>-->
-  </section>
-  
-  <!-- OVERLAY -->
-  <div class="overlay" id="overlay" aria-hidden="true">
-    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
-      <div class="sheet-head">
-        <button class="arrow" id="ovPrev" aria-label="Precedente">‹</button>
-        <h3 class="sheet-title" id="sheetTitle">Titolo</h3>
-        <button class="arrow" id="ovNext" aria-label="Successiva">›</button>
-        <button class="xbtn" id="closeOv" aria-label="Chiudi">✕</button>
-      </div>
-      <div class="sheet-body" id="sheetBody">
-        <div class="sheet-media"><img id="ovImg" src="" alt=""></div>
-        <div class="sheet-content">
-          <div class="sheet-meta"><span class="tag" id="ovCat">TAG</span><time id="ovDate">DATA</time></div>
-          <p id="ovText"></p>
-        </div>
-      </div>
-      <div class="hint" aria-hidden="true">Swipe ← → per cambiare</div>
-    </div>
-  </div>
-
   <!-- ===== QUI, AL POSTO DEL PRE-FOOTER DI INDEX: PARTNERS (da test) ===== -->
+
+  <!-- ===== IL CAMPIONATO ===== -->
+  <section class="campionato" aria-labelledby="campionato-heading">
+    <div class="camp-grid">
+
+      <!-- LEFT: content -->
+      <div class="camp-left">
+
+        <!-- logos row -->
+        <div class="camp-logos">
+          <div class="camp-logo-gvfc">
+            <img src="images/logo-greenvalley.png" alt="Greenvalley FC">
+          </div>
+          <div class="camp-fpl-badge">
+            <svg viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18" aria-hidden="true">
+              <circle cx="11" cy="11" r="9"/>
+              <path d="M11 5v3M7 7.5l2 2M15 7.5l-2 2M6 13h3.5M12.5 13H16M11 14v3"/>
+            </svg>
+            FUTSAL PREMIER LEAGUE
+          </div>
+        </div>
+
+        <!-- title -->
+        <div class="camp-title-block">
+          <p class="camp-eyebrow">IL CAMPIONATO</p>
+          <h2 class="camp-title" id="campionato-heading">FUTSAL<br>PREMIER LEAGUE</h2>
+          <p class="camp-subtitle">LA LEGA CHE CI OSPITA,<br>IL PALCOSCENICO CHE CI ISPIRA.</p>
+        </div>
+
+        <!-- info items -->
+        <div class="camp-items">
+
+          <div class="camp-item">
+            <div class="camp-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M12 3 L20 7 L20 13 C20 17.4 16.4 21 12 22 C7.6 21 4 17.4 4 13 L4 7 Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </div>
+            <div class="camp-item-text">
+              <h3>La Lega</h3>
+              <p>La Futsal Premier League è il <em>massimo campionato provinciale</em> di <em>futsal</em>, una competizione di alto livello che unisce talento, intensità e professionalità.</p>
+            </div>
+          </div>
+
+          <div class="camp-item">
+            <div class="camp-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="9" cy="7" r="3"/>
+                <circle cx="15" cy="7" r="3"/>
+                <path d="M3 19c0-3.3 2.7-6 6-6h6c3.3 0 6 2.7 6 6"/>
+              </svg>
+            </div>
+            <div class="camp-item-text">
+              <h3>Il Contesto</h3>
+              <p>Un ambiente <em>competitivo</em> e stimolante, dove ogni partita è una sfida e ogni avversario un'opportunità di <em>crescita</em>.</p>
+            </div>
+          </div>
+
+          <div class="camp-item">
+            <div class="camp-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <rect x="3" y="4" width="18" height="17" rx="2"/>
+                <path d="M16 2v4M8 2v4M3 10h18"/>
+              </svg>
+            </div>
+            <div class="camp-item-text">
+              <h3>GVFC in FPL</h3>
+              <p>Da <em>due anni</em> siamo parte della Futsal Premier League. Un percorso che ci ha permesso di misurarci con realtà solide e ambiziose, portando in alto il nome di <em>Valverde</em>.</p>
+            </div>
+          </div>
+
+          <div class="camp-item">
+            <div class="camp-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <circle cx="12" cy="12" r="9"/>
+                <circle cx="12" cy="12" r="5"/>
+                <circle cx="12" cy="12" r="1" fill="currentColor"/>
+              </svg>
+            </div>
+            <div class="camp-item-text">
+              <h3>Il Nostro Obiettivo</h3>
+              <p>Il prossimo anno vogliamo <em>consolidare</em> il nostro progetto, alzare l'asticella e combattere per le <em>prime posizioni</em> della classifica.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- RIGHT: team photo -->
+      <div class="camp-right">
+        <img src="images/mainbg.png" alt="GVFC – Futsal Premier League">
+      </div>
+
+    </div>
+
+    <!-- bottom banner -->
+    <div class="camp-banner">
+      <div class="camp-banner-inner">
+        <span class="camp-banner-star" aria-hidden="true">✦</span>
+        <div>
+          <p class="camp-banner-label">Il prossimo anno:</p>
+          <p class="camp-banner-tagline">Consolidare. Crescere. Competere.</p>
+          <p class="camp-banner-sub">Per le prime posizioni.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="victory-banner" aria-label="Verso la vittoria">
+    <img class="victory-banner__image" src="images/vlv.png" alt="Verso la vittoria">
+  </section>
 
 </main>
 
@@ -349,209 +398,6 @@
   closeBtn.addEventListener('click', closeMenu);
   backdrop.addEventListener('click', closeMenu);
   window.addEventListener('keydown', e => { if(e.key === 'Escape' && body.classList.contains('menu-open')) closeMenu(); });
-</script>
-<script>
-  // ===== DATA DEMO =====
-  const items = [
-    { title:"Ridolfo: il nuovo numero 10 del GreenValley",
-      excerpt:"Talento e personalità per alzare l'asticella.",
-      text:"Il nuovo innesto porterà qualità e fame. L’obiettivo è alzare il ritmo senza perdere pulizia tecnica.",
-      category:"UFFICIALE", date:"2 Set 2025", image:"images/players/ciccio.jpg", link:"#"},
-    { title:"Il GVFC riscatta ufficialmente Pippohimovic",
-      excerpt:"Il bomber ha appena firmato un contratto annuale.",
-      text:"Dopo aver giocato con noi nella passata stagione in prestito, Pippohimovic ha convinto il DS a riscattarlo.",
-      category:"UFFICIALE", date:"31 Ago 2025", image:"images/players/pippo.jpeg", link:"#"},
-    { title:"GVFC: presentate le nuove maglie 25/26",
-      excerpt:"Linea pulita, dettagli gold.",
-      text:"Design in collaborazione, per il secondo anno di fila, con Max Sport SRL.",
-      category:"KIT", date:"28 Ago 2025", image:"images/sponsor/max.jpg", link:"#"},
-    { title:"Rinnovo di sponsorship con SNAI SAN GREGORIO",
-      excerpt:"Affetto e rispetto.",
-      text:"Ancora una volta Fabio Costanzo ci ha voluto dimostrare di credere al progetto. Siamo entusiasti di continuare questa avventura con lui",
-      category:"UFFICIALE", date:"26 Ago 2025", image:"images/sponsor/fabio.jpg", link:"#"},
-
-  ];
-
-  // ===== ELEMENTI =====
-  const feature = document.getElementById('feature');
-  const featureImg = document.getElementById('featureImg');
-  const featureCat = document.getElementById('featureCat');
-  const featureDate = document.getElementById('featureDate');
-  const featureTitle = document.getElementById('featureTitle');
-  const featureLink = document.getElementById('featureLink');
-  const featureText = document.getElementById('featureText');
-  const newsList = document.getElementById('newsList');
-
-  const overlay = document.getElementById('overlay');
-  const ovImg = document.getElementById('ovImg');
-  const ovCat = document.getElementById('ovCat');
-  const ovDate = document.getElementById('ovDate');
-  const ovText = document.getElementById('ovText');
-  const ovTitle = document.getElementById('sheetTitle');
-
-  const prevBtn = document.getElementById('prevBtn');
-  const nextBtn = document.getElementById('nextBtn');
-  const ovPrev  = document.getElementById('ovPrev');
-  const ovNext  = document.getElementById('ovNext');
-  const closeOv = document.getElementById('closeOv');
-
-  const mstrip  = document.getElementById('mstrip');
-
-  let current = 0;
-
-  // ===== UTIL =====
-  const isMobile = () => matchMedia("(max-width: 980px)").matches;
-
-  // ===== DESKTOP RENDER =====
-  function renderList(){
-    if(!newsList) return;
-    newsList.innerHTML = "";
-    items.forEach((it, idx) => {
-      const a = document.createElement('a');
-      a.className = 'card';
-      a.href = it.link; a.target = "_blank"; a.rel = "noopener";
-      a.dataset.index = idx;
-      a.innerHTML = `
-        <div class="corner" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M1 8 L8 1 M8 1 H1 V8"/>
-          </svg>
-        </div>
-        <div class="meta"><span class="tag">${it.category}</span><time>${it.date}</time></div>
-        <h4>${it.title}</h4>
-        <p>${it.excerpt}</p>
-      `;
-      a.addEventListener('click', (e) => {
-        e.preventDefault();
-        select(idx);
-        if (!isMobile()) feature.classList.add('open');
-      });
-      newsList.appendChild(a);
-    });
-  }
-
-  function fillFeature(it){
-    if(!feature) return;
-    featureImg.style.opacity = .2;
-    featureImg.addEventListener('transitionend', function t(){ featureImg.removeEventListener('transitionend', t); featureImg.style.opacity = 1; }, {once:true});
-    featureImg.src = it.image; featureImg.alt = it.title;
-    featureCat.textContent = it.category; featureDate.textContent = it.date;
-    featureTitle.textContent = it.title; featureLink.href = it.link;
-    featureText.textContent = it.text;
-  }
-
-  function highlightCard(){
-    if(!newsList) return;
-    [...newsList.children].forEach(c => c.style.borderColor = "var(--line)");
-    const active = [...newsList.children].find(c => +c.dataset.index === current);
-    if (active) active.style.borderColor = "rgba(0,212,53,.35)";
-  }
-
-  // ===== MOBILE RENDER (large carousel) =====
-  function renderMobileStrip(){
-    if(!mstrip) return;
-    mstrip.innerHTML = "";
-    items.forEach((it, idx) => {
-      const d = document.createElement('div');
-      d.className = "mitem";
-      d.dataset.index = idx;
-      d.innerHTML = `
-        <img src="${it.image}" alt="${it.title}">
-        <div class="mmeta"><span class="tag">${it.category}</span><time>${it.date}</time></div>
-        <div class="mtitle">${it.title}</div>
-      `;
-      d.addEventListener('click', () => { select(idx); openOverlay(); });
-      mstrip.appendChild(d);
-    });
-  }
-
-  // aggiorna “current” in base allo scroll orizzontale (snap)
-  function bindStripScroll(){
-    if(!mstrip) return;
-    let ticking = false;
-    mstrip.addEventListener('scroll', () => {
-      if (ticking) return;
-      requestAnimationFrame(() => {
-        const itemsEls = [...mstrip.children];
-        const mid = mstrip.getBoundingClientRect().left + mstrip.clientWidth/2;
-        let bestIdx = 0, bestDist = Infinity;
-        itemsEls.forEach((el, i) => {
-          const r = el.getBoundingClientRect();
-          const center = r.left + r.width/2;
-          const dist = Math.abs(center - mid);
-          if (dist < bestDist){ bestDist = dist; bestIdx = i; }
-        });
-        if (bestIdx !== current){ current = bestIdx; }
-        ticking = false;
-      });
-      ticking = true;
-    }, {passive:true});
-  }
-
-  // ===== OVERLAY =====
-  function openOverlay(){
-    const it = items[current];
-    ovImg.src = it.image; ovImg.alt = it.title;
-    ovCat.textContent = it.category; ovDate.textContent = it.date;
-    ovTitle.textContent = it.title; ovText.textContent = it.text;
-    overlay.classList.add('open'); overlay.setAttribute('aria-hidden','false');
-  }
-  function closeOverlay(){ overlay.classList.remove('open'); overlay.setAttribute('aria-hidden','true'); }
-  closeOv.addEventListener('click', closeOverlay);
-  overlay.addEventListener('click', (e)=>{ if(e.target === overlay) closeOverlay(); });
-  window.addEventListener('keydown', (e)=>{ if(e.key === 'Escape' && overlay.classList.contains('open')) closeOverlay(); });
-
-  // swipe dentro overlay per cambiare
-  let tX=null, tY=null;
-  document.getElementById('sheetBody').addEventListener('touchstart',(e)=>{const t=e.changedTouches[0];tX=t.clientX;tY=t.clientY;},{passive:true});
-  document.getElementById('sheetBody').addEventListener('touchend',(e)=>{
-    const t=e.changedTouches[0]; if(tX==null) return;
-    const dx=t.clientX-tX, dy=t.clientY-tY;
-    if(Math.abs(dx)>48 && Math.abs(dx)>Math.abs(dy)){
-      if(dx<0) goNext(); else goPrev();
-    }
-    tX=tY=null;
-  },{passive:true});
-
-  function goPrev(){ select(current-1); if(overlay.classList.contains('open')) openOverlay(); scrollMobileToCurrent(); }
-  function goNext(){ select(current+1); if(overlay.classList.contains('open')) openOverlay(); scrollMobileToCurrent(); }
-
-  document.getElementById('ovPrev').addEventListener('click', goPrev);
-  document.getElementById('ovNext').addEventListener('click', goNext);
-
-  // ===== COMMON =====
-  function select(index){
-    current = (index + items.length) % items.length;
-    fillFeature(items[current]); highlightCard();
-  }
-
-  // desktop feature toggle
-  if (document.getElementById('feature')) {
-    feature.addEventListener('click', ()=>{ if(!isMobile()) feature.classList.toggle('open'); });
-  }
-
-  // desktop arrows
-  if (prevBtn && nextBtn){
-    prevBtn.addEventListener('click', ()=>{ select(current-1); if(!isMobile()) feature.classList.add('open'); });
-    nextBtn.addEventListener('click', ()=>{ select(current+1); if(!isMobile()) feature.classList.add('open'); });
-  }
-
-  // scroll strip to current (when change via overlay arrows)
-  function scrollMobileToCurrent(){
-    if(!mstrip || !isMobile()) return;
-    const el = mstrip.children[current];
-    if(el) el.scrollIntoView({behavior:'smooth', inline:'start', block:'nearest'});
-  }
-
-  // INIT
-  renderList();
-  renderMobileStrip();
-  bindStripScroll();
-  select(0);
-  if (!isMobile()) feature.classList.add('open');
-
-  // re-render on resize switch
-  window.addEventListener('resize', ()=>{ if(isMobile()) { feature?.classList.remove('open'); } });
 </script>
 </body>
 </html>
