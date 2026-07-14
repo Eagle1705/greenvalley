@@ -5,90 +5,593 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>GVFC - Club</title>
 <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/pages.css">
+<style>
+body.club-page{
+	font-family:Manrope, system-ui, sans-serif;
+	background:#060a08;
+	color:#edf4ef;
+}
+
+body.club-page .club-main{
+	overflow:hidden;
+	padding-top:0;
+}
+
+body.club-page .club-wrap{
+	width:min(1240px, 92vw);
+	margin:0 auto;
+}
+
+body.club-page .club-section{
+	padding:clamp(54px, 8vw, 120px) 0;
+	position:relative;
+}
+
+body.club-page .club-eyebrow{
+	font-family:Teko, system-ui;
+	font-size:clamp(18px, 2.2vw, 24px);
+	letter-spacing:.18em;
+	text-transform:uppercase;
+	color:#77f7a5;
+	margin:0 0 10px;
+}
+
+body.club-page .club-title{
+	font-family:Teko, system-ui;
+	font-size:clamp(44px, 9vw, 104px);
+	line-height:.88;
+	letter-spacing:.02em;
+	text-transform:uppercase;
+	margin:0;
+}
+
+body.club-page .club-copy{
+	margin:18px 0 0;
+	max-width:68ch;
+	color:#cfddd4;
+	font-size:clamp(16px, 2vw, 21px);
+	line-height:1.65;
+}
+
+body.club-page .reveal{
+	opacity:0;
+	transform:translateY(24px);
+	transition:opacity .7s ease, transform .7s ease;
+}
+
+body.club-page .reveal.is-visible{
+	opacity:1;
+	transform:translateY(0);
+}
+
+body.club-page .club-hero{
+	min-height:100vh;
+	padding:calc(var(--nav-h) + 36px) 0 36px;
+	display:grid;
+	align-items:end;
+	background:
+		linear-gradient(180deg, rgba(0,0,0,.32) 0%, rgba(0,0,0,.66) 60%, #060a08 100%),
+		linear-gradient(120deg, rgba(0,212,53,.2), rgba(0,0,0,.35) 45%, rgba(212,175,55,.1) 100%),
+		url("images/mainbg.png") center/cover no-repeat;
+}
+
+body.club-page .hero-grid{
+	display:grid;
+	gap:24px;
+}
+
+body.club-page .hero-title{
+	font-family:Teko, system-ui;
+	font-size:clamp(64px, 14vw, 128px);
+	line-height:.84;
+	letter-spacing:.02em;
+	text-transform:uppercase;
+	margin:0;
+	max-width:10ch;
+}
+
+body.club-page .hero-sub{
+	margin:0;
+	max-width:58ch;
+	font-size:clamp(18px, 2.3vw, 28px);
+	color:#e3efe7;
+	line-height:1.5;
+}
+
+body.club-page .hero-actions{
+	display:flex;
+	flex-wrap:wrap;
+	gap:12px;
+}
+
+body.club-page .hero-btn{
+	display:inline-flex;
+	align-items:center;
+	justify-content:center;
+	height:48px;
+	padding:0 24px;
+	border-radius:999px;
+	text-decoration:none;
+	font-weight:800;
+	letter-spacing:.03em;
+	transition:transform .28s ease, box-shadow .28s ease, background-color .28s ease;
+}
+
+body.club-page .hero-btn--primary{
+	background:#00d435;
+	color:#041108;
+	box-shadow:0 14px 32px rgba(0,212,53,.35);
+}
+
+body.club-page .hero-btn--ghost{
+	background:rgba(255,255,255,.08);
+	color:#fff;
+	border:1px solid rgba(255,255,255,.24);
+}
+
+body.club-page .hero-btn:hover{
+	transform:translateY(-2px) scale(1.02);
+}
+
+body.club-page .scroll-cue{
+	margin-top:16px;
+	width:42px;
+	height:68px;
+	border-radius:26px;
+	border:1px solid rgba(255,255,255,.35);
+	position:relative;
+	text-decoration:none;
+	display:inline-block;
+}
+
+body.club-page .scroll-cue::before{
+	content:"";
+	position:absolute;
+	left:50%;
+	top:14px;
+	width:6px;
+	height:18px;
+	margin-left:-3px;
+	border-radius:99px;
+	background:#00d435;
+	animation:clubScroll 1.6s ease-in-out infinite;
+}
+
+@keyframes clubScroll{
+	0%,100%{ transform:translateY(0); opacity:1; }
+	60%{ transform:translateY(20px); opacity:.25; }
+}
+
+body.club-page .who-grid{
+	display:grid;
+	grid-template-columns:1.15fr 1fr;
+	gap:26px;
+	align-items:stretch;
+}
+
+body.club-page .who-image{
+	border-radius:22px;
+	overflow:hidden;
+	min-height:460px;
+	position:relative;
+}
+
+body.club-page .who-image img{
+	width:100%;
+	height:100%;
+	object-fit:cover;
+	filter:saturate(1.05) contrast(1.05);
+}
+
+body.club-page .who-content{
+	padding:clamp(22px, 3.2vw, 34px);
+	border-radius:22px;
+	background:linear-gradient(140deg, rgba(17,26,20,.92), rgba(8,12,10,.88));
+	border:1px solid rgba(255,255,255,.08);
+}
+
+body.club-page .numbers-grid{
+	margin-top:28px;
+	display:grid;
+	grid-template-columns:repeat(4, minmax(0, 1fr));
+	gap:14px;
+}
+
+body.club-page .num-card{
+	padding:16px 14px 18px;
+	border-radius:16px;
+	background:linear-gradient(150deg, rgba(15,22,18,.94), rgba(11,15,13,.9));
+	border:1px solid rgba(255,255,255,.08);
+	transition:transform .25s ease, border-color .25s ease;
+}
+
+body.club-page .num-card:hover{
+	transform:translateY(-4px);
+	border-color:rgba(0,212,53,.46);
+}
+
+body.club-page .num-icon{
+	display:inline-grid;
+	place-items:center;
+	width:34px;
+	height:34px;
+	border-radius:10px;
+	background:rgba(0,212,53,.16);
+	margin-bottom:10px;
+	font-size:18px;
+}
+
+body.club-page .num-value{
+	font-family:Teko, system-ui;
+	font-size:clamp(34px, 6vw, 54px);
+	line-height:.9;
+	margin:0;
+}
+
+body.club-page .num-label{
+	margin:5px 0 0;
+	color:#c2d2c8;
+	font-size:14px;
+	text-transform:uppercase;
+	letter-spacing:.08em;
+}
+
+body.club-page .num-card--todo .num-icon{ background:rgba(255,255,255,.14); }
+body.club-page .num-card--todo .num-value{ font-size:clamp(20px, 3vw, 28px); }
+
+body.club-page .journey-track{
+	margin-top:30px;
+	display:grid;
+	grid-auto-flow:column;
+	grid-auto-columns:minmax(260px, 1fr);
+	gap:14px;
+	overflow-x:auto;
+	padding-bottom:8px;
+	scroll-snap-type:x mandatory;
+}
+
+body.club-page .journey-track::-webkit-scrollbar{ height:8px; }
+body.club-page .journey-track::-webkit-scrollbar-thumb{ background:#2e4437; border-radius:999px; }
+
+body.club-page .journey-step{
+	scroll-snap-align:start;
+	padding:16px;
+	border-radius:16px;
+	background:linear-gradient(140deg, rgba(12,18,15,.95), rgba(7,11,9,.92));
+	border:1px solid rgba(255,255,255,.09);
+	position:relative;
+}
+
+body.club-page .journey-step::after{
+	content:"";
+	position:absolute;
+	top:50%;
+	right:-9px;
+	width:18px;
+	height:18px;
+	margin-top:-9px;
+	border-top:2px solid rgba(0,212,53,.74);
+	border-right:2px solid rgba(0,212,53,.74);
+	transform:rotate(45deg);
+}
+
+body.club-page .journey-step:last-child::after{ display:none; }
+
+body.club-page .journey-year{
+	margin:0;
+	font-family:Teko, system-ui;
+	font-size:40px;
+	line-height:.85;
+	color:#00d435;
+}
+
+body.club-page .journey-step h3{
+	margin:6px 0 0;
+	font-size:24px;
+	line-height:1;
+	font-family:Teko, system-ui;
+	text-transform:uppercase;
+}
+
+body.club-page .journey-step p{
+	margin:8px 0 0;
+	color:#cfddd4;
+	font-size:15px;
+	line-height:1.5;
+}
+
+body.club-page .values-grid,
+body.club-page .why-grid,
+body.club-page .achievements-grid{
+	margin-top:24px;
+	display:grid;
+	gap:14px;
+	grid-template-columns:repeat(3, minmax(0, 1fr));
+}
+
+body.club-page .value-card,
+body.club-page .why-card,
+body.club-page .achievement-card{
+	padding:18px;
+	border-radius:16px;
+	background:linear-gradient(145deg, rgba(15,20,17,.95), rgba(9,12,11,.92));
+	border:1px solid rgba(255,255,255,.09);
+	transition:transform .25s ease, border-color .25s ease;
+}
+
+body.club-page .value-card:hover,
+body.club-page .why-card:hover,
+body.club-page .achievement-card:hover{
+	transform:translateY(-4px);
+	border-color:rgba(0,212,53,.5);
+}
+
+body.club-page .value-icon,
+body.club-page .achievement-icon{
+	font-size:24px;
+	margin-bottom:8px;
+	display:inline-block;
+}
+
+body.club-page .value-card h3,
+body.club-page .why-card h3,
+body.club-page .achievement-card h3{
+	margin:0;
+	font-family:Teko, system-ui;
+	font-size:30px;
+	line-height:.9;
+	text-transform:uppercase;
+}
+
+body.club-page .value-card p,
+body.club-page .why-card p,
+body.club-page .achievement-card p{
+	margin:10px 0 0;
+	color:#cad9d0;
+	line-height:1.5;
+}
+
+body.club-page .vision-block{
+	min-height:420px;
+	border-radius:24px;
+	padding:clamp(28px, 5vw, 48px);
+	background:
+		linear-gradient(110deg, rgba(0,0,0,.64), rgba(0,0,0,.5) 42%, rgba(0,0,0,.78)),
+			url("images/team.jpg") center/cover no-repeat;
+	border:1px solid rgba(255,255,255,.11);
+	display:grid;
+	align-content:end;
+	gap:10px;
+}
+
+body.club-page .vision-quote{
+	font-family:Teko, system-ui;
+	font-size:clamp(44px, 8vw, 94px);
+	line-height:.88;
+	text-transform:uppercase;
+	margin:0;
+}
+
+body.club-page .vision-copy{
+	margin:0;
+	max-width:54ch;
+	font-size:clamp(16px, 2vw, 22px);
+	line-height:1.55;
+	color:#e1ece5;
+}
+
+body.club-page .achievement-card--gold{
+	border-color:rgba(212,175,55,.45);
+	background:linear-gradient(150deg, rgba(32,25,11,.5), rgba(12,11,8,.9));
+}
+
+body.club-page .achievement-note{
+	margin-top:16px;
+	padding:14px 16px;
+	border-radius:14px;
+	border:1px dashed rgba(255,255,255,.22);
+	color:#d4ddd7;
+	background:rgba(255,255,255,.03);
+}
+
+body.club-page .why-grid .why-card:nth-child(even){
+	background:linear-gradient(145deg, rgba(11,16,13,.95), rgba(7,10,9,.92));
+}
+
+body.club-page .club-cta{
+	padding:clamp(60px, 10vw, 140px) 0;
+	background:
+		linear-gradient(135deg, rgba(0,0,0,.72), rgba(0,0,0,.54)),
+		url("images/torneo1.png") center/cover no-repeat;
+	border-top:1px solid rgba(255,255,255,.14);
+	border-bottom:1px solid rgba(255,255,255,.14);
+}
+
+body.club-page .cta-inner{
+	text-align:center;
+	max-width:900px;
+	margin:0 auto;
+}
+
+body.club-page .cta-inner .club-title{ margin-bottom:14px; }
+
+body.club-page .cta-actions{
+	display:flex;
+	justify-content:center;
+	flex-wrap:wrap;
+	gap:12px;
+	margin-top:20px;
+}
+
+@media (max-width: 1080px){
+	body.club-page .numbers-grid,
+	body.club-page .values-grid,
+	body.club-page .why-grid,
+	body.club-page .achievements-grid{
+		grid-template-columns:repeat(2, minmax(0, 1fr));
+	}
+
+	body.club-page .who-grid{
+		grid-template-columns:1fr;
+	}
+}
+
+@media (max-width: 700px){
+	body.club-page .club-section{ padding:54px 0; }
+	body.club-page .hero-actions,
+	body.club-page .cta-actions{ flex-direction:column; }
+	body.club-page .hero-btn{ width:100%; }
+	body.club-page .numbers-grid,
+	body.club-page .values-grid,
+	body.club-page .why-grid,
+	body.club-page .achievements-grid{
+		grid-template-columns:1fr;
+	}
+}
+</style>
 </head>
-<body>
+<body class="club-page">
 <header class="navbar" role="banner"><div class="nav-inner"><div class="nav-left"><button class="icon-btn" id="openMenu" aria-label="Apri menu" aria-controls="offcanvas" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button></div><div class="brand"><img src="images/logo-greenvalley.png" alt="Logo del club"></div><div class="nav-right"></div></div></header>
 <div class="backdrop" id="backdrop" hidden></div>
 <aside class="offcanvas" id="offcanvas" aria-hidden="true"><div class="off-head"><div class="oh-left" style="display:flex;align-items:center;gap:10px;"><button class="icon-btn" id="closeMenu" aria-label="Chiudi menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="oh-center" style="display:flex;justify-content:center;align-items:center;"><img src="images/logo-greenvalley.png" alt="Logo del club"></div><div class="oh-right"></div></div><div class="off-body"><nav aria-label="Menu principale"><ul class="menu-list"><li><a class="menu-item" href="index.html"><span>Home</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="squadra.html"><span>La Squadra</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="photogallery.html"><span>Photogallery</span><span class="mi-right">›</span></a></li><li><a class="menu-item is-active" href="club.html"><span>Club</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="sponsor.html"><span>Sponsor</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="contatti.html"><span>Contatti</span><span class="mi-right">›</span></a></li></ul></nav></div><div class="off-foot">GVFC 2024 - All Rights Reserved</div></aside>
 
-<main class="page-main">
-	<div class="page-wrap">
-		<section class="page-hero">
-			<p class="page-kicker">Identita</p>
-			<h1 class="page-title">Il Club</h1>
-			<p class="page-sub">Greenvalley FC e una realta nata nel 2024 a Valverde (CT), costruita su un'idea chiara: competitivita, appartenenza e crescita continua tra futsal e calcio a 7.</p>
-		</section>
-
-		<section class="section-block">
-			<h2 class="section-title">Come Ci Siamo Mossi</h2>
-			<p class="section-text">Dall'analisi del profilo Instagram ufficiale emerge una linea coerente: identita di club molto riconoscibile (#versolavittoria), forte attenzione alla comunita locale, storytelling fotografico delle partite e consolidamento delle partnership sportive.</p>
-			<div class="grid-cards">
-				<article class="info-card">
-					<div class="info-body">
-						<h3>Posizionamento</h3>
-						<p class="section-text">Il profilo si presenta come pagina ufficiale del GreenValley FC, nato nel 2024 e radicato a Valverde, con comunicazione orientata a appartenenza e ambizione.</p>
-					</div>
-				</article>
-				<article class="info-card">
-					<div class="info-body">
-						<h3>Comunicazione</h3>
-						<p class="section-text">I contenuti alternano comunicati societari, photogallery gara, aggiornamenti risultati e messaggi valoriali per rafforzare il senso di famiglia sportiva.</p>
-					</div>
-				</article>
-				<article class="info-card">
-					<div class="info-body">
-						<h3>Sviluppo Sportivo</h3>
-						<p class="section-text">Si vede una progressiva espansione del progetto: dalla FPL al calcio a 7, con nuovi tornei, finali raggiunte e premi individuali legati allo staff tecnico.</p>
-					</div>
-				</article>
+<main class="club-main">
+	<section class="club-hero" id="top">
+		<div class="club-wrap hero-grid reveal">
+			<p class="club-eyebrow">GreenValley FC</p>
+			<h1 class="hero-title">More Than A Football Club</h1>
+			<p class="hero-sub">Un progetto costruito su ambizione, crescita e passione: ogni allenamento, ogni partita, ogni scelta punta a consolidare una cultura sportiva seria e vincente.</p>
+			<div class="hero-actions">
+				<a class="hero-btn hero-btn--primary" href="#who-we-are">Scopri Il Club</a>
+				<a class="hero-btn hero-btn--ghost" href="contatti.html">Contattaci</a>
 			</div>
-		</section>
+			<a class="scroll-cue" href="#who-we-are" aria-label="Scorri alla sezione successiva"></a>
+		</div>
+	</section>
 
-		<section class="section-block">
-			<h2 class="section-title">Timeline</h2>
-			<div class="timeline">
-				<article class="timeline-item"><h3>17 Maggio 2024 - Fondazione</h3><p>Nasce ufficialmente il GreenValley FC.</p></article>
-				<article class="timeline-item"><h3>Luglio 2024 - Primo Torneo Ufficiale</h3><p>Prima partecipazione alla Summer Cup.</p></article>
-				<article class="timeline-item"><h3>Settembre 2024 - Prima FPL</h3><p>Debutto del club in Futsal Premier League.</p></article>
-				<article class="timeline-item"><h3>Febbraio 2025 - Primo Torneo a 7</h3><p>Ingresso ufficiale del progetto anche nel calcio a 7.</p></article>
-				<article class="timeline-item"><h3>Giugno 2025 - Chiusura FPL</h3><p>Conclusione campionato FPL con vittoria del premio Allenatore dell'Anno.</p></article>
-				<article class="timeline-item"><h3>Luglio 2025 - Ritorno Summer Cup</h3><p>Seconda partecipazione consecutiva al torneo estivo.</p></article>
-				<article class="timeline-item"><h3>Aprile 2026 - Premio Fair Play</h3><p>Vittoria del premio fair play nel campionato calcio a 7 Football League.</p></article>
-				<article class="timeline-item"><h3>Maggio 2026 - Miglior Allenatore FPL</h3><p>Nuovo riconoscimento tecnico con il premio miglior allenatore FPL.</p></article>
-				<article class="timeline-item"><h3>Luglio 2026 - Finalisti Torneo Estivo Calcio a 7</h3><p>Il gruppo raggiunge la finale del torneo estivo calcio a 7.</p></article>
-				<article class="timeline-item"><h3>Luglio 2026 - Acquisizione Fulham in FPL</h3><p>Passaggio strategico che amplia il perimetro sportivo del club in FPL.</p></article>
-				<article class="timeline-item"><h3>Settembre 2026 - Seconda Iscrizione FPL</h3><p>Il GreenValley FC rinnova la presenza in FPL per una nuova stagione.</p></article>
-				<article class="timeline-item"><h3>Novembre 2026 - Inizio Football League a 7</h3><p>Parte il campionato calcio a 7 Football League.</p></article>
-				<article class="timeline-item"><h3>Dicembre 2026 - Finalisti Torneo Calcio a 7</h3><p>Il team chiude l'anno sportivo da finalista nel torneo di calcio a 7.</p></article>
-			</div>
-		</section>
+	<section class="club-section" id="who-we-are">
+		<div class="club-wrap who-grid">
+					<figure class="who-image reveal"><img src="images/Screenshot%202026-03-22%20132859.png" alt="Screenshot GreenValley FC 2026" loading="lazy"></figure>
+			<article class="who-content reveal">
+				<p class="club-eyebrow">Who We Are</p>
+				<h2 class="club-title">Identita, Ambizione, Territorio</h2>
+				<p class="club-copy">GreenValley FC nasce a Valverde nel 2024 con una direzione precisa: alzare il livello del futsal locale e creare un ambiente dove talento, disciplina e mentalita si incontrano. Dalla FPL al calcio a 7, il percorso e lo stesso: crescere come squadra e come comunita.</p>
+			</article>
+		</div>
+	</section>
 
-		<section class="section-block">
-			<h2 class="section-title">Valori</h2>
-			<div class="grid-cards">
-				<article class="info-card">
-					<div class="info-body">
-						<h3>Disciplina</h3>
-						<p class="section-text">Allenarsi con continuita, rispettare tempi e ruoli, proteggere il gruppo.</p>
-					</div>
-				</article>
-				<article class="info-card">
-					<div class="info-body">
-						<h3>Coraggio</h3>
-						<p class="section-text">Prendersi responsabilita in campo e fuori, anche nei momenti complessi.</p>
-					</div>
-				</article>
-				<article class="info-card">
-					<div class="info-body">
-						<h3>Territorio</h3>
-						<p class="section-text">Rappresentare Valverde con comportamenti coerenti e ambizione concreta.</p>
-					</div>
-				</article>
+	<section class="club-section" id="club-numbers">
+		<div class="club-wrap">
+			<div class="reveal">
+				<p class="club-eyebrow">Club Numbers</p>
+				<h2 class="club-title">I Numeri Del Progetto</h2>
 			</div>
-		</section>
-	</div>
+			<div class="numbers-grid reveal">
+				<article class="num-card"><span class="num-icon" aria-hidden="true">11</span><p class="num-value" data-count="15">0</p><p class="num-label">Giocatori in rosa</p></article>
+				<article class="num-card"><span class="num-icon" aria-hidden="true">12</span><p class="num-value" data-count="6">0</p><p class="num-label">Membri staff e dirigenza</p></article>
+				<article class="num-card"><span class="num-icon" aria-hidden="true">13</span><p class="num-value" data-count="2">0</p><p class="num-label">Aree sportive attive</p></article>
+				<article class="num-card"><span class="num-icon" aria-hidden="true">14</span><p class="num-value" data-count="13">0</p><p class="num-label">Tappe ufficiali percorso</p></article>
+				<article class="num-card"><span class="num-icon" aria-hidden="true">15</span><p class="num-value" data-count="3">0</p><p class="num-label">Stagioni disputate</p></article>
+				<article class="num-card"><span class="num-icon" aria-hidden="true">16</span><p class="num-value" data-count="3">0</p><p class="num-label">Riconoscimenti ufficiali</p></article>
+				<article class="num-card"><span class="num-icon" aria-hidden="true">17</span><p class="num-value" data-count="2">0</p><p class="num-label">Finali raggiunte</p></article>
+				<article class="num-card num-card--todo"><span class="num-icon" aria-hidden="true">18</span><p class="num-value">TODO</p><p class="num-label">Dati community da integrare</p></article>
+			</div>
+		</div>
+	</section>
+
+	<section class="club-section" id="our-journey">
+		<div class="club-wrap">
+			<div class="reveal">
+				<p class="club-eyebrow">Our Journey</p>
+				<h2 class="club-title">Mappa Del Percorso</h2>
+			</div>
+			<div class="journey-track reveal" aria-label="Timeline orizzontale del club">
+				<article class="journey-step"><p class="journey-year">2024</p><h3>Fondazione</h3><p>Nasce ufficialmente il GreenValley FC a Valverde.</p></article>
+				<article class="journey-step"><p class="journey-year">2024</p><h3>Primo Torneo</h3><p>Prima partecipazione alla Summer Cup.</p></article>
+				<article class="journey-step"><p class="journey-year">2024</p><h3>Debutto FPL</h3><p>Ingresso in Futsal Premier League.</p></article>
+				<article class="journey-step"><p class="journey-year">2025</p><h3>Espansione a 7</h3><p>Parte il progetto anche nel calcio a 7.</p></article>
+				<article class="journey-step"><p class="journey-year">2025</p><h3>Allenatore Dell'Anno</h3><p>Riconoscimento tecnico alla chiusura FPL.</p></article>
+				<article class="journey-step"><p class="journey-year">2026</p><h3>Premio Fair Play</h3><p>Premio ufficiale nel campionato Football League a 7.</p></article>
+				<article class="journey-step"><p class="journey-year">2026</p><h3>Miglior Allenatore FPL</h3><p>Nuovo riconoscimento tecnico in FPL.</p></article>
+				<article class="journey-step"><p class="journey-year">2026</p><h3>Finali Tornei</h3><p>Finalista torneo estivo e torneo calcio a 7.</p></article>
+			</div>
+		</div>
+	</section>
+
+	<section class="club-section" id="values">
+		<div class="club-wrap">
+			<div class="reveal">
+				<p class="club-eyebrow">Values</p>
+				<h2 class="club-title">La Nostra Cultura</h2>
+			</div>
+			<div class="values-grid reveal">
+				<article class="value-card"><span class="value-icon" aria-hidden="true">19</span><h3>Passione</h3><p>Energia costante in partita e in allenamento.</p></article>
+				<article class="value-card"><span class="value-icon" aria-hidden="true">20</span><h3>Disciplina</h3><p>Metodo, puntualita e responsabilita quotidiana.</p></article>
+				<article class="value-card"><span class="value-icon" aria-hidden="true">21</span><h3>Rispetto</h3><p>Per compagni, staff, avversari e territorio.</p></article>
+				<article class="value-card"><span class="value-icon" aria-hidden="true">22</span><h3>Crescita</h3><p>Ogni stagione alziamo standard e obiettivi.</p></article>
+				<article class="value-card"><span class="value-icon" aria-hidden="true">23</span><h3>Teamwork</h3><p>La performance individuale serve il gruppo.</p></article>
+				<article class="value-card"><span class="value-icon" aria-hidden="true">24</span><h3>Leadership</h3><p>Guidare con esempio, intensita e coerenza.</p></article>
+				<article class="value-card"><span class="value-icon" aria-hidden="true">25</span><h3>Community</h3><p>GreenValley FC e una squadra radicata nella sua gente.</p></article>
+			</div>
+		</div>
+	</section>
+
+	<section class="club-section" id="vision">
+		<div class="club-wrap">
+			<div class="vision-block reveal">
+				<p class="club-eyebrow">Our Vision</p>
+				<h2 class="vision-quote">Non costruiamo solo squadre. Costruiamo cultura calcistica.</h2>
+				<p class="vision-copy">Vogliamo consolidare una struttura sportiva moderna, professionale e sostenibile, capace di valorizzare i giovani e rappresentare Valverde con orgoglio competitivo.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="club-section" id="achievements">
+		<div class="club-wrap">
+			<div class="reveal">
+				<p class="club-eyebrow">Achievements</p>
+				<h2 class="club-title">Traguardi Reali</h2>
+			</div>
+			<div class="achievements-grid reveal">
+				<article class="achievement-card achievement-card--gold"><span class="achievement-icon" aria-hidden="true">26</span><h3>Allenatore Dell'Anno FPL</h3><p>Riconoscimento tecnico ottenuto al termine della stagione 2025.</p></article>
+				<article class="achievement-card achievement-card--gold"><span class="achievement-icon" aria-hidden="true">27</span><h3>Premio Fair Play</h3><p>Vittoria del premio fair play nel campionato calcio a 7 Football League 2026.</p></article>
+				<article class="achievement-card achievement-card--gold"><span class="achievement-icon" aria-hidden="true">28</span><h3>Miglior Allenatore FPL</h3><p>Nuovo riconoscimento tecnico conquistato nel 2026.</p></article>
+			</div>
+			<p class="achievement-note reveal">More achievements are yet to come. <!-- TODO: inserire nuovi risultati ufficiali quando certificati dalla societa --> </p>
+		</div>
+	</section>
+
+	<section class="club-section" id="why-greenvalley">
+		<div class="club-wrap">
+			<div class="reveal">
+				<p class="club-eyebrow">Why GreenValley</p>
+				<h2 class="club-title">Perche Scegliere GreenValley FC</h2>
+			</div>
+			<div class="why-grid reveal">
+				<article class="why-card"><h3>Ambiente Professionale</h3><p>Organizzazione, metodo e pianificazione condivisa con staff e giocatori.</p></article>
+				<article class="why-card"><h3>Staff Qualificato</h3><p>Competenze tecniche e gestionali che accompagnano il percorso del gruppo.</p></article>
+				<article class="why-card"><h3>Crescita Continua</h3><p>Allenamenti orientati a miglioramento individuale e performance collettiva.</p></article>
+				<article class="why-card"><h3>Mentalita Competitiva</h3><p>Ogni gara e affrontata con intensita, responsabilita e fame di risultato.</p></article>
+				<article class="why-card"><h3>Atmosfera Di Famiglia</h3><p>Un progetto serio, ma con valori umani solidi dentro e fuori dal campo.</p></article>
+				<article class="why-card"><h3>Visione Moderna</h3><p>Un club giovane che investe su identita, brand e sviluppo nel tempo.</p></article>
+			</div>
+		</div>
+	</section>
+
+	<section class="club-cta" id="join">
+		<div class="club-wrap cta-inner reveal">
+			<p class="club-eyebrow">Join The Project</p>
+			<h2 class="club-title">Diventa Parte Di GreenValley FC</h2>
+			<p class="club-copy">Atleti, partner e persone che condividono la nostra mentalita sono sempre i benvenuti.</p>
+			<div class="cta-actions">
+				<a class="hero-btn hero-btn--primary" href="contatti.html">Join Us</a>
+				<a class="hero-btn hero-btn--ghost" href="contatti.html">Contact Us</a>
+			</div>
+		</div>
+	</section>
 </main>
 
 <footer class="milan-footer"><div class="mf-band mf-band--light"></div><div class="mf-band mf-band--dark"><div class="mf-logo-wrap"><img src="images/logo-greenvalley.png" alt="Greenvalley FC" class="mf-logo"></div><div class="mf-hashtags"><span>#VERSOLAVITTORIA</span><span>#FOZZACARUSI</span></div><div class="mf-social-block"><h3>GVFC SUI SOCIAL MEDIA</h3><div class="mf-social"><a href="https://www.instagram.com/greenvalleyfc_?igsh=MW1lMTZuamFpaGxicA==" aria-label="Instagram" title="Instagram">IG</a><a href="https://www.youtube.com/@IMMAGINIEOPINIONI" aria-label="YouTube" title="YouTube">YT</a></div></div><div class="mf-legal"><ul><li><a href="index.html">HOME</a></li><li><a href="https://policies.google.com/privacy?hl=it">PRIVACY</a></li><li><a href="contatti.html">CONTATTI</a></li><li><a href="cookie-policy.html">GESTISCI COOKIE</a></li><li><a href="sponsor.html">PARTNER</a></li><li><a href="nuova-maglia.html">NUOVA MAGLIA 2025/26</a></li></ul><p class="mf-copy">Copyright © 2025 GVFC.it. Tutti i diritti riservati.</p></div></div></footer>
@@ -97,6 +600,46 @@ const body=document.body,openBtn=document.getElementById('openMenu'),closeBtn=do
 function openMenu(){body.classList.add('menu-open');offcanvas.setAttribute('aria-hidden','false');openBtn.setAttribute('aria-expanded','true');backdrop.hidden=false}
 function closeMenu(){body.classList.remove('menu-open');offcanvas.setAttribute('aria-hidden','true');openBtn.setAttribute('aria-expanded','false');backdrop.hidden=true}
 openBtn.addEventListener('click',openMenu);closeBtn.addEventListener('click',closeMenu);backdrop.addEventListener('click',closeMenu);window.addEventListener('keydown',e=>{if(e.key==='Escape'&&body.classList.contains('menu-open'))closeMenu()});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+	const revealEls = document.querySelectorAll('.reveal');
+	const revealObserver = new IntersectionObserver((entries, obs) => {
+		entries.forEach(entry => {
+			if (!entry.isIntersecting) return;
+			entry.target.classList.add('is-visible');
+			obs.unobserve(entry.target);
+		});
+	}, { threshold: 0.16, rootMargin: '0px 0px -40px 0px' });
+
+	revealEls.forEach((el, idx) => {
+		el.style.transitionDelay = `${Math.min(idx * 60, 280)}ms`;
+		revealObserver.observe(el);
+	});
+
+	const counters = document.querySelectorAll('[data-count]');
+	const counterObserver = new IntersectionObserver((entries, obs) => {
+		entries.forEach(entry => {
+			if (!entry.isIntersecting) return;
+			const el = entry.target;
+			const target = Number(el.getAttribute('data-count')) || 0;
+			const duration = 1200;
+			const start = performance.now();
+
+			const step = now => {
+				const progress = Math.min((now - start) / duration, 1);
+				el.textContent = String(Math.floor(target * progress));
+				if (progress < 1) requestAnimationFrame(step);
+				else el.textContent = String(target);
+			};
+
+			requestAnimationFrame(step);
+			obs.unobserve(el);
+		});
+	}, { threshold: 0.4 });
+
+	counters.forEach(counter => counterObserver.observe(counter));
+});
 </script>
 </body>
 </html>

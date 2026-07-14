@@ -7,13 +7,48 @@
 <link href="https://fonts.googleapis.com/css2?family=Teko:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/pages.css">
+<style>
+body.photogallery-page .page-hero,
+body.photogallery-page .section-block,
+body.photogallery-page .gallery-card,
+body.photogallery-page .simple-doc,
+body.photogallery-page .cta-box{
+	border:0 !important;
+	box-shadow:none !important;
+}
+
+body.photogallery-page .page-hero,
+body.photogallery-page .section-title,
+body.photogallery-page .page-title,
+body.photogallery-page .page-kicker{
+	text-align:center !important;
+}
+
+body.photogallery-page .page-title{
+	font-size:clamp(60px, 12vw, 148px) !important;
+	line-height:.88 !important;
+	margin-top:10px !important;
+	margin-bottom:28px !important;
+}
+
+body.photogallery-page .section-title{
+	font-size:clamp(44px, 8vw, 100px) !important;
+	line-height:.9 !important;
+	margin-top:24px !important;
+	margin-bottom:28px !important;
+}
+
+body.photogallery-page .section-block{
+	margin-top:56px !important;
+}
+</style>
 </head>
-<body>
+<body class="photogallery-page">
 <header class="navbar" role="banner"><div class="nav-inner"><div class="nav-left"><button class="icon-btn" id="openMenu" aria-label="Apri menu" aria-controls="offcanvas" aria-expanded="false"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg></button></div><div class="brand"><img src="images/logo-greenvalley.png" alt="Logo del club"></div><div class="nav-right"></div></div></header>
 <div class="backdrop" id="backdrop" hidden></div>
 <aside class="offcanvas" id="offcanvas" aria-hidden="true"><div class="off-head"><div class="oh-left" style="display:flex;align-items:center;gap:10px;"><button class="icon-btn" id="closeMenu" aria-label="Chiudi menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg></button></div><div class="oh-center" style="display:flex;justify-content:center;align-items:center;"><img src="images/logo-greenvalley.png" alt="Logo del club"></div><div class="oh-right"></div></div><div class="off-body"><nav aria-label="Menu principale"><ul class="menu-list"><li><a class="menu-item" href="index.html"><span>Home</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="squadra.html"><span>La Squadra</span><span class="mi-right">›</span></a></li><li><a class="menu-item is-active" href="photogallery.html"><span>Photogallery</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="club.html"><span>Club</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="sponsor.html"><span>Sponsor</span><span class="mi-right">›</span></a></li><li><a class="menu-item" href="contatti.html"><span>Contatti</span><span class="mi-right">›</span></a></li></ul></nav></div><div class="off-foot">GVFC 2024 - All Rights Reserved</div></aside>
 
-<main class="page-main"><div class="page-wrap"><section class="page-hero"><p class="page-kicker">Archivio Visivo</p><h1 class="page-title">Photogallery</h1><p class="page-sub">Un racconto fotografico della stagione: partita, backstage, momenti istituzionali e vita di squadra.</p></section>
+<main class="page-main"><div class="page-wrap"><section class="page-hero"><p class="page-kicker">Archivio Visivo</p><h1 class="page-title">Photogallery</h1></section>
 <section class="section-block"><h2 class="section-title">Ultimi Scatti</h2><div class="gallery-grid">
 <article class="gallery-card"><img src="images/mainbg.png" alt="Foto di squadra"><p class="gallery-caption">Foto ufficiale pre-campionato.</p></article>
 <article class="gallery-card"><img src="images/torneo1.png" alt="Torneo"><p class="gallery-caption">Fase a gironi: intensita e organizzazione.</p></article>

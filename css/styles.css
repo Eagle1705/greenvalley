@@ -974,3 +974,55 @@ body{margin:0;background:#111;color:var(--ink);font-family:Teko,system-ui,-apple
   .camp-right{ height: 220px; }
   .camp-banner-tagline{ font-size: clamp(20px,7vw,32px); }
 }
+
+/* Global polish: titoli centrati, sottotitoli nascosti, sezioni senza bordo */
+.page-hero,
+.section-block,
+.simple-doc,
+.contact-section,
+.special-section,
+.sponsor-card,
+.news-card,
+.cta-box {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.page-hero {
+  text-align: center !important;
+  background: transparent !important;
+}
+
+.page-title,
+.hero-title,
+.camp-title,
+.section-title,
+.contact-section h2,
+.special-section h2,
+.sponsor-section h2 {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+.page-title,
+.hero-title {
+  font-size: clamp(52px, 11vw, 132px) !important;
+  line-height: 0.9 !important;
+}
+
+.section-title,
+.camp-title,
+.contact-section h2,
+.special-section h2,
+.sponsor-section h2 {
+  font-size: clamp(38px, 8vw, 96px) !important;
+  line-height: 0.9 !important;
+}
+
+.page-sub,
+.hero-subtitle,
+.camp-subtitle,
+.contact-section > p {
+  display: none !important;
+}

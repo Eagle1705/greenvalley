@@ -8,8 +8,49 @@
 <link rel="stylesheet" href="css/styles.css">
 <link rel="stylesheet" href="css/pages.css">
 <link rel="icon" type="image/png" href="images/favicon-96x96.png" sizes="96x96" />
+<style>
+body.squadra-page .page-hero,
+body.squadra-page .section-block,
+body.squadra-page .player-card,
+body.squadra-page .info-card,
+body.squadra-page .timeline-item,
+body.squadra-page .simple-doc,
+body.squadra-page .cta-box{
+  border:0 !important;
+  box-shadow:none !important;
+}
+
+body.squadra-page .timeline-item{ border-left:0 !important; }
+
+body.squadra-page .page-hero,
+body.squadra-page .section-title,
+body.squadra-page .page-title,
+body.squadra-page .page-kicker{
+  text-align:center !important;
+}
+
+body.squadra-page .page-title{
+  font-size:clamp(60px, 12vw, 148px) !important;
+  line-height:.88 !important;
+  margin:12px 0 30px !important;
+}
+
+body.squadra-page .section-title{
+  font-size:clamp(44px, 8vw, 100px) !important;
+  line-height:.9 !important;
+  margin:18px 0 34px !important;
+}
+
+body.squadra-page .page-hero{
+  margin-bottom:54px !important;
+}
+
+body.squadra-page .section-block{
+  margin:64px 0 !important;
+}
+</style>
 </head>
-<body>
+<body class="squadra-page">
 <header class="navbar" role="banner">
   <div class="nav-inner">
     <div class="nav-left">
@@ -53,12 +94,10 @@
     <section class="page-hero" aria-labelledby="team-title">
       <p class="page-kicker">Greenvalley FC</p>
       <h1 class="page-title" id="team-title">La Squadra</h1>
-      <p class="page-sub">Una rosa costruita su intensita, tecnica e spirito di gruppo. Ogni elemento del nostro gruppo futsal lavora con la stessa mentalita: crescere insieme, allenamento dopo allenamento, partita dopo partita.</p>
     </section>
 
     <section class="section-block" aria-labelledby="futsal-title">
       <h2 class="section-title" id="futsal-title">Calcio a 5</h2>
-      <p class="section-text">Di seguito trovi la rosa completa. Sopra ogni nominativo c'e uno spazio dedicato alla foto, che potrai inserire quando vuoi.</p>
       <div class="grid-cards">
         <article class="player-card"><div class="player-photo-slot" aria-label="Spazio foto Renda"></div><div class="player-body"><h3 class="player-name">Renda</h3><p class="player-role">30</p></div></article>
         <article class="player-card"><div class="player-photo-slot" aria-label="Spazio foto Marco Tricomi"></div><div class="player-body"><h3 class="player-name">Marco Tricomi</h3><p class="player-role">24</p></div></article>
@@ -80,7 +119,6 @@
 
     <section class="section-block" aria-labelledby="management-title">
       <h2 class="section-title" id="management-title">Dirigenza</h2>
-      <p class="section-text">La struttura manageriale coordina sport, business, comunicazione e operations con un approccio integrato orientato alla sostenibilita del progetto.</p>
       <div class="leadership-grid">
         <article class="player-card"><img src="images/players/cc.png" alt="Capici Clelia"><div class="player-body"><h3 class="player-name">Capici Clelia</h3><p class="player-role">Head of Marketing</p></div></article>
         <article class="player-card"><div class="player-photo-slot" aria-label="Spazio foto Fasone Giuseppe"></div><div class="player-body"><h3 class="player-name">Fasone Giuseppe</h3><p class="player-role">Head of Business</p></div></article>
